@@ -7,9 +7,8 @@
 
 .container {
     @include bg-rgba-colored($color-white, 0.15);
-    @include font-colored($color-grey3);
-    @include font-sized(xl);
     @include padded(all, l);
+    @include shadowed(0.4);
 
     font-variant: small-caps;
     display: flex;
@@ -18,19 +17,37 @@
     top: 0;
     width: 100%;
     z-index: 999;
+}
+
+.buttonSection {
+    @include flex-aligned(flex-start, center);
+    @include font-colored($color-grey3);
+    @include font-sized(xl);
+
+    flex: 1;
 
     a {
         text-decoration: none;
     }
 }
 
-.buttonSection {
-    @include flex-aligned(flex-start, center);
-    flex: 1;
+.buttonSectionMobile {
+    @extend .buttonSection;
+    @include flex-aligned(flex-start, flex-start);
+
+    flex-direction: column;
+
+    a {
+        @include padded(all, m);
+        width: 100%;
+    }
 }
 
 .loginSection {
     @include flex-aligned(flex-start, center);
+    @include font-colored($color-grey3);
+    @include font-sized(xl);
+
     flex: 0;
     transition: min-width 0.8s;
 
@@ -38,6 +55,10 @@
         @include marged(left, xs);
         @include marged(right, xs);
     }
+}
+
+.menuIcon {
+    @include font-colored($color-grey3);
 }
 
 .button {
@@ -59,19 +80,7 @@
     }
 }
 
-.form {
-    @include padded(top, none);
-    @include padded(right, l);
-    @include padded(bottom, none);
-    @include padded(left, l);
 
-    display: flex;
-
-    transition: 0.4s;
-    min-width: 400px;
-
-    & div {
-        @include padded(left, xs);
-        @include padded(right, xs);
-    }
-}
+// .drawer {
+//     @include bg-rgba-colored($color-white, 0.15);
+// }

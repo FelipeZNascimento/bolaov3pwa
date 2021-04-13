@@ -1,0 +1,26 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.form {
+    @include font-colored($color-grey2);
+    @include padded(all, l);
+
+    display: flex;
+    flex-direction: column;
+    transition: 0.4s;
+
+    & div {
+        @include padded(top, xs);
+        @include padded(bottom, xs);
+    }
+}
+.buttonContainer {
+    @include flex-aligned(center, center);
+    display: flex;
+    width: 100%
+
+}

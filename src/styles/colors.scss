@@ -11,7 +11,7 @@
 
 @each $name, $hexa in $colors {
     .#{$name} {
-        color: #{$hexa};
+        color: #{$hexa} !important;
     }
 
     .#{$name}-bg {
@@ -30,8 +30,12 @@
 @mixin bg-colored($color) {
     background-color: $color;
 }
-  
+
 @mixin bg-rgba-colored($color, $opacity) {
     background-color: rgba($color, $opacity);
 }
-  
+
+@mixin shadowed($opacity) {
+    -webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, $opacity);
+    box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, $opacity);
+}
