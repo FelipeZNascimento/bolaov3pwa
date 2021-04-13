@@ -1,0 +1,37 @@
+@import "styles/variables.scss";
+
+@each $name, $hexa in $colors {
+    .#{$name}-to-black {
+        background: linear-gradient(#{$hexa}, black);
+    }
+    .#{$name}-to-white {
+        background: linear-gradient(#{$hexa}, white);
+    }
+}
+
+@each $name, $hexa in $colors {
+    .#{$name} {
+        color: #{$hexa};
+    }
+
+    .#{$name}-bg {
+        background-color: #{$hexa};
+    }
+}
+
+@mixin bordered($color, $width) {
+    border: $width solid $color;
+}
+
+@mixin font-colored($color) {
+    color: $color;
+}
+
+@mixin bg-colored($color) {
+    background-color: $color;
+}
+  
+@mixin bg-rgba-colored($color, $opacity) {
+    background-color: rgba($color, $opacity);
+}
+  

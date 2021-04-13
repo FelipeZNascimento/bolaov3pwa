@@ -1,0 +1,46 @@
+@import "styles/variables.scss";
+
+@each $name, $pixels in $margin {
+    .top-margin-#{$name} {
+        margin-top: #{$pixels};
+    }
+}
+
+@each $name, $pixels in $margin {
+    .left-margin-#{$name} {
+        margin-left: #{$pixels};
+    }
+}
+
+@each $name, $pixels in $margin {
+    .right-margin-#{$name} {
+        margin-right: #{$pixels};
+    }
+}
+
+@each $name, $pixels in $margin {
+    .bottom-margin-#{$name} {
+        margin-bottom: #{$pixels};
+    }
+}
+
+@each $name, $pixels in $margin {
+    .margin-#{$name} {
+        margin: #{$pixels};
+    }
+}
+
+@mixin marged($direction, $size) {
+    @if $direction == top {
+        @extend .top-margin-#{$size};
+    } @else if $direction == right {
+        @extend .right-margin-#{$size};
+    } @else if $direction == bottom {
+        @extend .bottom-margin-#{$size};
+    } @else if $direction == left {
+        @extend .left-margin-#{$size};
+    } @else {
+        @extend .margin-#{$size}
+    }
+}
+  

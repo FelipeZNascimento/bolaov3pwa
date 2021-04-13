@@ -1,0 +1,11 @@
+@import "styles/variables.scss";
+
+@each $name, $pixels in $font-sizes {
+    .font-size-#{$name} {
+        font-size: #{$pixels};
+    }
+}
+
+@mixin font-sized($size) {
+    @extend .font-size-#{$size};
+}

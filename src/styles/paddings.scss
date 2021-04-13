@@ -1,0 +1,46 @@
+@import "styles/variables.scss";
+
+@each $name, $pixels in $padding {
+    .top-padding-#{$name} {
+        padding-top: #{$pixels};
+    }
+}
+
+@each $name, $pixels in $padding {
+    .left-padding-#{$name} {
+        padding-left: #{$pixels};
+    }
+}
+
+@each $name, $pixels in $padding {
+    .right-padding-#{$name} {
+        padding-right: #{$pixels};
+    }
+}
+
+@each $name, $pixels in $padding {
+    .bottom-padding-#{$name} {
+        padding-bottom: #{$pixels};
+    }
+}
+
+@each $name, $pixels in $padding {
+    .padding-#{$name} {
+        padding: #{$pixels};
+    }
+}
+
+@mixin padded($direction, $size) {
+    @if $direction == top {
+        @extend .top-padding-#{$size};
+    } @else if $direction == right {
+        @extend .right-padding-#{$size};
+    } @else if $direction == bottom {
+        @extend .bottom-padding-#{$size};
+    } @else if $direction == left {
+        @extend .left-padding-#{$size};
+    } @else {
+        @extend .padding-#{$size}
+    }
+}
+  

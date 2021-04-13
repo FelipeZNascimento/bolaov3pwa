@@ -1,0 +1,37 @@
+@import "styles/variables.scss";
+
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+a {
+    color: inherit;
+    cursor: pointer;
+}
+
+.align-center {
+    justify-content: center;
+    text-align: center;
+}
+
+.align-right {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.align-left {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.small-caps {
+    font-variant: small-caps;
+}
