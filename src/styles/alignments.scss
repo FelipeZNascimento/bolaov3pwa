@@ -1,0 +1,9 @@
+@mixin flex-aligned($horizontal, $vertical) {
+    display: flex;
+    align-items: $vertical;
+    justify-content: $horizontal;
+}
+
+@mixin aligned($horizontal) {
+    text-align:$horizontal;
+}

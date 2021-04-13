@@ -1,0 +1,89 @@
+$padding: (
+    "none": 0px,
+    "xxs": 2px,
+    "xs": 4px,
+    "s": 8px,
+    "m": 12px,
+    "l": 16px,
+    "xl": 25px,
+    "xxl": 50px
+);
+
+$margin: $padding;
+
+$font-sizes: (
+    "xs": 8px,
+    "s": 12px,
+    "m": 16px,
+    "l": 20px,
+    "xl": 24px,
+    "xxl": 48px
+);
+
+// Colors
+$color-black: #000000;
+$color-white: #ffffff;
+$color-gold: #f4b303;
+
+$color-purple: #7d64b9;
+$color-link: $color-purple;
+
+$color-green: #197b30;
+$color-mint: #29c84e;
+$color-blue: #1565c0;
+$color-sky: #03a9f4;
+$color-red: #be2a2a;
+$color-orange: #dc6d31;
+$color-navy: #1b2f42;
+
+$color-grey1: #eceff1;
+$color-grey2: #cfd8dc;
+$color-grey3: #9da4a7;
+$color-grey4: #757a7c;
+$color-grey5: #545859;
+
+$colors: (
+    "color-black":     $color-black,
+    "color-white":     $color-white,
+    "color-gold":      $color-gold,
+    
+    "color-purple":    $color-purple,
+    "color-link":      $color-link,
+    
+    "color-blue":      $color-blue,
+    "color-sky":       $color-sky,
+    "color-green":     $color-green,
+    "color-mint":      $color-mint,
+    "color-red":       $color-red,
+    "color-orange":    $color-orange,
+    "color-navy":      $color-navy,
+
+    "color-grey1":     $color-grey1,
+    "color-grey2":     $color-grey2,
+    "color-grey3":     $color-grey3,
+    "color-grey4":     $color-grey4,
+    "color-grey5":     $color-grey5
+);
+
+:export {
+    colorBlack:     $color-black;
+    colorWhite:     $color-white;
+    colorGold:      $color-gold;
+    
+    colorPurple:    $color-purple;
+    colorLink:      $color-link;
+    
+    colorBlue:      $color-blue;
+    colorSky:       $color-sky;
+    colorGreen:     $color-green;
+    colorMint:      $color-mint;
+    colorRed:       $color-red;
+    colorOrange:    $color-orange;
+    colorNavy:      $color-navy;
+
+    colorGrey1:     $color-grey1;
+    colorGrey2:     $color-grey2;
+    colorGrey3:     $color-grey3;
+    colorGrey4:     $color-grey4;
+    colorGrey5:     $color-grey5;
+}

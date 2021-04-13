@@ -1,0 +1,77 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.container {
+    @include bg-rgba-colored($color-white, 0.15);
+    @include font-colored($color-grey3);
+    @include font-sized(xl);
+    @include padded(all, l);
+
+    font-variant: small-caps;
+    display: flex;
+    height: 80px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+
+    a {
+        text-decoration: none;
+    }
+}
+
+.buttonSection {
+    @include flex-aligned(flex-start, center);
+    flex: 1;
+}
+
+.loginSection {
+    @include flex-aligned(flex-start, center);
+    flex: 0;
+    transition: min-width 0.8s;
+
+    & div {
+        @include marged(left, xs);
+        @include marged(right, xs);
+    }
+}
+
+.button {
+    @include padded(top, none);
+    @include padded(right, l);
+    @include padded(bottom, none);
+    @include padded(left, l);
+
+    cursor: pointer;
+    transition: 0.4s;
+    min-width: 10px;
+
+    &:hover {
+        @include font-colored($color-grey1);
+    }
+
+    &Selected {
+        @include font-colored($color-gold);
+    }
+}
+
+.form {
+    @include padded(top, none);
+    @include padded(right, l);
+    @include padded(bottom, none);
+    @include padded(left, l);
+
+    display: flex;
+
+    transition: 0.4s;
+    min-width: 400px;
+
+    & div {
+        @include padded(left, xs);
+        @include padded(right, xs);
+    }
+}

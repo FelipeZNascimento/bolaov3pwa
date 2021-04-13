@@ -1,4 +1,11 @@
+@import "./styles/globals.scss";
+@import "./styles/colors.scss";
+
 body {
+  @include bg-colored($color-navy);
+
+  background-image: url("img/bg.jpg") ;
+  background-repeat: repeat-x;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
