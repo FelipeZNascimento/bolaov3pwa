@@ -11,7 +11,7 @@
 
 @each $name, $hexa in $colors {
     .#{$name} {
-        color: #{$hexa};
+        color: #{$hexa} !important;
     }
 
     .#{$name}-bg {

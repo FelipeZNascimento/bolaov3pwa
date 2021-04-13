@@ -1,5 +1,9 @@
-@import "./styles/globals.scss";
-@import "./styles/colors.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/globals.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
 
 body {
   @include bg-colored($color-navy);
