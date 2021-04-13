@@ -10,6 +10,7 @@
     @include font-colored($color-grey3);
     @include font-sized(xl);
     @include padded(all, l);
+    @include shadowed(0.4);
 
     font-variant: small-caps;
     display: flex;
