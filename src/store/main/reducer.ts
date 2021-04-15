@@ -1,4 +1,4 @@
-import * as ACTIONTYPES from '../actiontypes';
+import * as ACTIONTYPES from 'store/actiontypes';
 
 const initialState = {
     error: false,

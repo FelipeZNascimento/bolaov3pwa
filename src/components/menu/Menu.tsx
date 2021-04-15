@@ -9,19 +9,17 @@ import Login from './components/Login';
 import {
     Button,
     SwipeableDrawer as Drawer,
-    TextField,
-    Tooltip
 } from '@material-ui/core';
 import {
     Person as PersonIcon,
     Menu as MenuIcon,
-    Settings as SettingsIcon,
 } from '@material-ui/icons';
 
 import ROUTES from 'constants/routes';
 import styles from './Menu.module.scss';
 import { withStyles } from '@material-ui/core/styles';
 import { TMenuButton } from './types';
+import logo from 'img/favicon.png';
 
 const CustomDrawer = withStyles({
     root: {
@@ -48,8 +46,8 @@ const Menu = () => {
             route: ROUTES.RESULTS.url
         },
         {
-            display: ROUTES.BET.display,
-            route: ROUTES.BET.url
+            display: ROUTES.BETS.display,
+            route: ROUTES.BETS.url
         },
         {
             display: ROUTES.EXTRAS.display,
@@ -74,6 +72,8 @@ const Menu = () => {
                 onOpen={() => setMobileMenuOpen(true)}
             >
                 <div className={styles.buttonSectionMobile}>
+                    <div className={styles.logoMobile}><img className={styles.image} alt="logo" src={logo} /></div>
+
                     {menuOptions.map((item) => renderButton(item))}
                 </div>
             </CustomDrawer>
@@ -131,12 +131,19 @@ const Menu = () => {
     const renderButton = (item: TMenuButton) => {
         const buttonClass = classNames(
             [styles.button], {
-            [styles.buttonSelected]: pathname === item.route
+            [styles.buttonSelected]: pathname !== '/' ? pathname.includes(item.route) : pathname === item.route
+        });
+
+        const textClass = classNames({
+            [styles.textAnimation]: item.display === ROUTES.HOME.display && !isMobile
         });
 
         return (
             <Link to={item.route}>
-                <div className={buttonClass} onClick={() => setMobileMenuOpen(false)}>{item.display}</div>
+                <div className={buttonClass} onClick={() => setMobileMenuOpen(false)}>
+                    {item.display === ROUTES.HOME.display && !isMobile && <img className={styles.image} alt="logo" src={logo} />}
+                    <span className={textClass}>{item.display}</span>
+                </div>
             </Link>
         );
     };
@@ -148,7 +155,6 @@ const Menu = () => {
             </div>
             <div className={styles.loginSection}>
                 {renderLoginButton()}
-                {/* {isMobile ? renderMobileLoginButton() : <Login onLogin={setIsLogged} isLogged={isLogged} />} */}
             </div>
             {renderMobileMenu()}
             {renderMobileLogin()}
