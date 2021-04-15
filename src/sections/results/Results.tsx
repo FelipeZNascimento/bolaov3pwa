@@ -26,9 +26,9 @@ const Results = () => {
 
     useEffect(() => {
         if (currentSeason) {
-            if (week) {
+            if (week && parseInt(week) !== currentWeek) {
                 dispatch(fetchMatches(currentSeason, parseInt(week)));
-                dispatch(setCurrentWeek(parseInt(week)));
+                dispatch(setCurrentWeek(parseInt(week)))
             } else if (currentWeek) {
                 dispatch(fetchMatches(currentSeason, currentWeek));
             }
