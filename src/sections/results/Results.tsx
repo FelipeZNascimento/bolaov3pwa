@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { isMobile } from "react-device-detect";
 import { useParams } from 'react-router';
 
-import { Loading, Match } from 'components_fa/index'
+import { Loading, Match, WeekPagination } from 'components_fa/index'
 import styles from './Results.module.scss';
 import ROUTES from 'constants/routes';
 
@@ -41,13 +40,10 @@ const Results = () => {
         )
     }
 
-    const weeksMock = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
     return (
         <div className={styles.container}>
             <div className={styles.matchesContainer}>
-                {weeksMock.map((item) => (
-                    <Link to={ROUTES.RESULTS.urlWithParams(item)}>Week {item}</Link>
-                ))}
+                <WeekPagination routeTo={ROUTES.RESULTS.urlWithParams} />
                 {matches.map((match) => <Match {...match} />)}
             </div>
             {!isMobile
