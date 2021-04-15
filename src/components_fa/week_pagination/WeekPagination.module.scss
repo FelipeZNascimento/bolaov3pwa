@@ -47,9 +47,23 @@
 }
 
 .ghostPage {
-    @include padded(all, xs);
-
     flex: 1;
+
+    &Standard {
+        @extend .ghostPage;
+
+        @include padded(all, m);
+        @include marged(left, l);
+        @include marged(right, l);
+    }
+
+    &Mobile {
+        @extend .ghostPage;
+
+        @include padded(all, xs);
+        @include marged(left, xs);
+        @include marged(right, xs);
+    }
 }
 
 .page {
