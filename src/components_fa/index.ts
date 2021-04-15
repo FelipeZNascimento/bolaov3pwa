@@ -1,3 +1,4 @@
 export { default as Loading } from './loading/Loading';
 export { default as Match } from './match/Match';
 export { default as Team } from './team/Team';
+export { default as WeekPagination } from './week_pagination/WeekPagination';

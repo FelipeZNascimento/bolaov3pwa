@@ -6,7 +6,8 @@ const initialState: TState = {
     errorMessage: '',
     loading: false,
     isNotificationOpen: false,
-    config: null
+    currentSeason: null,
+    currentWeek: null
 };
 
 export default function appReducer(state = initialState, action: TAction) {
@@ -18,6 +19,11 @@ export default function appReducer(state = initialState, action: TAction) {
         //         errorMessage: action.errorMessage || '',
         //         error: action.errorMessage || false
         //     };
+        case ACTIONTYPES.SET_CURRENT_WEEK:
+            return {
+                ...state,
+                currentWeek: action.week
+            };
         case ACTIONTYPES.FETCHING_CONFIG:
             return {
                 ...state,
@@ -31,7 +37,8 @@ export default function appReducer(state = initialState, action: TAction) {
                 loading: false,
                 errorMessage: '',
                 error: false,
-                config: action.response
+                currentSeason: action.response?.currentSeason,
+                currentWeek: action.response?.currentWeek,
             };
 
         default:

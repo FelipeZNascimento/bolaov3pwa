@@ -4,7 +4,8 @@ import fetchItems from 'services/dataGetters';
 import { config as configEndpoint } from 'services/endpoints';
 
 import {
-    TFetchConfig
+    TFetchConfig,
+    TSetWeek
 } from './types';
 
 
@@ -28,5 +29,11 @@ export const fetchDefaultConfig = () => async (dispatch: Dispatch<TFetchConfig>)
                 errorMessage: error.message
             });
         })
+};
 
+export const setCurrentWeek = (week: number) => async (dispatch: Dispatch<TSetWeek>) => {
+    return dispatch({
+        type: ACTIONTYPES.SET_CURRENT_WEEK,
+        week
+    });
 };
