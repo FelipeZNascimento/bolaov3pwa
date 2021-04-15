@@ -65,9 +65,9 @@
     @include flex-aligned(flex-start, center);
 
     @include padded(top, s);
-    @include padded(right, xl);
+    @include padded(right, l);
     @include padded(bottom, s);
-    @include padded(left, xl);
+    @include padded(left, l);
 
     cursor: pointer;
     transition: 0.4s;

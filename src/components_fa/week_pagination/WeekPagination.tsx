@@ -16,71 +16,71 @@ type TWeek = {
 const weeksMock: TWeek[] = [
     {
         num: 1,
-        display: 'Week 1'
+        display: 'Semana 1'
     },
     {
         num: 2,
-        display: 'Week 2'
+        display: 'Semana 2'
     },
     {
         num: 3,
-        display: 'Week 3'
+        display: 'Semana 3'
     },
     {
         num: 4,
-        display: 'Week 4'
+        display: 'Semana 4'
     },
     {
         num: 5,
-        display: 'Week 5'
+        display: 'Semana 5'
     },
     {
         num: 6,
-        display: 'Week 6'
+        display: 'Semana 6'
     },
     {
         num: 7,
-        display: 'Week 7'
+        display: 'Semana 7'
     },
     {
         num: 8,
-        display: 'Week 8'
+        display: 'Semana 8'
     },
     {
         num: 9,
-        display: 'Week 9'
+        display: 'Semana 9'
     },
     {
         num: 10,
-        display: 'Week 10'
+        display: 'Semana 10'
     },
     {
         num: 11,
-        display: 'Week 11'
+        display: 'Semana 11'
     },
     {
         num: 12,
-        display: 'Week 12'
+        display: 'Semana 12'
     },
     {
         num: 13,
-        display: 'Week 13'
+        display: 'Semana 13'
     },
     {
         num: 14,
-        display: 'Week 14'
+        display: 'Semana 14'
     },
     {
         num: 15,
-        display: 'Week 15'
+        display: 'Semana 15'
     },
     {
         num: 16,
-        display: 'Week 16'
+        display: 'Semana 16'
     },
     {
         num: 17,
-        display: 'Week 17'
+        display: 'Semana 17'
     },
     {
         num: 18,
@@ -96,7 +96,7 @@ const weeksMock: TWeek[] = [
     },
     {
         num: 21,
-        display: 'Superbowl'
+        display: 'Super Bowl'
     }
 ];
 
@@ -134,7 +134,7 @@ const WeekPagination = ({
     const renderEmptySpans = (emptySpans: number) => {
         let spansToReturn = [];
         for (let i = 0; i < emptySpans; i++) {
-            spansToReturn.push(<span className={styles.ghostPage}>&nbsp;</span>);
+            spansToReturn.push(<span className={isMobile ? styles.ghostPageMobile : styles.ghostPageStandard}>&nbsp;</span>);
         }
 
         return spansToReturn;
