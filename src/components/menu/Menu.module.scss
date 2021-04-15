@@ -6,13 +6,14 @@
 @import "styles/variables.scss";
 
 .container {
-    @include bg-rgba-colored($color-white, 0.15);
+    @include bg-colored($color-menu);
     @include padded(all, l);
     @include shadowed(0.4);
 
     font-variant: small-caps;
+    flex: 0;
     display: flex;
-    height: 80px;
+    height: $menu-height;
     position: sticky;
     top: 0;
     width: 100%;
@@ -22,7 +23,7 @@
 .buttonSection {
     @include flex-aligned(flex-start, center);
     @include font-colored($color-grey3);
-    @include font-sized(xl);
+    @include font-sized(l);
 
     flex: 1;
 
@@ -38,7 +39,6 @@
     flex-direction: column;
 
     a {
-        @include padded(all, m);
         width: 100%;
     }
 }
@@ -62,10 +62,12 @@
 }
 
 .button {
-    @include padded(top, none);
-    @include padded(right, l);
-    @include padded(bottom, none);
-    @include padded(left, l);
+    @include flex-aligned(flex-start, center);
+
+    @include padded(top, s);
+    @include padded(right, xl);
+    @include padded(bottom, s);
+    @include padded(left, xl);
 
     cursor: pointer;
     transition: 0.4s;
@@ -78,9 +80,67 @@
     &Selected {
         @include font-colored($color-gold);
     }
+
+    &:hover .image {
+        opacity: 1;
+        animation: headbutt 2s ease-in forwards;
+    }
+
+    &:hover .textAnimation {
+        opacity: 1;
+        animation: headbuttText 2s ease-in forwards;
+    }
+
 }
 
+.image {
+    @include padded(right, l);
+    height: 64px;
+    opacity: 0.8;
+    transition: 0.4s;
+    width: auto;
+}
 
-// .drawer {
-//     @include bg-rgba-colored($color-white, 0.15);
-// }
+.logoMobile {
+    @include flex-aligned(center, center);
+    @include padded(top, s);
+    @include padded(right, xl);
+    @include padded(bottom, s);
+    @include padded(left, xl);
+
+    height: 64px;
+    width: auto;
+}
+
+@keyframes headbutt {
+    20% {
+        transform: translate(-5px, 0) rotate(35deg);
+    }
+
+    40% {
+        transform: translate(-7px, 0) rotate(45deg);
+    }
+
+    70% {
+        transform: translate(-4px, 0) rotate(50deg);
+    }
+
+    80% {
+        transform: translate(25px, 0) rotate(60deg);
+    }
+}
+
+@keyframes headbuttText {
+    80% {
+        transform: translate(0, 0);
+    }
+    84% {
+        transform: translate(10px, 0);
+    }
+    90%, 94% {
+        transform: translate(-2px, 0);
+    }
+    92%, 96% {
+        transform: translate(2px, 0);
+    }
+}

@@ -1,0 +1,60 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.container {
+    @include flex-aligned(center, center);
+    @include font-colored($color-grey2);
+    @include font-sized(xl);
+    @include padded(all, xl);
+    animation: headbuttText 3s ease-in-out infinite;
+
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.image {
+    @include padded(left, xl);
+    @include padded(right, xl);
+
+    animation: headbutt 3s ease-in infinite;
+    max-height: 100px;
+    width: auto;
+}
+
+@keyframes headbutt {
+    20% {
+        transform: translate(-25px, 0) rotate(35deg);
+    }
+
+    40% {
+        transform: translate(-40px, 0) rotate(45deg);
+    }
+
+    70% {
+        transform: translate(-50px, 0) rotate(50deg);
+    }
+
+    80% {
+        transform: translate(64px, 0) rotate(60deg);
+    }
+}
+
+@keyframes headbuttText {
+    80% {
+        transform: translate(0, 0);
+    }
+    84% {
+        transform: translate(30px, 0);
+    }
+    90%, 94% {
+        transform: translate(-3px, 0);
+    }
+    92%, 96% {
+        transform: translate(3px, 0);
+    }
+}

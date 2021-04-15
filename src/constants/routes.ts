@@ -1,15 +1,17 @@
 export const ROUTES = {
     HOME: {
         display: 'Home',
-        url: '/'
+        url: '/home'
     },
-    BET: {
+    BETS: {
         display: 'Apostar',
-        url: '/apostar'
+        url: '/apostar',
+        urlWithParams: (season: number, week: number) => `${ROUTES.BETS.url}/${season}/${week}`
     },
     RESULTS: {
         display: 'Resultados',
-        url: '/resultados'
+        url: '/resultados',
+        urlWithParams: (season: number, week: number) => `${ROUTES.RESULTS.url}/${season}/${week}`
     },
     EXTRAS: {
         display: 'Extras',

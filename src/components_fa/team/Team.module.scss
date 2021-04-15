@@ -1,0 +1,60 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.container {
+    @include flex-aligned(flex-start, center);
+    @include font-sized(l);
+
+    flex: 1;
+    height: $matchContainerHeight;
+    position: relative;
+    overflow: hidden;
+    width: 400px;
+    z-index: 1;
+
+    &Mobile {
+        @extend .container;
+        width: 100%;
+    }
+
+    .nameContainer {
+        @include flex-aligned(center, center);
+        flex: 1;
+    }
+
+    .name {
+        @include flex-aligned(flex-end, center);
+        @include padded(right, s);
+
+        flex: 1;
+        height: $matchContainerHeight;
+        min-width: 60px;
+    }
+
+    .score {
+        @include flex-aligned(center, center);
+        @include bg-rgba-colored($color-black, 0.2);
+
+        flex: 0;
+        height: $matchContainerHeight;
+        min-width: 60px;
+    }
+}
+
+.logoContainer {
+    flex: 1;
+
+    .logo {
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        transform: translateX(-50%) translateY(-50%);
+        z-index: -1;
+        height: 80px;
+        width: auto;
+    }
+}
