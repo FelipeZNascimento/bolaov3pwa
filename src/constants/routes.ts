@@ -11,7 +11,7 @@ export const ROUTES = {
     RESULTS: {
         display: 'Resultados',
         url: '/resultados',
-        urlWithParams: (season: number, week: number) => `${ROUTES.RESULTS.url}/${season}/${week}`
+        urlWithParams: (week: number) => `${ROUTES.RESULTS.url}/${week}`
     },
     EXTRAS: {
         display: 'Extras',

@@ -1,26 +1,26 @@
 import { Dispatch } from 'react';
 import * as ACTIONTYPES from 'store/actiontypes';
 import fetchItems from 'services/dataGetters';
-import { matches as matchesEndpoint } from 'services/endpoints';
+import { config as configEndpoint } from 'services/endpoints';
 
 import {
-    TFetchMatches
+    TFetchConfig
 } from './types';
 
 
-export const fetchMatches = (season: number, week: number) => async (dispatch: Dispatch<TFetchMatches>) => {
-    dispatch({ type: ACTIONTYPES.FETCHING_MATCHES } as const);
+export const fetchDefaultConfig = () => async (dispatch: Dispatch<TFetchConfig>) => {
+    dispatch({ type: ACTIONTYPES.FETCHING_CONFIG } as const);
 
-    fetchItems({ endpoint: matchesEndpoint(season, week) })
+    fetchItems({ endpoint: configEndpoint() })
         .then((response) => {
             return dispatch({
-                type: ACTIONTYPES.FETCHING_MATCHES_SUCCESS,
+                type: ACTIONTYPES.FETCHING_CONFIG_SUCCESS,
                 response
             });
         })
         .catch((error) => {
             dispatch({
-                type: ACTIONTYPES.FETCHING_MATCHES_ERROR,
+                type: ACTIONTYPES.FETCHING_CONFIG_ERROR,
                 errorMessage: error.message
             });
             return dispatch({

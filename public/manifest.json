@@ -1,6 +1,10 @@
 {
 	"short_name": "Bolão NFL",
 	"name": "Bolão NFL",
+	"start_url": ".",
+	"display": "standalone",
+	"theme_color": "#000000",
+	"background_color": "#1b2f42",  
 	"icons": [
 		{
 			"src": "\/android-icon-36x36.png",

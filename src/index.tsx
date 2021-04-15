@@ -15,6 +15,7 @@ import classNames from 'classnames';
 
 // Sections & Components
 import { Bets, Home, Results } from 'sections/index';
+import Startup from 'services/Startup';
 import { Menu } from 'components/index';
 
 // Constants & Styles
@@ -28,27 +29,29 @@ const containerClass = classNames({
 
 render(
 	<Provider store={store}>
-		<Router>
-			<div className="page-container">
-				<Menu />
-				<div className={containerClass}>
-					<Switch>
-						<Route exact path={ROUTES.HOME.url}>
-							<Home />
-						</Route>
-						<Route path={ROUTES.BETS.url}>
-							<Route path={ROUTES.BETS.url + "/:season?/:week?/"} component={Bets} />
-						</Route>
-						<Route path={ROUTES.RESULTS.url}>
-							<Route path={ROUTES.RESULTS.url + "/:season?/:week?/"} component={Results} />
-						</Route>
-						<Route>
-							<Home />
-						</Route>
-					</Switch>
+		<Startup>
+			<Router>
+				<div className="page-container">
+					<Menu />
+					<div className={containerClass}>
+						<Switch>
+							<Route exact path={ROUTES.HOME.url}>
+								<Home />
+							</Route>
+							<Route path={ROUTES.BETS.url}>
+								<Route path={ROUTES.BETS.url + "/:season?/:week?/"} component={Bets} />
+							</Route>
+							<Route path={ROUTES.RESULTS.url}>
+								<Route path={ROUTES.RESULTS.url + "/:week?/"} component={Results} />
+							</Route>
+							<Route>
+								<Home />
+							</Route>
+						</Switch>
+					</div>
 				</div>
-			</div>
-		</Router>
+			</Router>
+		</Startup>
 	</Provider>,
 	document.getElementById('root'),
 );
