@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 
@@ -8,6 +8,7 @@ import ROUTES from 'constants/routes';
 
 const Bets = () => {
     const { season, week } = useParams<{ season: string, week: string }>();
+
     useEffect(() => {
         console.log(season);
         console.log(week);
