@@ -7,4 +7,82 @@
 
 .container {
     @include flex-aligned(center, center);
+    @include font-sized(m);
+
+    width: 100%;
+
+    a {
+        text-decoration: none;
+    }
+
+    &Standard {
+        @extend .container;
+
+        @include padded(all, xl);
+    }
+
+    &Mobile {
+        @extend .container;
+
+        @include padded(top, none);
+        @include padded(right, none);
+        @include padded(bottom, l);
+        @include padded(left, none);
+    }
+}
+
+.neighbourPages {
+    @include flex-aligned(flex-start, flex-start);
+    width: 100%;
+
+    &Mobile {
+        @extend .neighbourPages;
+        flex: 2;
+    }
+
+    &Standard {
+        @extend .neighbourPages;
+        flex: 4;
+    }
+}
+
+.ghostPage {
+    @include padded(all, xs);
+
+    flex: 1;
+}
+
+.page {
+    @include bg-rgba-colored($color-grey1, 0.05);
+    @include font-colored($color-grey3);
+    @include padded(all, xs);
+
+    flex: 1;
+    transition: 0.4s;
+
+    &:hover {
+        @include shadowed(0.2);
+        @include font-colored($color-grey2);
+    }
+
+    &Standard {
+        @extend .page;
+        @include padded(all, m);
+        @include marged(left, l);
+        @include marged(right, l);
+    }
+
+    &Mobile {
+        @extend .page;
+        @include marged(left, xs);
+        @include marged(right, xs);
+    }
+}
+
+.currentPage {
+    @extend .pageStandard;
+    @include font-colored($color-gold);
+
+    font-weight: bold;
+    flex: 1;
 }

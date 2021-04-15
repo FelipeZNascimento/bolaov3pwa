@@ -5,7 +5,8 @@ export type TState = {
     errorMessage: string;
     loading: boolean;
     isNotificationOpen: boolean;
-    config: TConfig | null;
+    currentSeason: number | null;
+    currentWeek: number | null;
 };
 
 type TConfig = {
@@ -17,6 +18,7 @@ export type TAction = {
     type: string;
     response?: TConfig;
     errorMessage?: string;
+    week?: number;
 }
 
 
@@ -26,4 +28,9 @@ export type TFetchConfig = TAction & {
     | typeof ACTIONTYPES.FETCHING_CONFIG_ERROR
     | typeof ACTIONTYPES.TOGGLE_NOTIFICATION;
     readonly response?: TConfig;
+};
+
+export type TSetWeek = TAction & {
+    readonly type: typeof ACTIONTYPES.SET_CURRENT_WEEK;
+    week: number;
 };
