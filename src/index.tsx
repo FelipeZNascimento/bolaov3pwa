@@ -22,18 +22,13 @@ import { Menu } from 'components/index';
 import ROUTES from 'constants/routes';
 import './index.scss';
 
-const containerClass = classNames({
-	'index-container--mobile': isMobile,
-	'index-container--regular': !isMobile,
-});
-
 render(
 	<Provider store={store}>
 		<Startup>
 			<Router>
 				<div className="page-container">
 					<Menu />
-					<div className={containerClass}>
+					<div className="index-container">
 						<Switch>
 							<Route exact path={ROUTES.HOME.url}>
 								<Home />

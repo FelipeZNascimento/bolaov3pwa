@@ -29,16 +29,7 @@ body {
 	flex: 1;
 	flex-direction: column;
 	text-align: center;
-
-	&--regular {
-		@extend .index-container;
-		padding: 0 150px;
-	}
-
-	&--mobile {
-		@extend .index-container;
-		padding: 0 25px;
-	}
+	padding: 0 25px;
 }
 
 @media screen and (max-width: 992px) {
