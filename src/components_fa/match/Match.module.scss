@@ -1,0 +1,142 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.container {
+    @include flex-aligned(center, center);
+    @include marged(bottom, xl);
+
+    cursor: pointer;
+    flex-direction: row;
+    min-height: $matchContainerHeight;
+    opacity: 0.8;
+    transition: 0.4s;
+    width: 800px;
+
+    &Mobile {
+        @extend .container;
+
+        flex-direction: column;
+        min-height: calc(#{$matchContainerHeight} * 3);
+        width: 100%;
+    }
+
+    &:hover {
+        opacity: 1;
+    }
+
+    &Expanded {
+        @extend .container;
+        display: flex;
+        flex-direction: column;
+        min-height: calc(#{$matchContainerHeight} * 2);
+
+        width: 100%;
+    }
+
+    .teamsContainer {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
+}
+
+.time {
+    @include flex-aligned(flex-start, center);
+    @include bg-colored($color-grey2);
+    @include font-colored($color-grey5);
+    @include font-sized(l);
+
+    flex: 1;
+    width: 100%;
+    z-index: 10;
+
+    &Mobile {
+        @extend .time;
+
+        flex: none;
+        height: $matchContainerHeight;
+        width: 100%;
+    }
+
+    .notStarted {
+        @include flex-aligned(center, center);
+
+        height: $matchContainerHeight;
+        flex: 1;
+    }
+
+    .ended {
+        @include bg-colored($color-grey3);
+        @include flex-aligned(center, center);
+
+        height: $matchContainerHeight;
+        flex: 1;
+    }
+
+    .started {
+        @include flex-aligned(center, center);
+
+        height: $matchContainerHeight;
+        flex: 1;
+        flex-direction: row;
+
+        .quarter {
+            @include bg-colored($color-grey3);
+            @include flex-aligned(center, center);
+            @include font-colored($color-grey1);
+
+            height: $matchContainerHeight;
+            flex: 1;
+        }
+
+        .timeLeft {
+            @include flex-aligned(center, center);
+
+            height: $matchContainerHeight;
+            flex: 1;
+        }
+    }
+}
+
+.betContainer {
+    @include bg-rgba-colored($color-grey1, 0.1);
+    @include font-colored($color-grey1);
+    @include shadowed(0.5);
+
+    display: flex;
+    width: 100%;
+
+    .column {
+        @include flex-aligned(flex-start, center);
+        flex: 1;
+        flex-direction: column;
+        width: 100%;
+
+        div, p {
+            @include aligned(left);
+            @include padded(all, s);
+            width: 100%;
+        }
+        .header {
+            @include bg-rgba-colored($color-navy, 0.5);
+            
+        }
+    }
+}
+
+.greenBorder {
+    -webkit-box-shadow: inset 10px 0px 0px 0px $color-mint;
+    box-shadow: inset 10px 0px 0px 0px $color-mint;
+}
+.blueBorder {
+    -webkit-box-shadow: -10px 0px 0px 0px $color-blue;
+    box-shadow: -10px 0px 0px 0px $color-blue;
+}
+.redBorder {
+    -webkit-box-shadow: -10px 0px 0px 0px $color-red;
+    box-shadow: -10px 0px 0px 0px $color-red;
+}

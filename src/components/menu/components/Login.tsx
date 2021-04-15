@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 
@@ -11,10 +11,8 @@ import {
 } from '@material-ui/icons';
 
 import {
-    Avatar,
     Button,
     TextField,
-    Tooltip
 } from '@material-ui/core';
 
 import styles from './Login.module.scss';
@@ -22,31 +20,51 @@ import styles from './Login.module.scss';
 const useStyles = makeStyles(() => ({
     root: {
         flex: 1,
-        margin: '4px'
+        margin: '4px',
+        opacity: 0.8,
+        transition: '0.4s',
+        '&:hover': {
+            opacity: 1,
+        },
     },
     default: {
         color: '#cfd8dc',
         backgroundColor: '#545859',
         cursor: 'pointer',
+        '&:hover': {
+            backgroundColor: '#545859',
+        },
     },
     red: {
-        color: '#cfd8dc',
         backgroundColor: '#be2a2a',
+        color: '#cfd8dc',
         cursor: 'pointer',
+        '&:hover': {
+            backgroundColor: '#be2a2a',
+        },
     },
     green: {
         color: '#cfd8dc',
         backgroundColor: '#197b30',
         cursor: 'pointer',
+        '&:hover': {
+            backgroundColor: '#197b30',
+        },
     },
     blue: {
         color: '#cfd8dc',
         backgroundColor: '#1565c0',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        '&:hover': {
+            backgroundColor: '#1565c0',
+        },
     },
     logged: {
         color: '#cfd8dc',
         backgroundColor: '#197b30',
+        '&:hover': {
+            backgroundColor: '#197b30',
+        },
     }
 }));
 
