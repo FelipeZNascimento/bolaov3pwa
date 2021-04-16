@@ -7,7 +7,6 @@ import {
     TFetchMatches
 } from './types';
 
-
 export const fetchMatches = (season: number, week: number) => async (dispatch: Dispatch<TFetchMatches>) => {
     dispatch({ type: ACTIONTYPES.FETCHING_MATCHES } as const);
 

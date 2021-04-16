@@ -1,5 +1,4 @@
 import React from 'react';
-import { isMobile } from "react-device-detect";
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import {
@@ -11,7 +10,6 @@ import {
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
-import classNames from 'classnames';
 
 // Sections & Components
 import { Bets, Home, Results } from 'sections/index';

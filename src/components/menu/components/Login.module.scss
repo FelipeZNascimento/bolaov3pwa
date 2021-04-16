@@ -5,11 +5,13 @@
 @import "styles/paddings.scss";
 @import "styles/variables.scss";
 
-.form {
+.container {
+    @include flex-aligned(flex-start, center);
     @include font-colored($color-grey2);
     @include padded(all, l);
 
     display: flex;
+    height: 100%;
     flex-direction: column;
     transition: 0.4s;
 
@@ -17,10 +19,29 @@
         @include padded(top, xs);
         @include padded(bottom, xs);
     }
+
+    .icon {
+        @include marged(right, s);
+    }
 }
 .buttonContainer {
     @include flex-aligned(center, center);
     display: flex;
-    width: 100%
+    width: 100%;
+}
 
+.accountOption {
+    flex: 1;
+}
+
+.accountOption {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+
+    &Open {
+        flex: 1;
+        max-height: 1000px;
+        transition: max-height 1s ease-in-out;
+    }
 }

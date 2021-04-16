@@ -2,5 +2,7 @@
 export const apiBaseUrl = 'https://omega-cors-nfl.herokuapp.com/bolaonfl/';
 
 
-export const matches = (season: number, week: number) => `${apiBaseUrl}matches/${season}/${week}`;
 export const config = () => `${apiBaseUrl}defaultConfig/`;
+export const login = () => `${apiBaseUrl}login/`;
+export const logout = () => `${apiBaseUrl}logout/`;
+export const matches = (season: number, week: number) => `${apiBaseUrl}matches/${season}/${week}`;

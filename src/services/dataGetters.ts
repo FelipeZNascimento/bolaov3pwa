@@ -1,29 +1,15 @@
-// import {
-//     apiBaseUrl,
-//     objectTypeInfo,
-// } from 'constants/general';
-
 import {
     http,
-    // stringifyQueryParams
 } from './utilities';
 
 type TProps = {
-    endpoint: string,
-    // currentPage?: number | null,
-    // orderBy?: string,
-    // sort?: string,
-    // searchField?: string,
+    endpoint: string
 };
 
 // let controller: (AbortController & { requestUrl?: string }) | null = null;
 
 const fetchItems = ({
-    endpoint,
-    // currentPage = 0,
-    // orderBy = 'description',
-    // sort = 'ASC',
-    // searchField = '',
+    endpoint
 }: TProps) => {
     // let requestUrl = endpoint;
 
@@ -40,12 +26,13 @@ const fetchItems = ({
     const requestObject = new Request(
         `${endpoint}`,
         {
-            method: "get",
-            // signal,
+            method: 'get',
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': 'Content-Type',
-            },
+                'credentials': 'include'
+            }
+
         }
     );
 
