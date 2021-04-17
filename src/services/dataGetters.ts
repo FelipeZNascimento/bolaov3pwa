@@ -1,49 +1,54 @@
-import {
-    http,
-} from './utilities';
+import Axios from "axios";
+
+// import {
+//     http,
+// } from './utilities';
 
 type TProps = {
     endpoint: string
 };
 
-// let controller: (AbortController & { requestUrl?: string }) | null = null;
-
 const fetchItems = ({
     endpoint
 }: TProps) => {
-    // let requestUrl = endpoint;
+    return Axios
+        .get(endpoint, { withCredentials: true })
+        .then(response => response.data);
 
-    // if (controller && requestUrl === controller.requestUrl) {
-    //     controller.abort();
-    // }
 
-    // controller = new AbortController();
-    // controller.requestUrl = endpoint;
-    // const signal = controller.signal;
+    // Axios({
+    //     method: "GET",
+    //     url: endpoint,
+    //     headers: {
+    //         "Content-Type": "application/json"
+    //     }
+    // }).then((response) => {
+    //     return response;
+    // }).catch(function (error) {
+    //     throw new Error(error);
+    // });
 
-    // requestUrl += stringifyQueryParams(currentPage, orderBy, sort, searchField);
 
-    const requestObject = new Request(
-        `${endpoint}`,
-        {
-            method: 'get',
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'Content-Type',
-                'credentials': 'include'
-            }
+    // const requestObject = new Request(
+    //     `${endpoint}`,
+    //     {
+    //         method: 'get',
+    //         credentials: 'include',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Access-Control-Allow-Origin': 'Content-Type',
+    //         },
+    //     }
+    // );
 
-        }
-    );
-
-    return http(requestObject)
-        .then((response) => {
-            // controller = null;
-            return response;
-        })
-        .catch((error) => {
-            throw new Error(error);
-        })
+    // return http(requestObject)
+    //     .then((response) => {
+    //         // controller = null;
+    //         return response;
+    //     })
+    //     .catch((error) => {
+    //         throw new Error(error);
+    //     })
 };
 
 export default fetchItems;
