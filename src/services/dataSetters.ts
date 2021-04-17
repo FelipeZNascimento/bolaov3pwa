@@ -18,8 +18,8 @@ const postItems = ({
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': 'Content-Type',
+                'credentials': 'include',
             },
-            credentials: 'include',
             body
         }
     );
