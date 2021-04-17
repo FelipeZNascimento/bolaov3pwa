@@ -229,7 +229,7 @@ const Login = ({
         return (
             <div className={styles.container}>
                 <Button id="personal" className={`${iconClasses.root} ${iconClasses.default}`} variant="contained" onClick={() => setLoginMenu('personal')}>
-                    <Icon className={`${loggedUser.icon} ${styles.icon}`} style={{ color: loggedUser.color }} /><b>Felipe</b>
+                    <Icon className={`${loggedUser.icon} ${styles.icon}`} style={{ color: loggedUser.color }} /><b>{loggedUser.name}</b>
                 </Button>
                 <div className={loginMenu === 'personal' ? styles.accountOptionOpen : styles.accountOption}>
                     {renderPersonalInfo(loggedUser)}

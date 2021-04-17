@@ -24,7 +24,7 @@ export const onLogin = (email: string, password: string) => async (dispatch: Dis
 
     postItems({
         endpoint: loginEndpoint(),
-        body: JSON.stringify(loginObject)
+        body: loginObject
     })
         .then((response) => {
             return dispatch({

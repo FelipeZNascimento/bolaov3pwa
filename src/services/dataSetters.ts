@@ -1,36 +1,44 @@
-import {
-    http,
-} from './utilities';
+import Axios from "axios";
+// import {
+//     http,
+// } from './utilities';
 
 type TProps = {
     endpoint: string,
-    body: string,
+    body: any,
 };
 
 const postItems = ({
     endpoint,
     body,
 }: TProps) => {
-    const requestObject = new Request(
-        `${endpoint}`,
-        {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'Content-Type',
-                'credentials': 'include',
-            },
-            body
-        }
-    );
+    return Axios
+        .post(endpoint, {
+            withCredentials: true,
+            ...body
+        })
+        .then(response => response.data);
 
-    return http(requestObject)
-        .then((response) => {
-            return response;
-        })
-        .catch((error) => {
-            throw new Error(error);
-        })
+    // const requestObject = new Request(
+    //     `${endpoint}`,
+    //     {
+    //         method: 'post',
+    //         credentials: 'include',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Access-Control-Allow-Origin': 'Content-Type',
+    //         },
+    //         body
+    //     }
+    // );
+
+    // return http(requestObject)
+    //     .then((response) => {
+    //         return response;
+    //     })
+    //     .catch((error) => {
+    //         throw new Error(error);
+    //     })
 };
 
 export default postItems;
