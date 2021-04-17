@@ -7,6 +7,19 @@
 
 .container {
     @include flex-aligned(center, center);
+    @include font-colored($color-grey3);
+    
+    flex-direction: column;
+    width: 100%;
+    
+    .weekTitle {
+        @include padded(top, l);
+        @include marged(bottom, xs);
+    }
+}
+
+.paginationContainer {
+    @include flex-aligned(center, center);
     @include font-sized(m);
 
     width: 100%;
@@ -16,13 +29,13 @@
     }
 
     &Standard {
-        @extend .container;
+        @extend .paginationContainer;
 
         @include padded(all, xl);
     }
 
     &Mobile {
-        @extend .container;
+        @extend .paginationContainer;
 
         @include padded(top, none);
         @include padded(right, none);

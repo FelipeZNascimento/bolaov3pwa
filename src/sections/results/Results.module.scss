@@ -13,7 +13,6 @@
 
 .matchesContainer {
     @include flex-aligned(flex-start, center);
-    @include marged(top, l);
     flex: 2;
     flex-direction: column;
 }

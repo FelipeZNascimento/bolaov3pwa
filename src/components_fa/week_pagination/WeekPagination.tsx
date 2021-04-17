@@ -141,8 +141,8 @@ const WeekPagination = ({
     };
 
     const containerClass = classNames({
-        [styles.containerStandard]: !isMobile,
-        [styles.containerMobile]: isMobile
+        [styles.paginationContainerStandard]: !isMobile,
+        [styles.paginationContainerMobile]: isMobile
     });
 
     const pageClass = classNames({
@@ -156,38 +156,41 @@ const WeekPagination = ({
     });
 
     return (
-        <div className={containerClass}>
-            <div className={neighbourPagesClass}>
-                {leftWeeks.length < pageRange && renderEmptySpans(pageRange - leftWeeks.length)}
-                {leftWeeks.map((week) => (
+        <div className={styles.container}>
+            {isMobile && <div className={styles.weekTitle}>Semana</div>}
+            <div className={containerClass}>
+                <div className={neighbourPagesClass}>
+                    {leftWeeks.length < pageRange && renderEmptySpans(pageRange - leftWeeks.length)}
+                    {leftWeeks.map((week) => (
+                        <Link
+                            className={pageClass}
+                            to={routeTo(week.num)}
+                            onClick={() => onClick(week.num)}
+                        >
+                            {week.num}
+                        </Link>
+                    ))}
+                </div>
+                <div className={styles.currentPage}>
                     <Link
-                        className={pageClass}
-                        to={routeTo(week.num)}
-                        onClick={() => onClick(week.num)}
+                        to={routeTo(currentPage.num)}
+                        onClick={() => onClick(currentPage.num)}
                     >
-                        {week.num}
+                        {isMobile ? currentPage.num : currentPage.display}
                     </Link>
-                ))}
-            </div>
-            <div className={styles.currentPage}>
-                <Link
-                    to={routeTo(currentPage.num)}
-                    onClick={() => onClick(currentPage.num)}
-                >
-                    {isMobile ? currentPage.num : currentPage.display}
-                </Link>
-            </div>
-            <div className={neighbourPagesClass}>
-                {rightWeeks.map((week) => (
-                    <Link
-                        className={pageClass}
-                        to={routeTo(week.num)}
-                        onClick={() => onClick(week.num)}
-                    >
-                        { week.num}
-                    </Link>
-                ))}
-                {rightWeeks.length < pageRange && renderEmptySpans(pageRange - rightWeeks.length)}
+                </div>
+                <div className={neighbourPagesClass}>
+                    {rightWeeks.map((week) => (
+                        <Link
+                            className={pageClass}
+                            to={routeTo(week.num)}
+                            onClick={() => onClick(week.num)}
+                        >
+                            { week.num}
+                        </Link>
+                    ))}
+                    {rightWeeks.length < pageRange && renderEmptySpans(pageRange - rightWeeks.length)}
+                </div>
             </div>
         </div>
     );

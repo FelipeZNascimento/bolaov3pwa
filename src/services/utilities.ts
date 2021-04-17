@@ -1,4 +1,4 @@
-export function http(request: Request) {
+export const http = (request: Request) => {
     return fetch(request)
         .then(function (response) {
             if (response.ok) {

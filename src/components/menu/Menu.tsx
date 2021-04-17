@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { isMobile } from "react-device-detect";
 
 import classNames from 'classnames';
 
+// Selectors
+import { selectIsLoading as selectIsLoadingLogin, selectUser } from 'store/user/selector';
+
 // Components
 import Login from './components/Login';
+import { Loading } from 'components_fa/index';
 import {
     Button,
+    Icon,
     SwipeableDrawer as Drawer,
 } from '@material-ui/core';
 import {
@@ -30,11 +36,13 @@ const CustomDrawer = withStyles({
 })(Drawer);
 
 const Menu = () => {
-    const [isLogged, setIsLogged] = useState<boolean>(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-    const [mobileLoginOpen, setMobileLoginOpen] = useState<boolean>(false);
+    const [loginMenuOpen, setLoginMenuOpen] = useState<boolean>(false);
 
     const { pathname } = useLocation();
+
+    const loggedUser = useSelector(selectUser);
+    const isLoadingLogin = useSelector(selectIsLoadingLogin);
 
     const menuOptions: TMenuButton[] = [
         {
@@ -84,15 +92,13 @@ const Menu = () => {
         return (
             <CustomDrawer
                 anchor='right'
-                open={mobileLoginOpen}
-                onClose={() => setMobileLoginOpen(false)}
-                onOpen={() => setMobileLoginOpen(true)}
+                open={loginMenuOpen}
+                onClose={() => setLoginMenuOpen(false)}
+                onOpen={() => setLoginMenuOpen(true)}
             >
                 <Login
-                    isLogged={isLogged}
                     isMobile={isMobile}
-                    onClose={() => setMobileLoginOpen(false)}
-                    onLogin={setIsLogged}
+                    onClose={() => setLoginMenuOpen(false)}
                 />
             </CustomDrawer>
         )
@@ -115,15 +121,21 @@ const Menu = () => {
             [styles.button]: !isMobile
         });
 
+
+        const buttonIcon = loggedUser
+            ? <Icon className={`${loggedUser.icon} ${styles.icon}`} style={{ color: loggedUser.color }} />
+            : <PersonIcon />;
+
         return (
-            <div className={buttonClass} onClick={() => setMobileLoginOpen(true)}>
-                <Button
-                    classes={{ root: isLogged ? 'color-green' : 'color-grey2' }}
-                    startIcon={<PersonIcon />}
-                    variant={isLogged ? "contained" : "outlined"}
+            <div className={buttonClass} onClick={() => setLoginMenuOpen(true)}>
+                {isLoadingLogin && <Loading />}
+                {!isLoadingLogin && <Button
+                    classes={{ root: loggedUser ? 'color-grey4' : 'color-grey2' }}
+                    startIcon={buttonIcon}
+                    variant={loggedUser ? "contained" : "outlined"}
                 >
-                    {isLogged ? 'Felipe' : 'Login'}
-                </Button>
+                    <b>{loggedUser ? loggedUser.name : 'Login'}</b>
+                </Button>}
             </div>
         )
     };
