@@ -12,12 +12,12 @@ const postItems = ({
     endpoint,
     body,
 }: TProps) => {
-    return Axios
-        .post(endpoint, {
-            withCredentials: true,
-            ...body
-        })
-        .then(response => response.data);
+    return Axios.post(endpoint, ...body, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        withCredentials: true
+    }).then(response => response.data);
 
     // const requestObject = new Request(
     //     `${endpoint}`,
