@@ -27,7 +27,7 @@ const Team = ({
     return (
         <div className={containerClass} style={{ backgroundColor: background, color: foreground }}>
             <div className={styles.logoContainer}>
-                <img className={styles.logo} alt="logo" src={`/team_logos/${id}.gif`} />
+                <img className={styles.logo} alt="logo" src={`/team_logos_std/${id}.gif`} />
             </div>
             <div className={styles.nameContainer}>
                 <div className={styles.name}>
