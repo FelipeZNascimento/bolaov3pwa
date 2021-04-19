@@ -4,19 +4,29 @@ import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
 import { Team } from 'components_fa/index'
+import Bets from './components/Bets'
+import { TMatch } from 'store/matches/types';
+import { calculateCorrectBets } from 'constants/bets';
 import styles from './Match.module.scss';
 
-import { TMatch } from 'store/matches/types';
-
 const Match = ({
-    id,
-    timestamp,
-    status,
     away,
-    home
+    bets,
+    loggedUserBets = null,
+    home,
+    id,
+    status,
+    timestamp,
 }: TMatch) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [currentTimestamp, setCurrentTimestamp] = useState(DateTime.now().toMillis());
+    const correctBets = calculateCorrectBets(away.score, home.score);
+
+    let isBullseyeBet, isHalfBet = false;
+    if(loggedUserBets) {
+        isBullseyeBet = correctBets.bullseye.find((correctBet) => correctBet === loggedUserBets.value) !== undefined;
+        isHalfBet = correctBets.half.find((correctBet) => correctBet === loggedUserBets.value) !== undefined;
+    }
 
     setInterval(() => {
         setCurrentTimestamp(Date.now());
@@ -26,11 +36,12 @@ const Match = ({
         [styles.notStarted]: currentTimestamp < timestamp, // not started
         [styles.started]: currentTimestamp >= timestamp, // has started
         [styles.ended]: currentTimestamp >= timestamp && status === 'final', // match has ended
-
     });
 
     const borderClass = classNames({
-        [styles.greenBorder]: currentTimestamp >= timestamp, // bullseye
+        [styles.greenBorder]: isBullseyeBet && currentTimestamp >= timestamp, // bullseye
+        [styles.blueBorder]: isHalfBet && currentTimestamp >= timestamp, // bullseye
+        [styles.redBorder]: !isBullseyeBet && !isHalfBet && currentTimestamp >= timestamp, // bullseye
     });
 
     const renderTime = () => {
@@ -54,10 +65,10 @@ const Match = ({
                 <div className={matchStatusClass}>
                     <div className={`${styles.quarter} ${borderClass}`}>
                         1Q
-                </div>
+                    </div>
                     <div className={styles.timeLeft}>
                         9:18
-                </div>
+                    </div>
                 </div>
             );
         }
@@ -65,51 +76,12 @@ const Match = ({
 
     const renderTeams = () => {
         return (
-            <>
+            <div className={styles.teamsContainer}>
                 <Team {...away} isExpanded={isExpanded} />
                 <Team {...home} isExpanded={isExpanded} />
-            </>
-        )
-    };
-
-    const renderExpandedTeams = () => {
-        return (
-            <div className={styles.teamsContainer}>
-                {renderTeams()}
             </div>
         )
     };
-
-    const renderBets = () => {
-        return (
-            <div className={styles.betContainer}>
-                <div className={styles.column}>
-                    <div className={styles.header}>
-                        Fácil
-                    </div>
-                    <p>Felipe</p>
-                </div>
-                <div className={styles.column}>
-                    <div className={styles.header}>
-                        Difícil
-                    </div>
-                    <p>Motta</p>
-                </div>
-                <div className={styles.column}>
-                    <div className={styles.header}>
-                        Difícil
-                    </div>
-                    <p>Thigo</p>
-                </div>
-                <div className={styles.column}>
-                    <div className={styles.header}>
-                        Fácil
-                    </div>
-                    <p>Phetor</p>
-                </div>
-            </div>
-        )
-    }
 
     const timeClass = classNames(
         [styles.time], {
@@ -127,8 +99,14 @@ const Match = ({
             <div className={timeClass}>
                 {renderTime()}
             </div>
-            {isExpanded ? renderExpandedTeams() : renderTeams()}
-            {isExpanded && renderBets()}
+            {renderTeams()}
+            {isExpanded
+                && <Bets
+                    bets={bets}
+                    correctBets={correctBets}
+                    loggedUserBets={loggedUserBets}
+                />
+            }
         </div>
     );
 };

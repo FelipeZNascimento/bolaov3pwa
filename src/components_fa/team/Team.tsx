@@ -25,12 +25,17 @@ const Team = ({
     });
 
     return (
-        <div className={containerClass} style={{ backgroundColor: background, color: foreground }}>
+        <div className={containerClass} style={{
+            backgroundColor: background,
+            color: foreground
+        }}>
             <div className={styles.logoContainer}>
                 <img className={styles.logo} alt="logo" src={`/team_logos_std/${id}.gif`} />
             </div>
             <div className={styles.nameContainer}>
-                <div className={styles.name}>
+                <div className={styles.name} style={{
+                    textShadow: `-1px 0 ${background}, 0 1px ${background}, 1px 0 ${background}, 0 -1px ${background}`
+                }}>
                     {isExpanded && !isMobile ? name : code}
                 </div>
                 <div className={styles.score}>

@@ -10,11 +10,13 @@
     @include marged(bottom, xl);
 
     cursor: pointer;
+    display: flex;
     flex-direction: row;
     min-height: $matchContainerHeight;
     opacity: 0.8;
     transition: 0.4s;
-    width: 800px;
+    max-width: 1000px;
+    width: 100%;
 
     &Mobile {
         @extend .container;
@@ -29,17 +31,18 @@
     }
 
     &Expanded {
+        @include shadowed(0.5);
         @extend .container;
-        display: flex;
+
         flex-direction: column;
         min-height: calc(#{$matchContainerHeight} * 2);
-
-        width: 100%;
+        opacity: 1;
     }
 
     .teamsContainer {
         display: flex;
         flex-direction: row;
+        flex: 2;
         width: 100%;
     }
 }
@@ -102,41 +105,15 @@
     }
 }
 
-.betContainer {
-    @include bg-rgba-colored($color-grey1, 0.1);
-    @include font-colored($color-grey1);
-    @include shadowed(0.5);
-
-    display: flex;
-    width: 100%;
-
-    .column {
-        @include flex-aligned(flex-start, center);
-        flex: 1;
-        flex-direction: column;
-        width: 100%;
-
-        div, p {
-            @include aligned(left);
-            @include padded(all, s);
-            width: 100%;
-        }
-        .header {
-            @include bg-rgba-colored($color-navy, 0.5);
-            
-        }
-    }
-}
-
 .greenBorder {
     -webkit-box-shadow: inset 10px 0px 0px 0px $color-mint;
     box-shadow: inset 10px 0px 0px 0px $color-mint;
 }
 .blueBorder {
-    -webkit-box-shadow: -10px 0px 0px 0px $color-blue;
-    box-shadow: -10px 0px 0px 0px $color-blue;
+    -webkit-box-shadow: inset 10px 0px 0px 0px $color-blue;
+    box-shadow: inset 10px 0px 0px 0px $color-blue;
 }
 .redBorder {
-    -webkit-box-shadow: -10px 0px 0px 0px $color-red;
-    box-shadow: -10px 0px 0px 0px $color-red;
+    -webkit-box-shadow: inset 10px 0px 0px 0px $color-red;
+    box-shadow: inset 10px 0px 0px 0px $color-red;
 }

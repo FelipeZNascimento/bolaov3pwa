@@ -10,7 +10,7 @@ const Startup = (props: any) => {
 
     useEffect(() => {
         dispatch(fetchDefaultConfig());
-        loadCSS("https://use.fontawesome.com/releases/v5.1.0/css/all.css");
+        loadCSS("https://use.fontawesome.com/releases/v5.15.0/css/all.css");
     }, [dispatch]);
 
     return props.children;

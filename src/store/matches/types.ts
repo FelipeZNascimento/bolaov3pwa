@@ -4,14 +4,15 @@ export type TState = {
     error: boolean;
     errorMessage: string;
     loading: boolean;
+    week: null | number;
     matches: TMatch[];
 };
 
 export type TAction = {
     type: string;
     response?: {
-        season: number;
-        week: number;
+        season: string;
+        week: string;
         matches: TMatch[];
     };
     errorMessage?: string;
@@ -28,12 +29,26 @@ export type TMatchTeam = {
     foreground: string;
 }
 
+export type TMatchBet = {
+    id: number;
+    matchId: number;
+    value: number;
+    user: {
+        color: string;
+        icon: string;
+        id: number;
+        name: string;
+    }
+}
+
 export type TMatch = {
     id: number;
     timestamp: number;
     status: string;
     away: TMatchTeam;
     home: TMatchTeam;
+    bets: TMatchBet[];
+    loggedUserBets?: TMatchBet | null;
 };
 
 export type TFetchMatches = TAction & {
@@ -41,5 +56,9 @@ export type TFetchMatches = TAction & {
     | typeof ACTIONTYPES.FETCHING_MATCHES_SUCCESS
     | typeof ACTIONTYPES.FETCHING_MATCHES_ERROR
     | typeof ACTIONTYPES.TOGGLE_NOTIFICATION;
-    readonly matches?: TMatch[];
+    readonly response?: {
+        season: string;
+        week: string;
+        matches: TMatch[];
+    };
 };

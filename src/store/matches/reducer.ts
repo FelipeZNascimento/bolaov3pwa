@@ -5,6 +5,7 @@ const initialState: TState = {
     error: false,
     errorMessage: '',
     loading: false,
+    week: null,
     matches: []
 };
 
@@ -26,7 +27,8 @@ export default function matchesReducer(
                 loading: false,
                 errorMessage: '',
                 error: false,
-                matches: action.response?.matches
+                matches: action.response?.matches,
+                week: action.response? parseInt(action.response.week) : null
             };
         default:
             return state;
