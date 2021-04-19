@@ -1,0 +1,78 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.container {
+    @include bg-rgba-colored($color-grey1, 0.1);
+    @include font-colored($color-grey1);
+
+    display: flex;
+    transition: 0.6s;
+    width: 100%;
+
+    .column {
+        @include flex-aligned(flex-start, center);
+
+        flex: 1;
+        flex-direction: column;
+        width: 100%;
+
+        &Bullseye {
+            @extend .column;
+            @include bg-rgba-colored($color-grey1, 0.1);
+        }
+
+        div,
+        p {
+            @include aligned(left);
+            @include padded(all, s);
+            width: 100%;
+        }
+
+        .header {
+            @include bg-rgba-colored($color-navy, 0.5);
+            @include flex-aligned(center, center);
+            font-weight: bold;
+
+            &Bullseye {
+                @extend .header;
+                @include font-colored($color-mint);
+            }
+
+            &Half {
+                @extend .header;
+                @include font-colored($color-sky);
+            }
+
+            &Zero {
+                @extend .header;
+                @include font-colored($color-red);
+            }
+        }
+
+        .betLine {
+            @include marged(all, none);
+            @include font-sized(m);
+
+            display: flex;
+            min-height: 36px;
+
+            .iconClass {
+                flex: 1;
+                height: inherit !important;
+                width: auto !important;
+            }
+            .userName {
+                @include flex-aligned(flex-start, center);
+                flex: 3;
+            }
+        }
+
+        .betLine:nth-child(odd) {
+            @include bg-rgba-colored($color-black, 0.1);
+        }
+    }
+}

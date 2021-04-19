@@ -123,7 +123,7 @@ const Menu = () => {
 
 
         const buttonIcon = loggedUser
-            ? <Icon className={`${loggedUser.icon} ${styles.icon}`} style={{ color: loggedUser.color }} />
+            ? <Icon className={loggedUser.icon} style={{ color: loggedUser.color }} />
             : <PersonIcon />;
 
         return (
