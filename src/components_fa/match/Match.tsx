@@ -23,7 +23,7 @@ const Match = ({
     const correctBets = calculateCorrectBets(away.score, home.score);
 
     let isBullseyeBet, isHalfBet = false;
-    if(loggedUserBets) {
+    if (loggedUserBets) {
         isBullseyeBet = correctBets.bullseye.find((correctBet) => correctBet === loggedUserBets.value) !== undefined;
         isHalfBet = correctBets.half.find((correctBet) => correctBet === loggedUserBets.value) !== undefined;
     }
@@ -51,12 +51,12 @@ const Match = ({
 
         // if match hasn't started
         if (currentTimestamp < timestamp) {
-            return <div className={`${matchStatusClass} ${borderClass}`}>{date}</div>
+            return <div className={`${matchStatusClass} ${borderClass}`} style={{ background: `url(/match_layer.png), #9da4a7` }}>{date}</div>
         }
 
         // if match has ended
         if (currentTimestamp >= timestamp && status === 'final') {
-            return <div className={`${matchStatusClass} ${borderClass}`}>Encerrado</div>;
+            return <div className={`${matchStatusClass} ${borderClass}`} style={{ background: `url(/match_layer.png), #9da4a7` }}>Encerrado</div>;
         }
 
         // if match has started

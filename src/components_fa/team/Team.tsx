@@ -26,8 +26,8 @@ const Team = ({
 
     return (
         <div className={containerClass} style={{
-            backgroundColor: background,
-            color: foreground
+            color: foreground,
+            background: `url(/match_layer.png) ${background}`
         }}>
             <div className={styles.logoContainer}>
                 <img className={styles.logo} alt="logo" src={`/team_logos_std/${id}.gif`} />

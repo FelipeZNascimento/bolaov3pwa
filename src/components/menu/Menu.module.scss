@@ -7,7 +7,7 @@
 
 .container {
     @include bg-colored($color-menu);
-    @include padded(all, l);
+    @include padded(all, s);
     @include shadowed(0.4);
 
     font-variant: small-caps;
@@ -50,23 +50,18 @@
 
     flex: 0;
     transition: min-width 0.8s;
-
-    & div {
-        @include marged(left, xs);
-        @include marged(right, xs);
-    }
 }
 
 .menuIcon {
     @include font-colored($color-grey3);
+    display: flex;
+
 }
 
 .button {
     @include flex-aligned(flex-start, center);
 
-    @include padded(top, s);
     @include padded(right, l);
-    @include padded(bottom, s);
     @include padded(left, l);
 
     cursor: pointer;

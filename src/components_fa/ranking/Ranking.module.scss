@@ -1,0 +1,90 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.container {
+    @include padded(all, xl);
+    @include flex-aligned(center, flex-start);
+
+    flex: 1;
+    position: relative;
+
+    .fixed {
+        @include bg-rgba-colored($color-grey1, 0.1);
+        @include padded(all, m);
+        @include marged(bottom, m);
+
+        display: flex;
+        flex-direction: column;
+        height: calc(80vh);
+        overflow-y: none;
+        position: fixed;
+        width: 33%;
+    }
+}
+
+.title {
+    @include font-sized(l);
+    @include font-colored($color-grey1);
+    @include padded(all, none);
+    @include marged(all, none);
+
+    flex: 0;
+}
+
+.lineContainer {
+    @include marged(top, m);
+    @include font-colored($color-grey3);
+
+    flex: 1;
+    overflow-y: hidden;
+}
+
+.header {
+    @include flex-aligned(flex-start, center);
+    @include font-colored($color-grey2);
+    font-weight: bold;
+
+    min-height: 36px;
+    transition: 0.2s;
+
+    div {
+        @include padded(left, s);
+    }
+
+    span {
+        text-decoration: underline;
+    }
+}
+
+.rankingLine {
+    @include flex-aligned(flex-start, center);
+
+    display: flex;
+    min-height: 36px;
+    transition: 0.2s;
+
+    div {
+        @include padded(left, s);
+    }
+
+    &:hover {
+        @include font-colored($color-grey1);
+        @include bg-rgba-colored($color-black, 0.1);
+    }
+}
+
+.icon,
+.position,
+.points {
+    @include aligned(left);
+    flex: 1;
+}
+
+.name {
+    @include aligned(left);
+    flex: 2;
+}

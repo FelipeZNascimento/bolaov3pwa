@@ -22,7 +22,6 @@
         @extend .container;
 
         flex-direction: column;
-        min-height: calc(#{$matchContainerHeight} * 3);
         width: 100%;
     }
 
@@ -73,7 +72,6 @@
     }
 
     .ended {
-        @include bg-colored($color-grey3);
         @include flex-aligned(center, center);
 
         height: $matchContainerHeight;
