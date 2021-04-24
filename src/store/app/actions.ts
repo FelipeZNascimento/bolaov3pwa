@@ -1,10 +1,15 @@
 import { Dispatch } from 'react';
 import * as ACTIONTYPES from 'store/actiontypes';
 import fetchItems from 'services/dataGetters';
-import { config as configEndpoint } from 'services/endpoints';
+import {
+    config as configEndpoint,
+    ranking as rankingEndpoint,
+} from 'services/endpoints';
+
 
 import {
     TFetchConfig,
+    TFetchRanking,
     TSetWeek
 } from './types';
 
@@ -22,6 +27,28 @@ export const fetchDefaultConfig = () => async (dispatch: Dispatch<TFetchConfig>)
         .catch((error) => {
             dispatch({
                 type: ACTIONTYPES.FETCHING_CONFIG_ERROR,
+                errorMessage: error.message
+            });
+            return dispatch({
+                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                errorMessage: error.message
+            });
+        })
+};
+
+export const fetchRanking = (season: number, week: number) => async (dispatch: Dispatch<TFetchRanking>) => {
+    dispatch({ type: ACTIONTYPES.FETCHING_RANKING } as const);
+
+    fetchItems({ endpoint: rankingEndpoint(season, week) })
+        .then((response) => {
+            return dispatch({
+                type: ACTIONTYPES.FETCHING_RANKING_SUCCESS,
+                ranking: response.users
+            });
+        })
+        .catch((error) => {
+            dispatch({
+                type: ACTIONTYPES.FETCHING_RANKING_ERROR,
                 errorMessage: error.message
             });
             return dispatch({

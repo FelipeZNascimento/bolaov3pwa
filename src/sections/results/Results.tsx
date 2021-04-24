@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isMobile } from "react-device-detect";
 import { useParams } from 'react-router';
 
-import { Loading, Match, WeekPagination } from 'components_fa/index'
+import { Loading, Match, Ranking, WeekPagination } from 'components_fa/index'
 import styles from './Results.module.scss';
 import ROUTES from 'constants/routes';
 
@@ -39,6 +39,14 @@ const Results = () => {
         dispatch(setCurrentWeek(newWeek));
     };
 
+    const renderRanking = () => {
+        if (isMobile) {
+            return null
+        };
+
+        return <Ranking />;
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.matchesContainer}>
@@ -46,10 +54,7 @@ const Results = () => {
                 {isLoading && <Loading />}
                 {!isLoading && matches.map((match) => <Match {...match} />)}
             </div>
-            {!isMobile
-                && <div className={styles.rankingContainer}>
-                    Ranking
-            </div>}
+            {renderRanking()}
         </div>
     );
 };
