@@ -4,6 +4,7 @@ import fetchItems from 'services/dataGetters';
 import {
     config as configEndpoint,
     ranking as rankingEndpoint,
+    seasonRanking as seasonRankingEndpoint,
 } from 'services/endpoints';
 
 
@@ -49,6 +50,28 @@ export const fetchRanking = (season: number, week: number) => async (dispatch: D
         .catch((error) => {
             dispatch({
                 type: ACTIONTYPES.FETCHING_RANKING_ERROR,
+                errorMessage: error.message
+            });
+            return dispatch({
+                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                errorMessage: error.message
+            });
+        })
+};
+
+export const fetchSeasonRanking = (season: number) => async (dispatch: Dispatch<TFetchRanking>) => {
+    dispatch({ type: ACTIONTYPES.FETCHING_SEASON_RANKING } as const);
+
+    fetchItems({ endpoint: seasonRankingEndpoint(season) })
+        .then((response) => {
+            return dispatch({
+                type: ACTIONTYPES.FETCHING_SEASON_RANKING_SUCCESS,
+                ranking: response.users
+            });
+        })
+        .catch((error) => {
+            dispatch({
+                type: ACTIONTYPES.FETCHING_SEASON_RANKING_ERROR,
                 errorMessage: error.message
             });
             return dispatch({

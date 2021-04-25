@@ -7,3 +7,4 @@ export const login = () => `${apiBaseUrl}login/`;
 export const logout = () => `${apiBaseUrl}logout/`;
 export const matches = (season: number, week: number) => `${apiBaseUrl}matches/${season}/${week}`;
 export const ranking = (season: number, week: number) => `${apiBaseUrl}ranking/${season}/${week}`;
+export const seasonRanking = (season: number) => `${apiBaseUrl}ranking/season/${season}`;

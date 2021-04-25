@@ -8,6 +8,7 @@ export type TState = {
     currentSeason: number | null;
     currentWeek: number | null;
     ranking: TRankingLine[];
+    seasonRanking: TRankingLine[];
 };
 
 type TConfig = {
@@ -24,6 +25,7 @@ export type TRankingLine = {
     totalPercentage: number;
     totalPoints: number;
     totalWinners: number;
+    totalExtras?: number;
 }
 
 export type TAction = {
@@ -46,8 +48,11 @@ export type TFetchRanking = TAction & {
     readonly type: typeof ACTIONTYPES.FETCHING_RANKING
     | typeof ACTIONTYPES.FETCHING_RANKING_SUCCESS
     | typeof ACTIONTYPES.FETCHING_RANKING_ERROR
+    | typeof ACTIONTYPES.FETCHING_SEASON_RANKING
+    | typeof ACTIONTYPES.FETCHING_SEASON_RANKING_SUCCESS
+    | typeof ACTIONTYPES.FETCHING_SEASON_RANKING_ERROR
     | typeof ACTIONTYPES.TOGGLE_NOTIFICATION;
-    readonly response?: TConfig;
+    readonly response?: TRankingLine[];
 };
 
 export type TSetWeek = TAction & {

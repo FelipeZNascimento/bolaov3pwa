@@ -15,3 +15,7 @@ export function selectCurrentWeek(state: { app: TState }) {
 export function selectRanking(state: { app: TState }) {
     return state.app.ranking;
 }
+
+export function selectSeasonRanking(state: { app: TState }) {
+    return state.app.seasonRanking;
+}
