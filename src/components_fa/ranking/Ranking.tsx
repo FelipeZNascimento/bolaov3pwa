@@ -1,23 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SimpleBar from 'simplebar-react';
 import classNames from 'classnames';
 
 import { Loading } from 'components_fa/index'
 import {
+    Button,
     Icon,
     Tooltip
 } from '@material-ui/core';
 
 // Actions
-import { fetchRanking } from 'store/app/actions';
+import {
+    fetchRanking,
+    fetchSeasonRanking
+} from 'store/app/actions';
 
 // Selectors
 import {
     selectCurrentWeek,
     selectCurrentSeason,
     selectIsLoading,
-    selectRanking
+    selectRanking,
+    selectSeasonRanking
 } from 'store/app/selector';
 
 import {
@@ -28,10 +33,13 @@ import styles from './Ranking.module.scss';
 import 'simplebar/dist/simplebar.min.css';
 
 const Ranking = () => {
+    const [showSeasonRanking, setShowSeasonRanking] = useState<boolean>(false);
+
     const dispatch = useDispatch();
     const currentWeek = useSelector(selectCurrentWeek);
     const currentSeason = useSelector(selectCurrentSeason);
     const ranking = useSelector(selectRanking);
+    const seasonRanking = useSelector(selectSeasonRanking);
     const isLoading = useSelector(selectIsLoading);
 
     useEffect(() => {
@@ -39,6 +47,12 @@ const Ranking = () => {
             dispatch(fetchRanking(currentSeason, currentWeek));
         }
     }, [currentSeason, currentWeek, dispatch]);
+
+    useEffect(() => {
+        if (currentSeason !== null) {
+            dispatch(fetchSeasonRanking(currentSeason));
+        }
+    }, [currentSeason, dispatch]);
 
     const renderRankingLine = (rankingLine: TRankingLine, index: number) => {
         const positionClass = classNames(styles.position, {
@@ -68,14 +82,35 @@ const Ranking = () => {
                 <div className={styles.points}>
                     {rankingLine.totalPercentage}
                 </div>
+                {showSeasonRanking
+                    && <div className={styles.points}>
+                        {rankingLine.totalExtras}
+                    </div>
+                }
             </div>
         )
     }
 
+    const activeRanking = showSeasonRanking ? seasonRanking : ranking;
     return (
         <div className={styles.container}>
             <div className={styles.fixed}>
-                <div className={styles.title}>Semana {currentWeek}</div>
+                <div className={styles.title}>
+                    <Button
+                        classes={{ root: `${showSeasonRanking ? styles.buttonActive : styles.button}` }}
+                        variant="outlined"
+                        onClick={() => setShowSeasonRanking(true)}
+                    >
+                        Geral
+                    </Button>
+                    <Button
+                        classes={{ root: `${!showSeasonRanking ? styles.buttonActive : styles.button}` }}
+                        variant="outlined"
+                        onClick={() => setShowSeasonRanking(false)}
+                    >
+                        Semana {currentWeek}
+                    </Button>
+                </div>
                 <div className={styles.header}>
                     <div className={styles.position}>&nbsp;</div>
                     <div className={styles.icon}>&nbsp;</div>
@@ -92,11 +127,17 @@ const Ranking = () => {
                     <div className={styles.points}>
                         <Tooltip title="Aproveitamento de pontos" arrow><span>%</span></Tooltip>
                     </div>
+                    {showSeasonRanking
+                        && <div className={styles.points}>
+                        <Tooltip title="Pontos extras" arrow><span className="color-purple">PE</span></Tooltip>
+                    </div>
+                    }
+
                 </div>
                 <div className={styles.lineContainer}>
                     {isLoading && <Loading />}
                     {!isLoading && <SimpleBar style={{ maxHeight: '100%' }}>
-                        {ranking && ranking.map((rankingLine, index) => renderRankingLine(rankingLine, index))}
+                        {activeRanking && activeRanking.map((rankingLine, index) => renderRankingLine(rankingLine, index))}
                     </SimpleBar>}
                 </div>
             </div>

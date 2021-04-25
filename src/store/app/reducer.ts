@@ -8,7 +8,8 @@ const initialState: TState = {
     isNotificationOpen: false,
     currentSeason: null,
     currentWeek: null,
-    ranking: []
+    ranking: [],
+    seasonRanking: [],
 };
 
 export default function appReducer(state = initialState, action: TAction) {
@@ -26,6 +27,7 @@ export default function appReducer(state = initialState, action: TAction) {
                 currentWeek: action.week
             };
         case ACTIONTYPES.FETCHING_RANKING:
+        case ACTIONTYPES.FETCHING_SEASON_RANKING:
         case ACTIONTYPES.FETCHING_CONFIG:
             return {
                 ...state,
@@ -50,6 +52,15 @@ export default function appReducer(state = initialState, action: TAction) {
                 errorMessage: '',
                 error: false,
                 ranking: action.ranking
+            };
+
+        case ACTIONTYPES.FETCHING_SEASON_RANKING_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                errorMessage: '',
+                error: false,
+                seasonRanking: action.ranking
             };
 
         default:

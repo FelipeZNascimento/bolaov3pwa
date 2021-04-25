@@ -32,7 +32,27 @@
     @include padded(all, none);
     @include marged(all, none);
 
+    display: flex;
     flex: 0;
+
+    .button {
+        @include marged(all, m);
+        @include font-sized(m);
+        @include font-colored($color-grey3);
+
+        font-weight: bold;
+        flex: 1;
+        transition: 0.4s;
+
+        &Active {
+            @extend .button;
+            @include font-colored($color-gold);
+        }
+
+        &:hover {
+            @include font-colored($color-grey1);
+        }
+    }
 }
 
 .lineContainer {
