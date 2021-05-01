@@ -1,33 +1,25 @@
-.App {
-  text-align: center;
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.container {
+	@include flex-aligned(center, center);
+
+	flex: 1;
+	flex-direction: column;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+.buttonsContainer {
+	@include flex-aligned(center, center);
+	@include padded(all, xl);
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+	flex: 1;
+	flex-wrap: wrap;
 
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+	a {
+		text-decoration: none;
+	}
 }

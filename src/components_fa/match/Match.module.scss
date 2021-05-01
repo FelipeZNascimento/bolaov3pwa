@@ -104,14 +104,30 @@
 }
 
 .greenBorder {
-    -webkit-box-shadow: inset 10px 0px 0px 0px $color-mint;
-    box-shadow: inset 10px 0px 0px 0px $color-mint;
+    -webkit-box-shadow: 0 -2px 0px 0px $color-mint;
+    box-shadow: 0 -2px 0px 0px $color-mint;
+
+    &:hover {
+        -webkit-box-shadow: 0 -4px 0px 0px $color-mint;
+        box-shadow: 0 -4px 0px 0px $color-mint;
+    }
 }
 .blueBorder {
-    -webkit-box-shadow: inset 10px 0px 0px 0px $color-blue;
-    box-shadow: inset 10px 0px 0px 0px $color-blue;
+    -webkit-box-shadow: 0 -2px 0px 0px $color-blue;
+    box-shadow: 0 -2px 0px 0px $color-blue;
+
+    &:hover {
+        -webkit-box-shadow: 0 -4px 0px 0px $color-blue;
+        box-shadow: 0 -4px 0px 0px $color-blue;
+    }
 }
 .redBorder {
-    -webkit-box-shadow: inset 10px 0px 0px 0px $color-red;
-    box-shadow: inset 10px 0px 0px 0px $color-red;
+    -webkit-box-shadow: 0 -2px 0px 0px $color-red;
+    box-shadow: 0 -2px 0px 0px $color-red;
+
+    &:hover {
+        -webkit-box-shadow: 0 -4px 0px 0px $color-red;
+        box-shadow: 0 -4px 0px 0px $color-red;
+    }
+
 }

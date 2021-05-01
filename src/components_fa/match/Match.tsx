@@ -9,6 +9,8 @@ import { TMatch } from 'store/matches/types';
 import { calculateCorrectBets } from 'constants/bets';
 import styles from './Match.module.scss';
 
+type TProps = TMatch;
+
 const Match = ({
     away,
     bets,
@@ -17,7 +19,7 @@ const Match = ({
     id,
     status,
     timestamp,
-}: TMatch) => {
+}: TProps) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [currentTimestamp, setCurrentTimestamp] = useState(DateTime.now().toMillis());
     const correctBets = calculateCorrectBets(away.score, home.score);
@@ -39,9 +41,9 @@ const Match = ({
     });
 
     const borderClass = classNames({
-        [styles.greenBorder]: isBullseyeBet && currentTimestamp >= timestamp, // bullseye
-        [styles.blueBorder]: isHalfBet && currentTimestamp >= timestamp, // bullseye
-        [styles.redBorder]: !isBullseyeBet && !isHalfBet && currentTimestamp >= timestamp, // bullseye
+        [styles.greenBorder]: loggedUserBets && isBullseyeBet && currentTimestamp >= timestamp, // bullseye
+        [styles.blueBorder]: loggedUserBets && isHalfBet && currentTimestamp >= timestamp, // bullseye
+        [styles.redBorder]: loggedUserBets && !isBullseyeBet && !isHalfBet && currentTimestamp >= timestamp, // bullseye
     });
 
     const renderTime = () => {
@@ -51,19 +53,19 @@ const Match = ({
 
         // if match hasn't started
         if (currentTimestamp < timestamp) {
-            return <div className={`${matchStatusClass} ${borderClass}`} style={{ background: `url(/match_layer.png), #9da4a7` }}>{date}</div>
+            return <div className={`${matchStatusClass}`} style={{ background: `url(/match_layer.png), #9da4a7` }}>{date}</div>
         }
 
         // if match has ended
         if (currentTimestamp >= timestamp && status === 'final') {
-            return <div className={`${matchStatusClass} ${borderClass}`} style={{ background: `url(/match_layer.png), #9da4a7` }}>Encerrado</div>;
+            return <div className={`${matchStatusClass}`} style={{ background: `url(/match_layer.png), #9da4a7` }}>Encerrado</div>;
         }
 
         // if match has started
         if (currentTimestamp >= timestamp) {
             return (
                 <div className={matchStatusClass}>
-                    <div className={`${styles.quarter} ${borderClass}`}>
+                    <div className={`${styles.quarter}`}>
                         1Q
                     </div>
                     <div className={styles.timeLeft}>
@@ -88,7 +90,7 @@ const Match = ({
         [styles.timeMobile]: isMobile,
     });
 
-    const containerClass = classNames({
+    const containerClass = classNames(borderClass, {
         [styles.container]: !isExpanded && !isMobile,
         [styles.containerMobile]: isMobile,
         [styles.containerExpanded]: isExpanded,
@@ -100,7 +102,7 @@ const Match = ({
                 {renderTime()}
             </div>
             {renderTeams()}
-            {isExpanded
+            {isExpanded && bets
                 && <Bets
                     bets={bets}
                     correctBets={correctBets}
