@@ -76,6 +76,14 @@
         @include font-colored($color-gold);
     }
 
+    &Disabled {
+        @include font-colored($color-grey5);
+        cursor: default;
+        &:hover {
+            @include font-colored($color-grey5);
+        }
+    }
+
     &:hover .image {
         opacity: 1;
         animation: headbutt 2s ease-in forwards;

@@ -6,7 +6,10 @@ import { isMobile } from "react-device-detect";
 import classNames from 'classnames';
 
 // Selectors
-import { selectIsLoading as selectIsLoadingLogin, selectUser } from 'store/user/selector';
+import {
+    selectIsLoading as selectIsLoadingLogin,
+    selectUser
+} from 'store/user/selector';
 
 // Components
 import Login from './components/Login';
@@ -55,11 +58,13 @@ const Menu = () => {
         },
         {
             display: ROUTES.BETS.display,
-            route: ROUTES.BETS.url
+            route: ROUTES.BETS.url,
+            disabled: loggedUser ? false : true
         },
         {
             display: ROUTES.EXTRAS.display,
-            route: ROUTES.EXTRAS.url
+            route: ROUTES.EXTRAS.url,
+            disabled: loggedUser ? false : true
         },
         {
             display: ROUTES.RECORDS.display,
@@ -121,7 +126,6 @@ const Menu = () => {
             [styles.button]: !isMobile
         });
 
-
         const buttonIcon = loggedUser
             ? <Icon className={loggedUser.icon} style={{ color: loggedUser.color }} />
             : <PersonIcon />;
@@ -143,19 +147,29 @@ const Menu = () => {
     const renderButton = (item: TMenuButton) => {
         const buttonClass = classNames(
             [styles.button], {
-            [styles.buttonSelected]: pathname !== '/' ? pathname.includes(item.route) : pathname === item.route
+            [styles.buttonSelected]: pathname !== '/' ? pathname.includes(item.route) : pathname === item.route,
+            [styles.buttonDisabled]: item.disabled,
+
         });
 
         const textClass = classNames({
             [styles.textAnimation]: item.display === ROUTES.HOME.display && !isMobile
         });
 
+        const renderButtonContent = () => (
+            <div className={buttonClass} onClick={() => setMobileMenuOpen(false)}>
+                {item.display === ROUTES.HOME.display && !isMobile && <img className={styles.image} alt="logo" src={logo} />}
+                <span className={textClass}>{item.display}</span>
+            </div>
+        );
+
+        if (item.disabled) {
+            return renderButtonContent();
+        }
+
         return (
             <Link to={item.route}>
-                <div className={buttonClass} onClick={() => setMobileMenuOpen(false)}>
-                    {item.display === ROUTES.HOME.display && !isMobile && <img className={styles.image} alt="logo" src={logo} />}
-                    <span className={textClass}>{item.display}</span>
-                </div>
+                {renderButtonContent()}
             </Link>
         );
     };
