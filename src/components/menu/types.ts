@@ -1,4 +1,6 @@
 export type TMenuButton = {
+    description?: string;
+    disabled?: boolean;
     display: string;
     route: string;
 };

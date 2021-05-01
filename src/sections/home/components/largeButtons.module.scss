@@ -1,0 +1,63 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.container {
+    @include bg-colored($color-menu);
+    @include flex-aligned(center, center);
+    @include font-colored($color-grey3);
+
+    cursor: pointer;
+    flex-direction: column;
+    transition: 0.6s;
+    
+    &:hover {
+        @include shadowed(0.5);
+        @include font-colored($color-grey1);
+    }
+
+    p {
+        @include marged(all, none);
+        @include padded(all, none);
+    }
+
+    &Standard {
+        @extend .container;
+        @include marged(all, xl);
+        @include padded(all, m);
+
+        height: 250px;
+        width: 300px;
+    }
+
+    &Mobile {
+        @extend .container;
+        @include marged(all, s);
+        @include padded(all, none);
+
+        height: 150px;
+        width: 250px;    
+    }
+}
+
+.title {
+    @include font-sized(xl);
+    font-variant: small-caps;
+}
+
+.description {
+    @include font-sized(l);
+}
+
+.disabled {
+    cursor: default;
+    @include font-colored($color-grey5);
+
+    &:hover {
+        @include shadowed(0.0);
+        @include font-colored($color-grey5);
+    }
+}

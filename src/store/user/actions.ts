@@ -50,7 +50,7 @@ export const onLogout = () => async (dispatch: Dispatch<TFetchLogout>) => {
     fetchItems({
         endpoint: logoutEndpoint()
     })
-        .then((response) => {
+        .then(() => {
             return dispatch({
                 type: ACTIONTYPES.FETCHING_LOGOUT_SUCCESS
             });

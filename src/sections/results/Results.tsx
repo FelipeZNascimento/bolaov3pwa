@@ -14,6 +14,7 @@ import { setCurrentWeek } from 'store/app/actions';
 // Selectors
 import { selectIsLoading, selectMatches } from 'store/matches/selector';
 import { selectCurrentWeek, selectCurrentSeason } from 'store/app/selector';
+import { selectUser } from 'store/user/selector';
 
 const Results = () => {
     const dispatch = useDispatch();
@@ -23,6 +24,7 @@ const Results = () => {
     const currentSeason = useSelector(selectCurrentSeason);
     const matches = useSelector(selectMatches);
     const isLoading = useSelector(selectIsLoading);
+    const loggedUser = useSelector(selectUser);
 
     useEffect(() => {
         if (currentSeason) {
@@ -33,7 +35,7 @@ const Results = () => {
                 dispatch(fetchMatches(currentSeason, currentWeek));
             }
         }
-    }, [currentSeason, currentWeek, dispatch, week]);
+    }, [currentSeason, currentWeek, loggedUser, dispatch, week]);
 
     const onWeekClick = (newWeek: number) => {
         dispatch(setCurrentWeek(newWeek));

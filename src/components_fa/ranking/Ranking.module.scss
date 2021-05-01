@@ -87,7 +87,7 @@
     min-height: 36px;
     transition: 0.2s;
 
-    div {
+    div, span {
         @include padded(left, s);
     }
 

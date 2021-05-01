@@ -6,7 +6,7 @@ export const ROUTES = {
     BETS: {
         display: 'Apostar',
         url: '/apostar',
-        urlWithParams: (season: number, week: number) => `${ROUTES.BETS.url}/${season}/${week}`
+        urlWithParams: (week: number) => `${ROUTES.BETS.url}/${week}`
     },
     RESULTS: {
         display: 'Resultados',
