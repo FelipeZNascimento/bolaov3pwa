@@ -1,0 +1,47 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.container {
+    @include flex-aligned(flex-start, center);
+    @include font-sized(l);
+    
+    background: url("http://omegafox.me/img/match_layer.png");
+    height: $matchContainerHeight;
+    min-width: calc(#{$matchContainerHeight}*2);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+
+    .nameContainer {
+        @include flex-aligned(center, center);
+        flex: 1;
+    }
+
+    .name {
+        @include flex-aligned(center, center);
+
+        flex: 1;
+        font-weight: bold;
+        height: $matchContainerHeight;
+        min-width: 60px;
+    }
+
+}
+
+.logoContainer {
+    flex: 1;
+
+    .logo {
+        height: 100px;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        width: auto;
+        z-index: -1;
+    }
+}

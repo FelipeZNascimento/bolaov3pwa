@@ -23,8 +23,8 @@ export type TMatchTeam = {
     name: string;
     alias: string;
     code: string;
-    possession: boolean;
-    score: number;
+    possession?: boolean;
+    score?: number;
     background: string;
     foreground: string;
 }

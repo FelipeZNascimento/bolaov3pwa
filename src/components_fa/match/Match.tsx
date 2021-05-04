@@ -22,7 +22,8 @@ const Match = ({
 }: TProps) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [currentTimestamp, setCurrentTimestamp] = useState(DateTime.now().toMillis());
-    const correctBets = calculateCorrectBets(away.score, home.score);
+    
+    const correctBets = calculateCorrectBets(away.score || 0, home.score || 0 );
 
     let isBullseyeBet, isHalfBet = false;
     if (loggedUserBets) {
