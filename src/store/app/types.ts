@@ -9,11 +9,38 @@ export type TState = {
     currentWeek: number | null;
     ranking: TRankingLine[];
     seasonRanking: TRankingLine[];
+    teams: TTeam[];
+    teamsByConferenceAndDivision: TTeams;
 };
+
+export type TTeam = {
+    id: number;
+    name: string;
+    alias: string;
+    conference: string;
+    division: string;
+    code: string;
+    background: string;
+    foreground: string;
+};
+
+export type TConference = {
+    north: TTeam[];
+    east: TTeam[];
+    south: TTeam[];
+    west: TTeam[];
+}
+
+type TTeams = {
+    afc: TConference,
+    nfc: TConference
+}
 
 type TConfig = {
     currentSeason: number;
     currentWeek: number;
+    teamsByConferenceAndDivision: TTeams;
+    teams: TTeam[];
 }
 
 export type TRankingLine = {

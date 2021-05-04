@@ -10,9 +10,27 @@ const initialState: TState = {
     currentWeek: null,
     ranking: [],
     seasonRanking: [],
+    teams: [],
+    teamsByConferenceAndDivision: {
+        afc: {
+            north: [],
+            east: [],
+            south: [],
+            west: [],
+        },
+        nfc: {
+            north: [],
+            east: [],
+            south: [],
+            west: [],
+        }
+    },
 };
 
-export default function appReducer(state = initialState, action: TAction) {
+export default function appReducer(
+    state = initialState,
+    action: TAction
+) {
     switch (action.type) {
         // case ACTIONTYPES.TOGGLE_NOTIFICATION:
         //     return {
@@ -43,6 +61,8 @@ export default function appReducer(state = initialState, action: TAction) {
                 error: false,
                 currentSeason: action.response?.currentSeason,
                 currentWeek: action.response?.currentWeek,
+                teams: action.response?.teams,
+                teamsByConferenceAndDivision: action.response?.teamsByConferenceAndDivision
             };
 
         case ACTIONTYPES.FETCHING_RANKING_SUCCESS:

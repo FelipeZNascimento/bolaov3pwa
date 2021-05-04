@@ -4,6 +4,13 @@ export function selectIsLoading(state: { app: TState }) {
     return state.app.loading;
 }
 
+export function selectTeams(state: { app: TState }) {
+    return state.app.teams;
+}
+export function selectTeamsByConferenceAndDivision(state: { app: TState }) {
+    return state.app.teamsByConferenceAndDivision;
+}
+
 export function selectCurrentSeason(state: { app: TState }) {
     return state.app.currentSeason;
 }
