@@ -57,7 +57,6 @@ const Bets = () => {
         <div className={styles.container}>
             <div className={styles.matchesContainer}>
                 <WeekPagination routeTo={ROUTES.BETS.urlWithParams} onClick={onWeekClick} />
-                {isLoading && <Loading />}
                 {!isMobile && <div className={styles.header}>
                     <div style={{ flex: 2 }}>Visitante</div>
                     <div><Tooltip title="Mais de 7 pontos" placement="top" arrow><span>Fácil</span></Tooltip></div>
@@ -66,6 +65,7 @@ const Bets = () => {
                     <div><Tooltip title="Mais de 7 pontos" placement="top" arrow><span>Fácil</span></Tooltip></div>
                     <div style={{ flex: 2 }}>Casa</div>
                 </div>}
+                {isLoading && <Loading />}
                 {!isLoading && userBets.map((match) => <BettableMatch {...match} />)}
             </div>
             {renderRanking()}

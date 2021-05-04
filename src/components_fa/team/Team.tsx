@@ -38,9 +38,9 @@ const Team = ({
                 }}>
                     {isExpanded && !isMobile ? name : code}
                 </div>
-                <div className={styles.score}>
+                {score !== undefined && <div className={styles.score}>
                     {score}
-                </div>
+                </div>}
             </div>
         </div>
     )

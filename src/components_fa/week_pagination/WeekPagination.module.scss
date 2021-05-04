@@ -84,6 +84,7 @@
     @include font-colored($color-grey3);
     @include padded(all, xs);
 
+    border-radius: 4px;
     flex: 1;
     transition: 0.4s;
 

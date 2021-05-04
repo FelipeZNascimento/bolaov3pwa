@@ -5,6 +5,22 @@ const BETS_VALUES = {
     HOME_EASY: 3,
 };
 
+const EXTRA_BETS_VALUES = {
+    SUPERBOWL: 1,
+    AFC: 2,
+    AFC_NORTH: 3,
+    AFC_SOUTH: 4,
+    AFC_EAST: 5,
+    AFC_WEST: 6,
+    NFC: 7,
+    NFC_NORTH: 8,
+    NFC_SOUTH: 9,
+    NFC_EAST: 10,
+    NFC_WEST: 11,
+    AFC_WILDCARD: 12,
+    NFC_WILDCARD: 13,
+};
+
 const calculateCorrectBets = (awayScore: number, homeScore: number) => {
     if (awayScore === homeScore) {
         return {
@@ -47,4 +63,4 @@ const calculateCorrectBets = (awayScore: number, homeScore: number) => {
     };
 }
 
-export { calculateCorrectBets, BETS_VALUES };
+export { calculateCorrectBets, BETS_VALUES, EXTRA_BETS_VALUES };

@@ -6,7 +6,9 @@ const initialState: TState = {
     errorMessage: '',
     loading: false,
     week: null,
-    userBets: []
+    userBets: [],
+    extraBetsResults: null,
+    extraBets: [],
 };
 
 export default function betsReducer(
@@ -14,6 +16,7 @@ export default function betsReducer(
     action: TAction
 ) {
     switch (action.type) {
+        case ACTIONTYPES.FETCHING_EXTRA_BETS:
         case ACTIONTYPES.FETCHING_USER_BETS:
             return {
                 ...state,
@@ -29,6 +32,15 @@ export default function betsReducer(
                 error: false,
                 userBets: action.response?.matches,
                 week: action.response? parseInt(action.response.week) : null
+            };
+        case ACTIONTYPES.FETCHING_EXTRA_BETS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                errorMessage: '',
+                error: false,
+                extraBetsResults: action.response?.results,
+                extraBets: action.response?.bets,
             };
         default:
             return state;

@@ -7,3 +7,11 @@ export function selectIsLoading(state: { bets: TState }) {
 export function selectUserBets(state: { bets: TState }) {
     return state.bets.userBets;
 }
+
+export function selectExtraBets(state: { bets: TState }) {
+    return state.bets.extraBets;
+}
+
+export function selectExtraBetsResults(state: { bets: TState }) {
+    return state.bets.extraBetsResults;
+}
