@@ -7,6 +7,8 @@ export type TState = {
     loading: boolean;
     week: null | number;
     userBets: TMatch[];
+    extraBetsResults: TExtraBets | null;
+    extraBets: TUserExtraBets[];
 };
 
 export type TAction = {
@@ -15,6 +17,8 @@ export type TAction = {
         season: string;
         week: string;
         matches: TMatch[];
+        results: TExtraBets | null;
+        bets: TUserExtraBets[];
     };
     errorMessage?: string;
 }
@@ -28,4 +32,50 @@ export type TFetchUserBets = TAction & {
         week: string;
         matches: TMatch[];
     };
+};
+
+export type TFetchExtraBets = TAction & {
+    readonly type: typeof ACTIONTYPES.FETCHING_EXTRA_BETS
+    | typeof ACTIONTYPES.FETCHING_EXTRA_BETS_SUCCESS
+    | typeof ACTIONTYPES.FETCHING_EXTRA_BETS_ERROR
+    | typeof ACTIONTYPES.TOGGLE_NOTIFICATION;
+    readonly response?: {
+        season: string;
+        teams: {
+            afc: TConference;
+            nfc: TConference;
+        };
+        results: TExtraBets;
+        bets: TUserExtraBets[];
+    };
+};
+
+type TTeams = {
+    id: number;
+    name: string;
+    alias: string;
+    conference: string;
+    division: string;
+    code: string;
+    background: string;
+    foreground: string;
+};
+
+type TConference = {
+    north: TTeams[];
+    east: TTeams[];
+    south: TTeams[];
+    west: TTeams[];
+}
+
+type TExtraBets = {
+    [n: string]: number | number[];
+}
+
+export type TUserExtraBets = {
+    userId: number;
+    username: string;
+    icon: string;
+    color: string;
+    bets: TExtraBets;
 };

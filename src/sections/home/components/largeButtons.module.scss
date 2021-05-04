@@ -10,12 +10,13 @@
     @include flex-aligned(center, center);
     @include font-colored($color-grey3);
 
+    border-radius: 4px;
     cursor: pointer;
     flex-direction: column;
-    transition: 0.6s;
+    transition: 0.4s;
     
     &:hover {
-        @include shadowed(0.5);
+        @include shadowed(0.3);
         @include font-colored($color-grey1);
     }
 

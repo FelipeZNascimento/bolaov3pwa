@@ -1,0 +1,173 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.container {
+    @include flex-aligned(center, center);
+
+    flex: 1;
+    flex-direction: column;
+    width: 100%;
+
+    &Standard {
+        @extend .container;
+        @include padded(all, xl);
+    }
+    &Mobile {
+        @extend .container;
+        @include padded(all, none);
+    }
+}
+
+.buttonsContainer {
+    flex: 0;
+
+    .button {
+        @include bg-rgba-colored($color-grey1, 0.1);
+        @include font-colored($color-grey3);
+        @include font-sized(l);
+        @include marged(all, m);
+        @include padded(left, xl);
+        @include padded(right, xl);
+
+        font-weight: bold;
+        flex: 1;
+        transition: 0.4s;
+
+        &Active {
+            @extend .button;
+            @include font-colored($color-gold);
+        }
+
+        &:hover {
+            @include bg-rgba-colored($color-grey1, 0.1);
+            @include font-colored($color-grey1);
+        }
+    }
+}
+
+.divisionsContainer {
+    @include flex-aligned(center, flex-start);
+
+    flex-direction: row;
+    flex: 1;
+    width: 80%;
+
+    &Mobile {
+        width: 100%;
+        flex-direction: column;
+    }
+}
+
+.division {
+    @include marged(all, m);
+    @include font-sized(l);
+    @include font-colored($color-grey1);
+
+    transition: 0.8s;
+
+    &AndBets {
+        @extend .division;
+        flex: 1;
+    }
+
+    .button {
+        @include bg-rgba-colored($color-grey1, 0.1);
+        @include font-colored($color-grey3);
+        @include font-sized(m);
+        @include marged(all, m);
+        @include padded(left, xl);
+        @include padded(right, xl);
+
+        font-weight: bold;
+        flex: 1;
+        transition: 0.4s;
+
+        &Active {
+            @extend .button;
+            @include font-colored($color-gold);
+        }
+
+        &:hover {
+            @include bg-rgba-colored($color-grey1, 0.1);
+            @include font-colored($color-grey1);
+        }
+    }
+}
+
+.teamContainer {
+    @include flex-aligned(flex-start, center);
+    @include marged(all, s);
+    border-radius: 4px;
+    box-sizing: border-box;
+    max-height: $matchContainerHeight;
+    opacity: 0.1;
+    transition: 0.4s;
+
+    &Wildcard {
+        @extend .teamContainer;
+        -webkit-box-shadow: 0px 0px 0px 1px $color-grey3;
+        box-shadow: 0px 0px 0px 1px $color-grey3;
+        opacity: 0.8;
+    }
+    &Winner {
+        @extend .teamContainer;
+        -webkit-box-shadow: 0px 0px 0px 1px $color-gold;
+        box-shadow: 0px 0px 0px 1px $color-gold;
+        opacity: 1;
+    }
+
+    &:hover {
+        opacity: 0.5;
+        -webkit-box-shadow: 0px 0px 0px 1px $color-grey5;
+        box-shadow: 0px 0px 0px 1px $color-grey5;
+    }
+
+    .bets {
+        @include flex-aligned(center, center);
+        flex: 1;
+    }
+}
+
+.extraBets {
+    @include padded(right, xs);
+    transition: 0.6s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    .iconClass {
+        @include marged(left, xs);
+        @include font-sized(s);
+    }
+
+    &None {
+        visibility: hidden;
+        max-height: 0;
+        max-width: 0;
+    }
+}
+
+// .bets {
+//     background-color: white;
+//     @include marged(all, m);
+//     @include font-sized(l);
+//     @include font-colored($color-grey1);
+
+//     flex: 3;
+//     transition: 0.4s;
+// }
+
+.hidden {
+    opacity: 0.05;
+    // visibility: hidden;
+}
+
+.rotated {
+    transform: rotate(90deg);
+}

@@ -32,7 +32,7 @@ const BettableMatch = ({
     timestamp,
 }: TProps) => {
     const [currentTimestamp, setCurrentTimestamp] = useState(DateTime.now().toMillis());
-    const correctBets = calculateCorrectBets(away.score, home.score);
+    const correctBets = calculateCorrectBets(away.score || 0, home.score || 0 );
     const loggedUser = useSelector(selectUser);
 
     let isBullseyeBet, isHalfBet = false;
