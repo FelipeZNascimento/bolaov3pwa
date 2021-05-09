@@ -3,7 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import validateEmail from 'services/helpers';
 
 // Actions
-import { onLogout } from 'store/user/actions';
+import {
+    onLogout,
+    onUpdateUser
+} from 'store/user/actions';
 
 // Selectors
 import { selectUser } from 'store/user/selector';
@@ -48,6 +51,7 @@ const AccountSettings = () => {
                 name: loggedUser.name
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loggedUser]);
 
     const onChange = (e: any) => {
@@ -66,7 +70,13 @@ const AccountSettings = () => {
 
     const onConfirm = () => {
         setInvalidInputs([]);
-        alert('QUE BONITO HEIN');
+        dispatch(onUpdateUser(
+            accountForm.email,
+            accountForm.newPassword,
+            accountForm.password,
+            accountForm.fullName,
+            accountForm.name
+        ));
     };
 
     const isFormValid = () => {

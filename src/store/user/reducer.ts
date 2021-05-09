@@ -23,6 +23,7 @@ export default function matchesReducer(
             };
         case ACTIONTYPES.REGISTERING_SUCCESS:
         case ACTIONTYPES.FETCHING_LOGIN_SUCCESS:
+        case ACTIONTYPES.UPDATING_USER_SUCCESS:
             return {
                 ...state,
                 loading: false,

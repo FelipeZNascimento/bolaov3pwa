@@ -5,8 +5,9 @@ import fetchItems from 'services/dataGetters';
 import postItems from 'services/dataSetters';
 import {
     login as loginEndpoint,
+    logout as logoutEndpoint,
     register as registerEndpoint,
-    logout as logoutEndpoint
+    userUpdate as userUpdateEndpoint,
 } from 'services/endpoints';
 
 import {
@@ -14,6 +15,7 @@ import {
     TFetchLogin,
     TFetchLogout,
     TFetchRegister,
+    TUpdateUser
 } from './types';
 
 export const onLogin = (email: string, password: string) => async (dispatch: Dispatch<TFetchLogin>) => {
@@ -101,6 +103,45 @@ export const onLogout = () => async (dispatch: Dispatch<TFetchLogout>) => {
         .catch((error) => {
             dispatch({
                 type: ACTIONTYPES.FETCHING_LOGOUT_ERROR,
+                errorMessage: error.message
+            });
+            return dispatch({
+                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                errorMessage: error.message
+            });
+        })
+};
+
+export const onUpdateUser = (
+    email: string,
+    newPassword: string,
+    password: string,
+    fullName: string,
+    name: string,
+) => async (dispatch: Dispatch<TUpdateUser>) => {
+    dispatch({ type: ACTIONTYPES.UPDATING_USER } as const);
+
+    const userInfo = {
+        email,
+        newPassword: newPassword ? sha1(newPassword).toString() : null,
+        password: password ? sha1(password).toString() : null,
+        fullName,
+        name
+    };
+
+    postItems({
+        endpoint: userUpdateEndpoint(),
+        body: userInfo
+    })
+        .then((response) => {
+            return dispatch({
+                type: ACTIONTYPES.UPDATING_USER_SUCCESS,
+                response
+            });
+        })
+        .catch((error) => {
+            dispatch({
+                type: ACTIONTYPES.UPDATING_USER_ERROR,
                 errorMessage: error.message
             });
             return dispatch({
