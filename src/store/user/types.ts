@@ -9,11 +9,7 @@ export type TState = {
 
 export type TAction = {
     type: string;
-    //     season: number;
     response?: TUser;
-    //     week: number;
-    //     matches: TMatch[];
-    // };
     errorMessage?: string;
 };
 
@@ -34,9 +30,21 @@ export type TFetchLogin = TAction & {
     readonly user?: TUser;
 };
 
+export type TFetchRegister = TAction & {
+    readonly type: typeof ACTIONTYPES.REGISTERING
+    | typeof ACTIONTYPES.REGISTERING_SUCCESS
+    | typeof ACTIONTYPES.REGISTERING_ERROR
+    | typeof ACTIONTYPES.TOGGLE_NOTIFICATION;
+    readonly user?: TUser;
+};
+
 export type TFetchLogout = TAction & {
     readonly type: typeof ACTIONTYPES.FETCHING_LOGOUT
     | typeof ACTIONTYPES.FETCHING_LOGOUT_SUCCESS
     | typeof ACTIONTYPES.FETCHING_LOGOUT_ERROR
     | typeof ACTIONTYPES.TOGGLE_NOTIFICATION;
 };
+
+export type TClearErrors = TAction & {
+    readonly type: typeof ACTIONTYPES.CLEAR_ERRORS;
+}

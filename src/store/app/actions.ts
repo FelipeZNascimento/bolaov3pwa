@@ -21,41 +21,6 @@ export const fetchDefaultConfig = () => async (dispatch: Dispatch<TFetchConfig>)
 
     fetchItems({ endpoint: configEndpoint() })
         .then((response) => {
-            if (response.teams) {
-                const { teams } = response;
-                const afc: TConference = {
-                    north: [],
-                    east: [],
-                    south: [],
-                    west: []
-                };
-
-                const nfc: TConference = {
-                    north: [],
-                    east: [],
-                    south: [],
-                    west: []
-                };
-
-                teams.forEach((team: TTeam) => {
-                    if (team.conference.toLowerCase() === 'afc') {
-                        const teamDivision = team.division.toLowerCase() as keyof TConference;
-                        afc[teamDivision].push(team);
-                    }
-                    if (team.conference.toLowerCase() === 'nfc') {
-                        const teamDivision = team.division.toLowerCase() as keyof TConference;
-                        nfc[teamDivision].push(team);
-                    }
-                });
-
-                const teamsObject = {
-                    afc,
-                    nfc
-                };
-
-                response.teamsByConferenceAndDivision = teamsObject;
-            }
-
             return dispatch({
                 type: ACTIONTYPES.FETCHING_CONFIG_SUCCESS,
                 response

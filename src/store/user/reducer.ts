@@ -21,6 +21,7 @@ export default function matchesReducer(
                 errorMessage: '',
                 error: false
             };
+        case ACTIONTYPES.REGISTERING_SUCCESS:
         case ACTIONTYPES.FETCHING_LOGIN_SUCCESS:
             return {
                 ...state,
@@ -41,6 +42,20 @@ export default function matchesReducer(
             return {
                 ...state,
                 user: action.response?.loggedUser
+            };
+
+        case ACTIONTYPES.REGISTERING_ERROR:
+        case ACTIONTYPES.FETCHING_LOGIN_ERROR:
+            return {
+                ...state,
+                errorMessage: action.errorMessage,
+                error: true
+            };
+        case ACTIONTYPES.CLEAR_ERRORS:
+            return {
+                ...state,
+                errorMessage: '',
+                error: false
             };
 
         default:
