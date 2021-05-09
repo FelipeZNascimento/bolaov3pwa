@@ -5,21 +5,18 @@ import LargeButtons from './components/largeButtons';
 
 // Selectors
 import {
-	selectIsLoading as selectIsLoadingLogin,
 	selectUser
 } from 'store/user/selector';
 
-import { TMenuButton } from 'components/menu/types';
-import { Loading } from 'components_fa/index';
+import { TMenuOption } from 'components/commonTypes';
 
 import ROUTES from 'constants/routes';
 import styles from './App.module.scss'
 
 const App = () => {
 	const loggedUser = useSelector(selectUser);
-	const isLoadingLogin = useSelector(selectIsLoadingLogin);
 
-	const menuOptions: TMenuButton[] = [
+	const menuOptions: TMenuOption[] = [
 		{
 			description: 'Rodada a rodada',
 			display: ROUTES.RESULTS.display,
@@ -51,10 +48,9 @@ const App = () => {
 
 	return (
 		<div className={styles.container}>
-			{isLoadingLogin && <Loading />}
-			{!isLoadingLogin && <div className={styles.buttonsContainer}>
+			<div className={styles.buttonsContainer}>
 				{menuOptions.map((option) => <LargeButtons {...option} />)}
-			</div>}
+			</div>
 		</div>
 	);
 };

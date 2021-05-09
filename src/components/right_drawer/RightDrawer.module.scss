@@ -1,0 +1,17 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.container {
+    @include flex-aligned(flex-start, center);
+    @include font-colored($color-grey2);
+    @include padded(all, l);
+
+    flex: 1;
+    flex-direction: column;
+    max-width: $rightDrawerWidth;
+    transition: 0.4s;
+}

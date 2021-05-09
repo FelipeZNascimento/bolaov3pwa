@@ -5,12 +5,15 @@ import fetchItems from 'services/dataGetters';
 import postItems from 'services/dataSetters';
 import {
     login as loginEndpoint,
+    register as registerEndpoint,
     logout as logoutEndpoint
 } from 'services/endpoints';
 
 import {
+    TClearErrors,
     TFetchLogin,
-    TFetchLogout
+    TFetchLogout,
+    TFetchRegister,
 } from './types';
 
 export const onLogin = (email: string, password: string) => async (dispatch: Dispatch<TFetchLogin>) => {
@@ -27,10 +30,17 @@ export const onLogin = (email: string, password: string) => async (dispatch: Dis
         body: loginObject
     })
         .then((response) => {
-            return dispatch({
-                type: ACTIONTYPES.FETCHING_LOGIN_SUCCESS,
-                response
-            });
+            if (response) {
+                return dispatch({
+                    type: ACTIONTYPES.FETCHING_LOGIN_SUCCESS,
+                    response
+                });
+            } else {
+                return dispatch({
+                    type: ACTIONTYPES.FETCHING_LOGIN_ERROR,
+                    errorMessage: 'Login e/ou senha incorretos'
+                });
+            }
         })
         .catch((error) => {
             dispatch({
@@ -42,7 +52,40 @@ export const onLogin = (email: string, password: string) => async (dispatch: Dis
                 errorMessage: error.message
             });
         })
+};
 
+export const onRegister = (
+    email: string,
+    password: string,
+    fullName: string,
+    name: string,
+) => async (dispatch: Dispatch<TFetchRegister>) => {
+    dispatch({ type: ACTIONTYPES.REGISTERING } as const);
+    const cryptoPass = sha1(password).toString();
+
+    const registerObject = {
+        email,
+        password: cryptoPass,
+        fullName,
+        name
+    };
+
+    postItems({
+        endpoint: registerEndpoint(),
+        body: registerObject
+    })
+        .then((response) => {
+            return dispatch({
+                type: ACTIONTYPES.REGISTERING_SUCCESS,
+                response
+            });
+        })
+        .catch((error) => {
+            return dispatch({
+                type: ACTIONTYPES.REGISTERING_ERROR,
+                errorMessage: error.message
+            });
+        })
 };
 
 export const onLogout = () => async (dispatch: Dispatch<TFetchLogout>) => {
@@ -65,4 +108,8 @@ export const onLogout = () => async (dispatch: Dispatch<TFetchLogout>) => {
                 errorMessage: error.message
             });
         })
+};
+
+export const onClearErrors = () => async (dispatch: Dispatch<TClearErrors>) => {
+    dispatch({ type: ACTIONTYPES.CLEAR_ERRORS } as const);
 };

@@ -9,7 +9,10 @@ const fetchItems = ({
 }: TProps) => {
     return Axios
         .get(endpoint, { withCredentials: true })
-        .then(response => response.data);
+        .then(response => response.data)
+        .catch((error) => {
+            throw new Error(error.response.data);
+        });
 };
 
 export default fetchItems;

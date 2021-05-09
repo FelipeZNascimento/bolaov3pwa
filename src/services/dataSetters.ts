@@ -14,7 +14,11 @@ const postItems = ({
             'Content-Type': 'application/json'
         },
         withCredentials: true
-    }).then(response => response.data);
+    })
+        .then(response => response.data)
+        .catch((error) => {
+            throw new Error(error.response.data);
+        });
 };
 
 export default postItems;

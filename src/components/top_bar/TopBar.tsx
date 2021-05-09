@@ -7,17 +7,13 @@ import classNames from 'classnames';
 
 // Selectors
 import {
-    selectIsLoading as selectIsLoadingLogin,
     selectUser
 } from 'store/user/selector';
 
 // Components
-import Login from './components/Login';
-import { Loading } from 'components_fa/index';
+import { CustomButton, LeftDrawer, RightDrawer } from 'components/index';
 import {
-    Button,
     Icon,
-    SwipeableDrawer as Drawer,
 } from '@material-ui/core';
 import {
     Person as PersonIcon,
@@ -25,29 +21,20 @@ import {
 } from '@material-ui/icons';
 
 import ROUTES from 'constants/routes';
-import styles from './Menu.module.scss';
-import { withStyles } from '@material-ui/core/styles';
-import { TMenuButton } from './types';
+import styles from './TopBar.module.scss';
+import { TMenuOption } from 'components/commonTypes';
 import logo from 'img/favicon.png';
 
-const CustomDrawer = withStyles({
-    root: {
-        '& .MuiDrawer-paper': {
-            backgroundColor: '#1b2f42',
-        }
-    }
-})(Drawer);
 
-const Menu = () => {
+const TopBar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
     const [loginMenuOpen, setLoginMenuOpen] = useState<boolean>(false);
 
     const { pathname } = useLocation();
 
     const loggedUser = useSelector(selectUser);
-    const isLoadingLogin = useSelector(selectIsLoadingLogin);
 
-    const menuOptions: TMenuButton[] = [
+    const menuOptions: TMenuOption[] = [
         {
             display: ROUTES.HOME.display,
             route: ROUTES.HOME.url
@@ -76,89 +63,46 @@ const Menu = () => {
         },
     ];
 
-    const renderMobileMenu = () => {
-        return (
-            <CustomDrawer
-                anchor='left'
-                open={mobileMenuOpen}
-                onClose={() => setMobileMenuOpen(false)}
-                onOpen={() => setMobileMenuOpen(true)}
-            >
-                <div className={styles.buttonSectionMobile}>
-                    <div className={styles.logoMobile}><img className={styles.image} alt="logo" src={logo} /></div>
-
-                    {menuOptions.map((item) => renderButton(item))}
-                </div>
-            </CustomDrawer>
-        )
-    };
-
-    const renderMobileLogin = () => {
-        return (
-            <CustomDrawer
-                anchor='right'
-                open={loginMenuOpen}
-                onClose={() => setLoginMenuOpen(false)}
-                onOpen={() => setLoginMenuOpen(true)}
-            >
-                <Login
-                    isMobile={isMobile}
-                    onClose={() => setLoginMenuOpen(false)}
-                />
-            </CustomDrawer>
-        )
-    };
-
     const renderMobileMenuButton = () => (
-        <div className={styles.menuIcon} onClick={() => setMobileMenuOpen(true)}>
-            <Button
-                classes={{ root: 'color-grey3' }}
+        <div className={styles.menuIcon}>
+            <CustomButton
                 startIcon={<MenuIcon />}
-            >
-                Menu
-            </Button>
+                text='Menu'
+                onClick={() => setMobileMenuOpen(true)}
+            />
         </div>
     );
 
     const renderLoginButton = () => {
-        const buttonClass = classNames(
-            [styles.menuIcon], {
-            [styles.button]: !isMobile
-        });
-
         const buttonIcon = loggedUser
             ? <Icon className={loggedUser.icon} style={{ color: loggedUser.color }} />
             : <PersonIcon />;
 
         return (
-            <div className={buttonClass} onClick={() => setLoginMenuOpen(true)}>
-                {isLoadingLogin && <Loading />}
-                {!isLoadingLogin && <Button
-                    classes={{ root: loggedUser ? 'color-grey4' : 'color-grey2' }}
+            <div className={styles.menuIcon}>
+                <CustomButton
                     startIcon={buttonIcon}
-                    variant={loggedUser ? "contained" : "outlined"}
-                >
-                    <b>{loggedUser ? loggedUser.name : 'Login'}</b>
-                </Button>}
+                    text={loggedUser ? loggedUser.name : 'Login'}
+                    onClick={() => setLoginMenuOpen(true)}
+                />
             </div>
         )
     };
 
-    const renderButton = (item: TMenuButton) => {
+    const renderButton = (item: TMenuOption) => {
         const buttonClass = classNames(
             [styles.button], {
             [styles.buttonSelected]: pathname !== '/' ? pathname.includes(item.route) : pathname === item.route,
             [styles.buttonDisabled]: item.disabled,
-
         });
 
         const textClass = classNames({
-            [styles.textAnimation]: item.display === ROUTES.HOME.display && !isMobile
+            [styles.textAnimation]: item.display === ROUTES.HOME.display
         });
 
         const renderButtonContent = () => (
             <div className={buttonClass} onClick={() => setMobileMenuOpen(false)}>
-                {item.display === ROUTES.HOME.display && !isMobile && <img className={styles.image} alt="logo" src={logo} />}
+                {item.display === ROUTES.HOME.display && <img className={styles.image} alt="logo" src={logo} />}
                 <span className={textClass}>{item.display}</span>
             </div>
         );
@@ -182,10 +126,17 @@ const Menu = () => {
             <div className={styles.loginSection}>
                 {renderLoginButton()}
             </div>
-            {renderMobileMenu()}
-            {renderMobileLogin()}
+            <LeftDrawer
+                isOpen={mobileMenuOpen}
+                options={menuOptions}
+                toggle={setMobileMenuOpen}
+            />
+            <RightDrawer
+                isOpen={loginMenuOpen}
+                toggle={setLoginMenuOpen}
+            />
         </div>
     );
 };
 
-export default Menu;
+export default TopBar;
