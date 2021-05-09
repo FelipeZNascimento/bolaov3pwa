@@ -1,5 +1,5 @@
-export const apiBaseUrl = 'http://localhost:8081/bolaonfl/';
-// export const apiBaseUrl = 'https://omega-cors-nfl.herokuapp.com/bolaonfl/';
+// export const apiBaseUrl = 'http://localhost:8081/bolaonfl/';
+export const apiBaseUrl = 'https://omega-cors-nfl.herokuapp.com/bolaonfl/';
 
 export const config = () => `${apiBaseUrl}defaultConfig/`;
 export const login = () => `${apiBaseUrl}user/login/`;
