@@ -45,6 +45,13 @@ export type TFetchLogout = TAction & {
     | typeof ACTIONTYPES.TOGGLE_NOTIFICATION;
 };
 
+export type TUpdateUser = TAction & {
+    readonly type: typeof ACTIONTYPES.UPDATING_USER
+    | typeof ACTIONTYPES.UPDATING_USER_SUCCESS
+    | typeof ACTIONTYPES.UPDATING_USER_ERROR
+    | typeof ACTIONTYPES.TOGGLE_NOTIFICATION;
+};
+
 export type TClearErrors = TAction & {
     readonly type: typeof ACTIONTYPES.CLEAR_ERRORS;
 }
