@@ -1,0 +1,62 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.buttonSection {
+    @include flex-aligned(flex-start, flex-start);
+    @include font-colored($color-grey3);
+    @include font-sized(l);
+
+    flex: 1;
+    flex-direction: column;
+
+    a {
+        @include flex-aligned(flex-start, center);
+
+        flex: 1;
+        text-decoration: none;
+        width: 100%;
+    }
+}
+
+.logoContainer {
+    @include flex-aligned(center, center);
+    @include padded(top, s);
+    @include padded(right, xl);
+    @include padded(bottom, s);
+    @include padded(left, xl);
+
+    height: 64px;
+    width: auto;
+
+    img {
+        @include padded(right, l);
+        height: 64px;
+        opacity: 0.8;
+        transition: 0.4s;
+        width: auto;
+    }
+}
+
+
+.button {
+    @include flex-aligned(flex-start, center);
+    @include padded(right, l);
+    @include padded(left, l);
+
+    cursor: pointer;
+    transition: 0.4s;
+    min-width: 10px;
+
+    &Selected {
+        @include font-colored($color-gold);
+    }
+
+    &Disabled {
+        @include font-colored($color-grey5);
+        cursor: default;
+    }
+}
