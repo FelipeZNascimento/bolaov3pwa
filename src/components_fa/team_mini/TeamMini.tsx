@@ -1,8 +1,6 @@
 import React from 'react';
 
-import {
-    Tooltip
-} from '@material-ui/core';
+import { Tooltip } from '@material-ui/core';
 
 import { TMatchTeam } from 'store/matches/types';
 

@@ -1,0 +1,85 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.container {
+    @include flex-aligned(center, center);
+    @include marged(all, xs);
+    width: 100%;
+}
+
+.button {
+    margin-bottom: 8px !important;
+    margin-top: 8px !important;
+    min-width: 140px !important;
+    text-align: center;
+    transition: 0.6s;
+    width: 100%;
+}
+
+.icon {
+    @include flex-aligned(center, center);
+    flex: 0;
+}
+
+.text {
+    flex: 1;
+}
+
+.coloredButton {
+    color: $color-grey2 !important;
+}
+
+.disabled {
+    cursor: default;
+    opacity: 0.4;
+}
+
+.default {
+    color: $color-grey2 !important;    
+    background-color: rgba($color-grey5, 0.8) !important;
+    
+    &:hover {
+        color: $color-grey1 !important;    
+        background-color: rgba($color-grey5, 1) !important;
+    }
+}
+
+.blue {
+    @extend .coloredButton;
+    background-color: rgba($color-blue, 0.8) !important;
+
+    &:hover {
+        background-color: rgba($color-blue, 1) !important;
+    }
+}
+
+.green {
+    @extend .coloredButton;
+    background-color: rgba($color-green, 0.8) !important;
+
+    &:hover {
+        background-color: rgba($color-green, 1) !important;
+    }
+}
+
+.orange {
+    @extend .coloredButton;
+    background-color: rgba($color-orange, 0.8) !important;
+
+    &:hover {
+        background-color: rgba($color-orange, 1) !important;
+    }
+}
+
+.red {
+    @extend .coloredButton;
+    background-color: rgba($color-red, 0.8) !important;
+
+    &:hover {
+        background-color: rgba($color-red, 1) !important;
+    }
+}
