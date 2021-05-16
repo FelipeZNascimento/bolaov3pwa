@@ -26,6 +26,7 @@
 }
 
 .text {
+    @include padded(left, xs);
     flex: 1;
 }
 
@@ -38,13 +39,23 @@
     opacity: 0.4;
 }
 
+.grey {
+    color: $color-grey2 !important;     
+    background-color: rgba($color-grey5, 0.8) !important; 
+     
+    &:hover { 
+        color: $color-grey1 !important;     
+        background-color: rgba($color-grey5, 1) !important; 
+    } 
+}
+
 .default {
-    color: $color-grey2 !important;    
-    background-color: rgba($color-grey5, 0.8) !important;
+    color: $color-grey5 !important;    
+    background-color: rgba($color-grey2, 0.8) !important;
     
     &:hover {
-        color: $color-grey1 !important;    
-        background-color: rgba($color-grey5, 1) !important;
+        color: $color-grey4 !important;    
+        background-color: rgba($color-grey2, 1) !important;
     }
 }
 

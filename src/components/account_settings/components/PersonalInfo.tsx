@@ -12,10 +12,12 @@ import {
 // Selectors
 import {
     selectErrorMessage,
-    selectHasError
+    selectHasError,
+    selectIsLoading,
 } from 'store/user/selector';
 
 import { CustomButton, CustomTextField } from 'components/index';
+import { Loading } from 'components_fa/index';
 import {
     History as HistoryIcon,
     Lock as LockIcon,
@@ -49,8 +51,9 @@ const PersonalInfo = ({
     });
 
     const dispatch = useDispatch();
-    const hasError = useSelector(selectHasError);
     const errorMessage = useSelector(selectErrorMessage);
+    const hasError = useSelector(selectHasError);
+    const isLoading = useSelector(selectIsLoading);
 
     useEffect(() => {
         if (loggedUser) {
@@ -233,7 +236,6 @@ const PersonalInfo = ({
                 onClick={() => setPasswordFormVisible(!passwordFormVisible)}
             />
             {passwordFormVisible && renderPasswordForm()}
-            {hasError && <p className="align-center">{errorMessage}</p>}
             <div className={styles.buttonContainer}>
                 <div className={styles.button}>
                     <CustomButton
@@ -253,6 +255,8 @@ const PersonalInfo = ({
                     />
                 </div>
             </div>
+            {hasError && <p className="align-center">{errorMessage}</p>}
+            {isLoading && <Loading size='small' />}
         </div >
     )
 };

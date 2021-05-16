@@ -9,6 +9,14 @@
     @include flex-aligned(center, center);
     @include marged(bottom, xl);
 
+    flex-direction: column;
+    max-width: 1000px;
+    width: 100%;
+}
+
+.matchContainer {
+    @include flex-aligned(center, center);
+
     cursor: pointer;
     display: flex;
     flex-direction: row;
@@ -19,7 +27,7 @@
     width: 100%;
 
     &Mobile {
-        @extend .container;
+        @extend .matchContainer;
 
         flex-direction: column;
         width: 100%;
@@ -31,19 +39,19 @@
 
     &Expanded {
         @include shadowed(0.5);
-        @extend .container;
+        @extend .matchContainer;
 
         flex-direction: column;
         min-height: calc(#{$matchContainerHeight} * 2);
         opacity: 1;
     }
+}
 
-    .teamsContainer {
-        display: flex;
-        flex-direction: row;
-        flex: 2;
-        width: 100%;
-    }
+.teamsContainer {
+    display: flex;
+    flex-direction: row;
+    flex: 2;
+    width: 100%;
 }
 
 .time {
@@ -103,6 +111,21 @@
     }
 }
 
+.betsContainer {
+    transition: 0.2s ease-in-out;
+    flex: 1;
+    max-height: 1000px;
+    width: 100%;
+
+    &Hidden {
+        flex: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: 0.5s;
+        visibility: hidden;
+    }
+}
+
 .greenBorder {
     -webkit-box-shadow: 0 -2px 0px 0px $color-mint;
     box-shadow: 0 -2px 0px 0px $color-mint;
@@ -129,5 +152,4 @@
         -webkit-box-shadow: 0 -4px 0px 0px $color-red;
         box-shadow: 0 -4px 0px 0px $color-red;
     }
-
 }

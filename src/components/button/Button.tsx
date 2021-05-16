@@ -30,6 +30,7 @@ const Button = ({
         [styles.blue]: color === 'blue',
         [styles.default]: color === 'default',
         [styles.green]: color === 'green',
+        [styles.grey]: color === 'grey',
         [styles.orange]: color === 'orange',
         [styles.red]: color === 'red',
         [styles.disabled]: disabled
@@ -65,6 +66,7 @@ const Button = ({
                 disabled={disabled}
                 variant="contained"
                 onClick={onClick}
+                size='small'
             >
                 <div className={styles.container}>
                     {renderIcon()}

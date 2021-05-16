@@ -6,16 +6,18 @@ export const ROUTES = {
     BETS: {
         display: 'Apostar',
         url: '/apostar',
-        urlWithParams: (week: number) => `${ROUTES.BETS.url}/${week}`
+        urlWithParams: (week: number) => `${ROUTES.BETS.url}/${week}`,
+        withCredentials: true
     },
     RESULTS: {
         display: 'Resultados',
         url: '/resultados',
-        urlWithParams: (week: number) => `${ROUTES.RESULTS.url}/${week}`
+        urlWithParams: (week: number) => `${ROUTES.RESULTS.url}/${week}`,
     },
     EXTRAS: {
         display: 'Extras',
-        url: '/extras'
+        url: '/extras',
+        withCredentials: true
     },
     RECORDS: {
         display: 'Records',

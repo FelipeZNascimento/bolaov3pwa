@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-
 import { isMobile } from "react-device-detect";
 import { Color, ColorPicker } from 'material-ui-color';
+
+import classNames from 'classnames';
 
 // Actions
 import {
@@ -43,7 +44,6 @@ const Preferences = ({
         }
     }, [loggedUser]);
 
-    // const dispatch = useDispatch();
     const onSetColor = (newColor: Color) => {
         setColor(`#${newColor.hex}`);
         dispatch(onUpdateUserPreferences(icon, `#${newColor.hex}`));
@@ -73,10 +73,15 @@ const Preferences = ({
             </div>
             <div className={styles.iconsContainer} >
                 {faIconsList.map((iconName, index) => {
+                    const iconClass = classNames(
+                        [styles.icon], {
+                        [styles.iconSelected]: iconName === loggedUser?.icon
+                    });
+
                     if (index >= (iconPage * iconsPerPage) && index < ((iconPage + 1) * iconsPerPage)) {
                         return (
                             <Tooltip title={iconName} arrow>
-                                <div className={styles.icon} onClick={() => onSetIcon(iconName)}>
+                                <div className={iconClass} onClick={() => onSetIcon(iconName)}>
                                     <Icon className={`${iconName}`} style={{ color: color }} />
                                 </div>
                             </Tooltip>
@@ -87,13 +92,15 @@ const Preferences = ({
             </div>
             <div className={styles.colorContainer}>
                 <CustomButton
+                    disabled={iconPage === 0}
                     text='Anterior'
                     onClick={() => iconPage > 0 && setIconPage(iconPage - 1)}
                 />
                 &nbsp;
                 <CustomButton
+                    disabled={iconPage === maxPage}
                     text='Próximo'
-                    onClick={() => iconPage <= maxPage && setIconPage(iconPage + 1)}
+                    onClick={() => iconPage < maxPage && setIconPage(iconPage + 1)}
                 />
             </div>
             <p className='align-center padding-none margin-none'>{iconPage + 1} / {maxPage + 1}</p>

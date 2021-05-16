@@ -13,12 +13,12 @@
 
 .colorContainer {
     @include flex-aligned(center, center);
-    
+
     div {
         @include flex-aligned(center, center);
         @include aligned(center);
         flex: 1;
-        
+
         span {
             flex: 1;
         }
@@ -42,6 +42,11 @@
     cursor: pointer;
     flex: 1;
     transition: 0.4s;
+
+    &Selected {
+        @include bg-rgba-colored($color-grey1, 0.3);
+        @include shadowed(0.2);
+    }
 
     &:hover {
         @include bg-rgba-colored($color-grey1, 0.2);

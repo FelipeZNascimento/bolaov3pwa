@@ -24,7 +24,7 @@ const Bets = ({
     loggedUserBets = null
 }: TProps) => {
     const renderBetLine = (bet: TMatchBet) => (
-        <div className={styles.betLine}>
+        <div className={styles.betLine} key={`${bet.matchId}${bet.user.id}${bet.id}`}>
             {!isMobile && <Icon classes={{ root: styles.iconClass }} fontSize="small" className={bet.user.icon} style={{ color: bet.user.color }} />}
             <span className={styles.userName}>{bet.user.name}</span>
         </div>

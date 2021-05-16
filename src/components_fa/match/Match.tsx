@@ -91,29 +91,35 @@ const Match = ({
         [styles.timeMobile]: isMobile,
     });
 
-    const containerClass = classNames(borderClass, {
-        [styles.container]: !isExpanded && !isMobile,
-        [styles.containerMobile]: isMobile,
-        [styles.containerExpanded]: isExpanded,
+    const matchContainerClass = classNames(borderClass, {
+        [styles.matchContainer]: !isExpanded && !isMobile,
+        [styles.matchContainerMobile]: isMobile,
+        [styles.matchContainerExpanded]: isExpanded,
+    });
+
+    const betsContainerClass = classNames(styles.betsContainer, {
+        [styles.betsContainerHidden]: !isExpanded || !bets,
     });
 
     return (
-        <div
-            className={containerClass}
-            key={id}
-            onClick={() => setIsExpanded(!isExpanded)}
-        >
-            <div className={timeClass}>
-                {renderTime()}
+        <div className={styles.container}>
+            <div
+                className={matchContainerClass}
+                key={id}
+                onClick={() => setIsExpanded(!isExpanded)}
+            >
+                <div className={timeClass}>
+                    {renderTime()}
+                </div>
+                {renderTeams()}
             </div>
-            {renderTeams()}
-            {isExpanded && bets
-                && <Bets
+            <div className={betsContainerClass}>
+                <Bets
                     bets={bets}
                     correctBets={correctBets}
                     loggedUserBets={loggedUserBets}
                 />
-            }
+            </div>
         </div>
     );
 };

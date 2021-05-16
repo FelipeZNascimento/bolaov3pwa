@@ -32,6 +32,7 @@ const AccountSettings = () => {
     return (
         <>
             <CustomButton
+                color='grey'
                 startIcon={<Icon className={`${loggedUser?.icon}`} style={{ color: loggedUser?.color }} />}
                 text={loggedUser ? loggedUser.name : ''}
                 onClick={() => setLoginMenu('personal')}
