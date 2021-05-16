@@ -22,8 +22,8 @@ import './index.scss';
 
 render(
 	<Provider store={store}>
-		<Startup>
-			<Router>
+		<Router>
+			<Startup>
 				<div className="page-container">
 					<Notification />
 					<TopBar />
@@ -47,8 +47,8 @@ render(
 						</Switch>
 					</div>
 				</div>
-			</Router>
-		</Startup>
+			</Startup>
+		</Router>
 	</Provider>,
 	document.getElementById('root'),
 );
