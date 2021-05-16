@@ -9,12 +9,15 @@
     @include flex-aligned(center, center);
     @include font-colored($color-grey2);
     @include font-sized(xl);
-    @include padded(all, xl);
-    animation: headbuttText 3s ease-in-out infinite;
 
-    display: flex;
+    animation: headbuttText 3s ease-in-out infinite;
     flex-direction: column;
     flex: 1;
+
+    &Regular {
+        @extend .container;
+        @include padded(all, xl);
+    }
 }
 
 .image {
@@ -22,8 +25,17 @@
     @include padded(right, xl);
 
     animation: headbutt 3s ease-in infinite;
-    max-height: 100px;
     width: auto;
+
+    &Regular {
+        @extend .image;
+        max-height: 100px;
+    }
+
+    &Small {
+        @extend .image;
+        max-height: 50px;
+    }
 }
 
 @keyframes headbutt {
@@ -51,10 +63,12 @@
     84% {
         transform: translate(30px, 0);
     }
-    90%, 94% {
+    90%,
+    94% {
         transform: translate(-3px, 0);
     }
-    92%, 96% {
+    92%,
+    96% {
         transform: translate(3px, 0);
     }
 }

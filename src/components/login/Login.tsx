@@ -13,10 +13,12 @@ import {
 import {
     selectErrorMessage,
     selectHasError,
+    selectIsLoading,
 } from 'store/user/selector';
 
 // Components
 import { CustomButton, CustomTextField } from 'components/index';
+import { Loading } from 'components_fa/index';
 
 // Material UI
 import {
@@ -47,15 +49,16 @@ const Login = ({
     const [isRegister, setIsRegister] = useState<boolean>(false);
 
     const dispatch = useDispatch();
-    const hasError = useSelector(selectHasError);
     const errorMessage = useSelector(selectErrorMessage);
+    const hasError = useSelector(selectHasError);
+    const isLoading = useSelector(selectIsLoading);
 
     useEffect(() => {
         return () => {
             dispatch(onClearErrors());
         }
-      }, [dispatch])
-      
+    }, [dispatch])
+
     const onChange = (e: any) => {
         const { id, value } = e.target;
 
@@ -91,7 +94,7 @@ const Login = ({
             if (key === 'email' && !validateEmail(loginForm[key])) {
                 invalid.push(key as string);
             } else if (loginForm[key] === '') {
-                if(!isRegister && (key === 'fullname' || key === 'name')) {
+                if (!isRegister && (key === 'fullname' || key === 'name')) {
                     return;
                 }
 
@@ -168,6 +171,7 @@ const Login = ({
                     onChange={onChange}
                     onKeyPress={onKeyPress}
                 />}
+                {isLoading && <Loading size='small' />}
                 {hasError && <p className="align-center">{errorMessage}</p>}
             </div>
             <div className={styles.buttonContainer}>
@@ -190,7 +194,7 @@ const Login = ({
                 color='blue'
                 startIcon={<PersonIcon />}
                 text='Registre-se'
-                onClick={() => {setIsRegister(true); dispatch(onClearErrors());}}
+                onClick={() => { setIsRegister(true); dispatch(onClearErrors()); }}
             />}
         </>
     );

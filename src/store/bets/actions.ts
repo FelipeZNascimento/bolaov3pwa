@@ -26,10 +26,6 @@ export const fetchUserBets = (season: number, week: number) => async (dispatch: 
                 type: ACTIONTYPES.FETCHING_USER_BETS_ERROR,
                 errorMessage: error.message
             });
-            return dispatch({
-                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
-                errorMessage: error.message
-            });
         })
 };
 

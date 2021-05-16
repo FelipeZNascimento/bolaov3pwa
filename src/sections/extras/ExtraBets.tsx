@@ -252,21 +252,21 @@ const ExtraBets = () => {
             </Button>}
 
             {isLoading && <Loading />}
-            {extraSection === EXTRA_SECTION.AFC && <div className={divisionsContainerClass}>
+            {!isLoading && extraSection === EXTRA_SECTION.AFC && <div className={divisionsContainerClass}>
                 {renderDivision('North', teamsByConferenceAndDivision.afc.north, EXTRA_BETS_VALUES.AFC_NORTH)}
                 {renderDivision('East', teamsByConferenceAndDivision.afc.east, EXTRA_BETS_VALUES.AFC_EAST)}
                 {renderDivision('South', teamsByConferenceAndDivision.afc.south, EXTRA_BETS_VALUES.AFC_SOUTH)}
                 {renderDivision('West', teamsByConferenceAndDivision.afc.west, EXTRA_BETS_VALUES.AFC_WEST)}
             </div>}
 
-            {extraSection === EXTRA_SECTION.NFC && <div className={divisionsContainerClass}>
+            {!isLoading && extraSection === EXTRA_SECTION.NFC && <div className={divisionsContainerClass}>
                 {renderDivision('North', teamsByConferenceAndDivision.nfc.north, EXTRA_BETS_VALUES.NFC_NORTH)}
                 {renderDivision('East', teamsByConferenceAndDivision.nfc.east, EXTRA_BETS_VALUES.NFC_EAST)}
                 {renderDivision('South', teamsByConferenceAndDivision.nfc.south, EXTRA_BETS_VALUES.NFC_SOUTH)}
                 {renderDivision('West', teamsByConferenceAndDivision.nfc.west, EXTRA_BETS_VALUES.NFC_WEST)}
             </div>}
 
-            {extraSection === EXTRA_SECTION.PLAYOFFS && <div className={divisionsContainerClass}>
+            {!isLoading && extraSection === EXTRA_SECTION.PLAYOFFS && <div className={divisionsContainerClass}>
                 {renderPlayoffBets(
                     'AFC Champion',
                     EXTRA_BETS_VALUES.AFC

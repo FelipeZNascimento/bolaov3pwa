@@ -16,9 +16,21 @@ import {
 
 export const fetchDefaultConfig = () => async (dispatch: Dispatch<TFetchConfig>) => {
     dispatch({ type: ACTIONTYPES.FETCHING_CONFIG } as const);
+    dispatch({ type: ACTIONTYPES.FETCHING_LOGIN } as const);
 
     fetchItems({ endpoint: configEndpoint() })
         .then((response) => {
+            if (response.loggedUser) {
+                dispatch({
+                    type: ACTIONTYPES.FETCHING_LOGIN_SUCCESS,
+                    response: response.loggedUser
+                });
+            } else {
+                dispatch({
+                    type: ACTIONTYPES.FETCHING_LOGIN_ERROR,
+                    response: response.loggedUser
+                });
+            }
             return dispatch({
                 type: ACTIONTYPES.FETCHING_CONFIG_SUCCESS,
                 response

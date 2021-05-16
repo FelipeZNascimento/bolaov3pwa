@@ -174,6 +174,7 @@ const WeekPagination = ({
                 </div>
                 <div className={styles.currentPage}>
                     <Link
+                        key={'currentPage'}
                         to={routeTo(currentPage.num)}
                         onClick={() => onClick(currentPage.num)}
                     >

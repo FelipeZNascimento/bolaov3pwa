@@ -41,10 +41,18 @@ export const onLogin = (email: string, password: string) => async (dispatch: Dis
                     response
                 });
             } else {
-                return dispatch({
+                const errorMessage = 'Login e/ou senha incorretos';
+                dispatch({
                     type: ACTIONTYPES.FETCHING_LOGIN_ERROR,
-                    errorMessage: 'Login e/ou senha incorretos'
+                    errorMessage
                 });
+
+                return dispatch({
+                    type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                    status: NOTIFICATION_STATUS.INFO,
+                    notificationMessage: errorMessage
+                });
+
             }
         })
         .catch((error) => {
@@ -86,9 +94,15 @@ export const onRegister = (
             });
         })
         .catch((error) => {
-            return dispatch({
+            dispatch({
                 type: ACTIONTYPES.REGISTERING_ERROR,
                 errorMessage: error.message
+            });
+
+            return dispatch({
+                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                status: NOTIFICATION_STATUS.INFO,
+                notificationMessage: error.message
             });
         })
 };

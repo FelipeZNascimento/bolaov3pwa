@@ -4,7 +4,7 @@ import { TAction, TState, } from './types';
 const initialState: TState = {
     error: false,
     errorMessage: '',
-    loading: false,
+    loading: true,
     user: null
 };
 
@@ -13,6 +13,8 @@ export default function matchesReducer(
     action: TAction
 ) {
     switch (action.type) {
+        case ACTIONTYPES.UPDATING_USER:
+        case ACTIONTYPES.REGISTERING:
         case ACTIONTYPES.FETCHING_LOGIN:
         case ACTIONTYPES.FETCHING_LOGOUT:
             return {
@@ -46,11 +48,11 @@ export default function matchesReducer(
                 error: false,
                 user: null
             };
-        case ACTIONTYPES.FETCHING_CONFIG_SUCCESS:
-            return {
-                ...state,
-                user: action.response?.loggedUser
-            };
+        // case ACTIONTYPES.FETCHING_CONFIG_SUCCESS:
+        //     return {
+        //         ...state,
+        //         user: action.response?.loggedUser
+        //     };
 
         case ACTIONTYPES.UPDATING_USER_ERROR:
         case ACTIONTYPES.REGISTERING_ERROR:
@@ -58,6 +60,7 @@ export default function matchesReducer(
             return {
                 ...state,
                 errorMessage: action.errorMessage,
+                loading: false,
                 error: true
             };
         case ACTIONTYPES.UPDATE_PASSWORD_ERROR:

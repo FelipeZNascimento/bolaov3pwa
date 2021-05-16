@@ -68,7 +68,10 @@ export type TAction = TNotification & {
 }
 
 export type TFetchConfig = TAction & {
-    readonly type: typeof ACTIONTYPES.FETCHING_CONFIG
+    readonly type: typeof ACTIONTYPES.FETCHING_LOGIN
+    | typeof ACTIONTYPES.FETCHING_LOGIN_SUCCESS
+    | typeof ACTIONTYPES.FETCHING_LOGIN_ERROR
+    | typeof ACTIONTYPES.FETCHING_CONFIG
     | typeof ACTIONTYPES.FETCHING_CONFIG_SUCCESS
     | typeof ACTIONTYPES.FETCHING_CONFIG_ERROR
     | typeof ACTIONTYPES.TOGGLE_NOTIFICATION;

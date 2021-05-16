@@ -7,11 +7,13 @@ import classNames from 'classnames';
 
 // Selectors
 import {
-    selectUser
+    selectIsLoading,
+    selectUser,
 } from 'store/user/selector';
 
 // Components
 import { CustomButton, LeftDrawer, RightDrawer } from 'components/index';
+import { Loading } from 'components_fa/index';
 import {
     Icon,
 } from '@material-ui/core';
@@ -25,13 +27,13 @@ import styles from './TopBar.module.scss';
 import { TMenuOption } from 'components/commonTypes';
 import logo from 'img/favicon.png';
 
-
 const TopBar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
     const [loginMenuOpen, setLoginMenuOpen] = useState<boolean>(false);
 
     const { pathname } = useLocation();
 
+    const isLoading = useSelector(selectIsLoading);
     const loggedUser = useSelector(selectUser);
 
     const menuOptions: TMenuOption[] = [
@@ -81,6 +83,7 @@ const TopBar = () => {
         return (
             <div className={styles.menuIcon}>
                 <CustomButton
+                    color='grey'
                     startIcon={buttonIcon}
                     text={loggedUser ? loggedUser.name : 'Login'}
                     onClick={() => setLoginMenuOpen(true)}
@@ -124,7 +127,8 @@ const TopBar = () => {
                 {isMobile ? renderMobileMenuButton() : menuOptions.map((item) => renderButton(item))}
             </div>
             <div className={styles.loginSection}>
-                {renderLoginButton()}
+                {isLoading && <Loading size='small' />}
+                {!isLoading && renderLoginButton()}
             </div>
             <LeftDrawer
                 isOpen={mobileMenuOpen}
