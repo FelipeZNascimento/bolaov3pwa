@@ -23,6 +23,13 @@ export default function matchesReducer(
             };
         case ACTIONTYPES.REGISTERING_SUCCESS:
         case ACTIONTYPES.FETCHING_LOGIN_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                errorMessage: '',
+                error: false,
+                user: action.response
+            };
         case ACTIONTYPES.UPDATING_USER_SUCCESS:
             return {
                 ...state,
@@ -45,11 +52,18 @@ export default function matchesReducer(
                 user: action.response?.loggedUser
             };
 
+        case ACTIONTYPES.UPDATING_USER_ERROR:
         case ACTIONTYPES.REGISTERING_ERROR:
         case ACTIONTYPES.FETCHING_LOGIN_ERROR:
             return {
                 ...state,
                 errorMessage: action.errorMessage,
+                error: true
+            };
+        case ACTIONTYPES.UPDATE_PASSWORD_ERROR:
+            return {
+                ...state,
+                errorMessage: 'Senha incorreta',
                 error: true
             };
         case ACTIONTYPES.CLEAR_ERRORS:

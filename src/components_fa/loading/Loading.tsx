@@ -3,6 +3,10 @@ import logo from 'img/favicon.png';
 
 import styles from './Loading.module.scss';
 
+type TProps = {
+    size: 'small' | 'regular'
+};
+
 const Loading = () => {
     return (
         <div className={styles.container}>

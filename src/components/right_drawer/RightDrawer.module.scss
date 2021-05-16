@@ -9,9 +9,10 @@
     @include flex-aligned(flex-start, center);
     @include font-colored($color-grey2);
     @include padded(all, l);
-
+    
     flex: 1;
     flex-direction: column;
     max-width: $rightDrawerWidth;
+    overflow: hidden;
     transition: 0.4s;
 }

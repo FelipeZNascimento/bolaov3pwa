@@ -5,58 +5,19 @@
 @import "styles/paddings.scss";
 @import "styles/variables.scss";
 
-.buttonContainer {
-    @include flex-aligned(center, center);
-    display: flex;
-    width: 100%;
-
-    .button {
-        flex: 1;
-
-        &:first-child {
-            margin-right: 4px;
-        }
-        &:last-child {
-            margin-left: 4px;
-        }
-    }
-}
-
 .accountOption {
     overflow: hidden;
     flex: 0;
+    max-height: 0;
     transition: 0.5s;
     visibility: hidden;
-
+    
     &Open {
         @extend .accountOption;
-
+        
         flex: 1;
+        max-height: 100%;
         visibility: visible;
     }
 }
 
-.accountContainer {
-    display: flex;
-    flex-direction: column;
-}
-
-.invalidInput {
-    animation: shake 0.5s ease-in forwards;
-    opacity: 1;
-}
-
-@keyframes shake {
-    0% {
-        transform: translate(0, 0);
-    }
-    25% {
-        transform: translate(10px, 0);
-    }
-    50% {
-        transform: translate(-2px, 0);
-    }
-    75% {
-        transform: translate(2px, 0);
-    }
-}

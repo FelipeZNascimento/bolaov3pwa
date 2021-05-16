@@ -62,7 +62,7 @@ const Ranking = () => {
         });
 
         return (
-            <div className={styles.rankingLine}>
+            <div className={styles.rankingLine} key={rankingLine.name}>
                 <div className={positionClass}>
                     {index + 1}
                 </div>
