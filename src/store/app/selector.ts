@@ -26,3 +26,7 @@ export function selectRanking(state: { app: TState }) {
 export function selectSeasonRanking(state: { app: TState }) {
     return state.app.seasonRanking;
 }
+
+export function selectNotifications(state: { app: TState }) {
+    return state.app.notifications;
+}

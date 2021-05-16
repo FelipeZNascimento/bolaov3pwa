@@ -1,12 +1,12 @@
 import * as ACTIONTYPES from 'store/actiontypes';
 
 export type TState = {
+    currentSeason: number | null;
+    currentWeek: number | null;
     error: boolean;
     errorMessage: string;
     loading: boolean;
-    isNotificationOpen: boolean;
-    currentSeason: number | null;
-    currentWeek: number | null;
+    notifications: TNotification[];
     ranking: TRankingLine[];
     seasonRanking: TRankingLine[];
     teams: TTeam[];
@@ -55,12 +55,16 @@ export type TRankingLine = {
     totalExtras?: number;
 }
 
-export type TAction = {
-    type: string;
-    response?: TConfig;
-    ranking?: TRankingLine[];
+export type TNotification = {
     errorMessage?: string;
-    week?: number;
+    id?: string;
+    message?: string;
+    status?: null | number;
+    notificationMessage?: string;
+}
+
+export type TAction = TNotification & {
+    type: string;
 }
 
 export type TFetchConfig = TAction & {
@@ -79,10 +83,15 @@ export type TFetchRanking = TAction & {
     | typeof ACTIONTYPES.FETCHING_SEASON_RANKING_SUCCESS
     | typeof ACTIONTYPES.FETCHING_SEASON_RANKING_ERROR
     | typeof ACTIONTYPES.TOGGLE_NOTIFICATION;
-    readonly response?: TRankingLine[];
+    readonly ranking?: TRankingLine[];
 };
 
 export type TSetWeek = TAction & {
     readonly type: typeof ACTIONTYPES.SET_CURRENT_WEEK;
     week: number;
+};
+
+export type TClearNotification = TAction & {
+    readonly type: typeof ACTIONTYPES.CLEAR_NOTIFICATION;
+    id: string;
 };
