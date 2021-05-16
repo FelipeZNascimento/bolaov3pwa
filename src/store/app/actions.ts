@@ -7,13 +7,11 @@ import {
     seasonRanking as seasonRankingEndpoint,
 } from 'services/endpoints';
 
-
 import {
-    TConference,
+    TClearNotification,
     TFetchConfig,
     TFetchRanking,
     TSetWeek,
-    TTeam
 } from './types';
 
 export const fetchDefaultConfig = () => async (dispatch: Dispatch<TFetchConfig>) => {
@@ -33,7 +31,7 @@ export const fetchDefaultConfig = () => async (dispatch: Dispatch<TFetchConfig>)
             });
             return dispatch({
                 type: ACTIONTYPES.TOGGLE_NOTIFICATION,
-                errorMessage: error.message
+                notificationMessage: error.message
             });
         })
 };
@@ -55,7 +53,7 @@ export const fetchRanking = (season: number, week: number) => async (dispatch: D
             });
             return dispatch({
                 type: ACTIONTYPES.TOGGLE_NOTIFICATION,
-                errorMessage: error.message
+                notificationMessage: error.message
             });
         })
 };
@@ -77,7 +75,7 @@ export const fetchSeasonRanking = (season: number) => async (dispatch: Dispatch<
             });
             return dispatch({
                 type: ACTIONTYPES.TOGGLE_NOTIFICATION,
-                errorMessage: error.message
+                notificationMessage: error.message
             });
         })
 };
@@ -86,5 +84,13 @@ export const setCurrentWeek = (week: number) => async (dispatch: Dispatch<TSetWe
     return dispatch({
         type: ACTIONTYPES.SET_CURRENT_WEEK,
         week
+    });
+};
+
+export const onClearNotification = (id: string) => async (dispatch: Dispatch<TClearNotification>) => {
+    console.log(id);
+    return dispatch({
+        type: ACTIONTYPES.CLEAR_NOTIFICATION,
+        id
     });
 };

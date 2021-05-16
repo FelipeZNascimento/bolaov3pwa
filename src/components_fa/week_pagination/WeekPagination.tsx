@@ -163,6 +163,7 @@ const WeekPagination = ({
                     {leftWeeks.length < pageRange && renderEmptySpans(pageRange - leftWeeks.length)}
                     {leftWeeks.map((week) => (
                         <Link
+                            key={week.num}
                             className={pageClass}
                             to={routeTo(week.num)}
                             onClick={() => onClick(week.num)}
@@ -182,6 +183,7 @@ const WeekPagination = ({
                 <div className={neighbourPagesClass}>
                     {rightWeeks.map((week) => (
                         <Link
+                            key={week.num}
                             className={pageClass}
                             to={routeTo(week.num)}
                             onClick={() => onClick(week.num)}

@@ -54,7 +54,7 @@ const Results = () => {
             <div className={styles.matchesContainer}>
                 <WeekPagination routeTo={ROUTES.RESULTS.urlWithParams} onClick={onWeekClick} />
                 {isLoading && <Loading />}
-                {!isLoading && matches.map((match) => <Match {...match} />)}
+                {!isLoading && matches.map((match) => <Match key={match.id} {...match} />)}
             </div>
             {renderRanking()}
         </div>

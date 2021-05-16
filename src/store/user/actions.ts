@@ -8,6 +8,7 @@ import {
     logout as logoutEndpoint,
     register as registerEndpoint,
     userUpdate as userUpdateEndpoint,
+    userUpdatePreferences as userUpdatePreferencesEndpoint,
 } from 'services/endpoints';
 
 import {
@@ -17,6 +18,8 @@ import {
     TFetchRegister,
     TUpdateUser
 } from './types';
+
+import { STATUS as NOTIFICATION_STATUS } from 'components/notification/status';
 
 export const onLogin = (email: string, password: string) => async (dispatch: Dispatch<TFetchLogin>) => {
     dispatch({ type: ACTIONTYPES.FETCHING_LOGIN } as const);
@@ -112,6 +115,47 @@ export const onLogout = () => async (dispatch: Dispatch<TFetchLogout>) => {
         })
 };
 
+export const onUpdateUserPreferences = (
+    icon: string,
+    color: string
+) => async (dispatch: Dispatch<TUpdateUser>) => {
+    dispatch({ type: ACTIONTYPES.UPDATING_USER } as const);
+    const userInfo = {
+        icon,
+        color
+    };
+
+    postItems({
+        endpoint: userUpdatePreferencesEndpoint(),
+        body: userInfo
+    })
+        .then((response) => {
+            dispatch({
+                type: ACTIONTYPES.UPDATING_USER_SUCCESS,
+                response: response.user
+            });
+
+            dispatch({
+                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                status: NOTIFICATION_STATUS.SUCCESS,
+                notificationMessage: 'Perfil alterado com sucesso'
+            });
+
+        })
+        .catch((error) => {
+            dispatch({
+                type: ACTIONTYPES.UPDATING_USER_ERROR,
+                errorMessage: error.message
+            });
+            return dispatch({
+                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                status: NOTIFICATION_STATUS.INFO,
+                notificationMessage: error.message
+            });
+        })
+
+}
+
 export const onUpdateUser = (
     email: string,
     newPassword: string,
@@ -134,10 +178,27 @@ export const onUpdateUser = (
         body: userInfo
     })
         .then((response) => {
-            return dispatch({
-                type: ACTIONTYPES.UPDATING_USER_SUCCESS,
-                response
-            });
+            if (response.changedUser) {
+                dispatch({
+                    type: ACTIONTYPES.UPDATING_USER_SUCCESS,
+                    response: response.user
+                });
+            }
+
+            if (newPassword && !response.changedPassword) {
+                dispatch({
+                    type: ACTIONTYPES.UPDATE_PASSWORD_ERROR
+                });
+            }
+
+            if (response.changedPassword || response.changedUser) {
+                dispatch({
+                    type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                    status: NOTIFICATION_STATUS.SUCCESS,
+                    notificationMessage: 'Perfil alterado com sucesso'
+                });
+            }
+
         })
         .catch((error) => {
             dispatch({
@@ -146,7 +207,8 @@ export const onUpdateUser = (
             });
             return dispatch({
                 type: ACTIONTYPES.TOGGLE_NOTIFICATION,
-                errorMessage: error.message
+                status: NOTIFICATION_STATUS.INFO,
+                notificationMessage: error.message
             });
         })
 };

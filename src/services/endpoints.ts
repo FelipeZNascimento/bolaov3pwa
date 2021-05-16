@@ -6,6 +6,7 @@ export const login = () => `${apiBaseUrl}user/login/`;
 export const register = () => `${apiBaseUrl}user/register/`;
 export const logout = () => `${apiBaseUrl}user/logout/`;
 export const userUpdate = () => `${apiBaseUrl}user/update/`;
+export const userUpdatePreferences = () => `${apiBaseUrl}user/updatePreferences/`;
 
 export const userBets = (season: number, week: number) => `${apiBaseUrl}bets/${season}/${week}`;
 export const extraBets = (season: number) => `${apiBaseUrl}bets/extras/${season}`;

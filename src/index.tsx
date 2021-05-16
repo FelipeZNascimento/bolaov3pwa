@@ -14,7 +14,7 @@ import store from './store';
 // Sections & Components
 import { Bets, ExtraBets, Home, Results } from 'sections/index';
 import Startup from 'services/Startup';
-import { TopBar } from 'components/index';
+import { Notification, TopBar } from 'components/index';
 
 // Constants & Styles
 import ROUTES from 'constants/routes';
@@ -25,7 +25,7 @@ render(
 		<Startup>
 			<Router>
 				<div className="page-container">
-					
+					<Notification />
 					<TopBar />
 					<div className="index-container">
 						<Switch>

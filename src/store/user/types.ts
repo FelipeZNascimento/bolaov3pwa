@@ -11,6 +11,8 @@ export type TAction = {
     type: string;
     response?: TUser;
     errorMessage?: string;
+    status?: number;
+    notificationMessage?: string;
 };
 
 export type TUser = {
@@ -21,7 +23,8 @@ export type TUser = {
     name: string;
     email: string;
     loggedUser?: TUser;
-}
+};
+
 export type TFetchLogin = TAction & {
     readonly type: typeof ACTIONTYPES.FETCHING_LOGIN
     | typeof ACTIONTYPES.FETCHING_LOGIN_SUCCESS
@@ -49,9 +52,10 @@ export type TUpdateUser = TAction & {
     readonly type: typeof ACTIONTYPES.UPDATING_USER
     | typeof ACTIONTYPES.UPDATING_USER_SUCCESS
     | typeof ACTIONTYPES.UPDATING_USER_ERROR
+    | typeof ACTIONTYPES.UPDATE_PASSWORD_ERROR
     | typeof ACTIONTYPES.TOGGLE_NOTIFICATION;
 };
 
 export type TClearErrors = TAction & {
     readonly type: typeof ACTIONTYPES.CLEAR_ERRORS;
-}
+};

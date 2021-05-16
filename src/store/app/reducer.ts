@@ -1,13 +1,19 @@
 import * as ACTIONTYPES from 'store/actiontypes';
-import { TAction, TState } from './types';
+import {
+    TClearNotification,
+    TFetchConfig,
+    TFetchRanking,
+    TSetWeek,
+    TState
+} from './types';
 
 const initialState: TState = {
+    currentSeason: null,
+    currentWeek: null,
     error: false,
     errorMessage: '',
     loading: false,
-    isNotificationOpen: false,
-    currentSeason: null,
-    currentWeek: null,
+    notifications: [],
     ranking: [],
     seasonRanking: [],
     teams: [],
@@ -29,16 +35,24 @@ const initialState: TState = {
 
 export default function appReducer(
     state = initialState,
-    action: TAction
+    action: TClearNotification | TSetWeek | TFetchConfig | TFetchRanking
 ) {
     switch (action.type) {
-        // case ACTIONTYPES.TOGGLE_NOTIFICATION:
-        //     return {
-        //         ...state,
-        //         isNotificationOpen: action.status !== false,
-        //         errorMessage: action.errorMessage || '',
-        //         error: action.errorMessage || false
-        //     };
+        case ACTIONTYPES.CLEAR_NOTIFICATION:
+            return {
+                ...state,
+                notifications: state.notifications.filter((item) => item.id !== action.id)
+            }
+        case ACTIONTYPES.TOGGLE_NOTIFICATION:
+            return {
+                ...state,
+                notificationIsOpen: true,
+                notifications: [...state.notifications, {
+                    id: Date.now(),
+                    message: action.notificationMessage || '',
+                    status: action.status
+                }],
+            };
         case ACTIONTYPES.SET_CURRENT_WEEK:
             return {
                 ...state,
@@ -50,14 +64,12 @@ export default function appReducer(
             return {
                 ...state,
                 loading: true,
-                errorMessage: '',
                 error: false
             };
         case ACTIONTYPES.FETCHING_CONFIG_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                errorMessage: '',
                 error: false,
                 currentSeason: action.response?.currentSeason,
                 currentWeek: action.response?.currentWeek,
@@ -69,7 +81,6 @@ export default function appReducer(
             return {
                 ...state,
                 loading: false,
-                errorMessage: '',
                 error: false,
                 ranking: action.ranking
             };
@@ -78,7 +89,6 @@ export default function appReducer(
             return {
                 ...state,
                 loading: false,
-                errorMessage: '',
                 error: false,
                 seasonRanking: action.ranking
             };
