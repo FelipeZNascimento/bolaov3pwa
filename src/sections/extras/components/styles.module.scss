@@ -7,7 +7,6 @@
 
 .teamContainer {
     @include flex-aligned(flex-start, center);
-    @include padded(all, xs);
     @include marged(all, m);
 
     border-radius: 4px;
@@ -35,8 +34,6 @@
 
     &:hover {
         opacity: 0.6;
-        // -webkit-box-shadow: 0px 0px 0px 1px $color-grey5;
-        // box-shadow: 0px 0px 0px 1px $color-grey5;
     }
 
     .bets {
@@ -79,13 +76,16 @@
 
 .icon {
     @include font-colored($color-grey5);
-
+    @include marged(left, xs);
+    @include marged(right, xs);
+    
     cursor: pointer;
     transition: 0.4s;
-
+    
     &Small {
         @include marged(left, xs);
-        @include font-sized(s);
+        @include marged(right, none);
+        font-size: 14px !important;
     }
 
     &Disabled {

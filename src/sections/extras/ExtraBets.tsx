@@ -65,6 +65,7 @@ const emptyExtras = {
 };
 
 const ExtraBets = () => {
+    const [hasSeasonStarted, setHasSeasonStarted] = useState<boolean>(true);
     const [extraSection, setExtraSection] = useState<EXTRA_SECTION_TYPE>(EXTRA_SECTION.AFC);
     const [selectedDivision, setSelectedDivision] = useState<string | null>(null);
     const [selectAll, setSelectAll] = useState<boolean>(false);
@@ -85,12 +86,16 @@ const ExtraBets = () => {
         ? EXTRA_BETS_VALUES.AFC_WILDCARD
         : EXTRA_BETS_VALUES.NFC_WILDCARD;
 
-    let seasonStarted = seasonStart !== null && Date.now() >= seasonStart;
-    // let seasonStarted = true;
+    let currentTimestamp = Math.floor(Date.now() / 1000);
+    setTimeout(function () {
+        currentTimestamp = Math.floor(Date.now() / 1000);
+    }, 60000);
 
-    // setTimeout(function () {
-    //     seasonStarted = seasonStart && Date.now() >= seasonStart;
-    // }, 60000);
+    useEffect(() => {
+        if (seasonStart) {
+            setHasSeasonStarted(currentTimestamp >= seasonStart);
+        }
+    }, [currentTimestamp, seasonStart]);
 
     useEffect(() => {
         if (currentSeason) {
@@ -159,12 +164,12 @@ const ExtraBets = () => {
         const showBets = selectAll || (selectedDivision === title && !isMobile);
 
         const divisionClass = classNames({
-            [styles.division]: !showBets || !seasonStarted,
-            [styles.divisionAndBets]: showBets && seasonStarted
+            [styles.division]: !showBets || !hasSeasonStarted,
+            [styles.divisionAndBets]: showBets && hasSeasonStarted
         });
 
         const renderButton = () => {
-            if (seasonStarted) {
+            if (hasSeasonStarted) {
                 return (
                     <Button classes={{ root: `${selectedDivision === title ? styles.buttonActive : styles.button}` }}
                         variant="outlined"
@@ -189,7 +194,7 @@ const ExtraBets = () => {
             <>
                 <div className={divisionClass}>
                     {renderButton()}
-                    {seasonStarted && teams.map((team) => (
+                    {hasSeasonStarted && teams.map((team) => (
                         <TeamWithExtras
                             extraBets={extraBets}
                             extraBetsResults={extraBetsResults}
@@ -200,7 +205,7 @@ const ExtraBets = () => {
                             wildcardExtraType={selectedWildcardExtraType}
                         />
                     ))}
-                    {!seasonStarted && teams.map((team) => (
+                    {!hasSeasonStarted && teams.map((team) => (
                         <BettableTeam
                             disabled={isUpdating}
                             currentlySelectedByUser={selectedExtraBets}
@@ -221,7 +226,7 @@ const ExtraBets = () => {
         extraType: number
     ) => {
         let renderTeams: TMatchTeam[] = [];
-        if (seasonStarted) {
+        if (hasSeasonStarted) {
             extraBets.forEach((user) => {
                 const bettedTeam = user.bets[extraType];
                 if (renderTeams.find((team) => team.id === bettedTeam) === undefined) {
@@ -242,7 +247,7 @@ const ExtraBets = () => {
         }
 
         const renderDivisionButton = () => {
-            if (seasonStarted) {
+            if (hasSeasonStarted) {
                 return (
                     <Button classes={{ root: `${selectedDivision === title ? styles.buttonActive : styles.button}` }}
                         variant="outlined"
@@ -266,7 +271,7 @@ const ExtraBets = () => {
         return (
             <div className={styles.divisionAndBets}>
                 {renderDivisionButton()}
-                {seasonStarted && renderTeams.map((team) => (
+                {hasSeasonStarted && renderTeams.map((team) => (
                     <TeamWithExtras
                         isExpanded
                         isVisible
@@ -276,7 +281,7 @@ const ExtraBets = () => {
                         team={team}
                     />
                 ))}
-                {!seasonStarted && renderTeams.map((team) => (
+                {!hasSeasonStarted && renderTeams.map((team) => (
                     <BettableTeam
                         disabled={isUpdating}
                         currentlySelectedByUser={selectedExtraBets}
@@ -299,7 +304,7 @@ const ExtraBets = () => {
         [styles.divisionsContainerMobile]: isMobile
     });
 
-    const showExpandCollapseButton = !isMobile && seasonStarted && extraSection !== EXTRA_SECTION.PLAYOFFS;
+    const showExpandCollapseButton = !isMobile && hasSeasonStarted && extraSection !== EXTRA_SECTION.PLAYOFFS;
     return (
         <div className={containerClass}>
             <div className={styles.buttonsContainer}>
