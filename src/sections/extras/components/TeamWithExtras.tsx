@@ -65,11 +65,13 @@ const TeamWithExtras = ({
         || extraType === EXTRA_BETS_VALUES.NFC
         || extraType === EXTRA_BETS_VALUES.SUPERBOWL;
 
-    if (extraBetsResults !== null && wildcardExtraType !== null) {
-        const wildcardResults = extraBetsResults[wildcardExtraType] as number[];
-
+    if (extraBetsResults !== null) {
         isChampion = extraBetsResults[extraType] === team.id;
-        isWildcard = wildcardResults.find((result) => result === team.id) !== undefined;
+
+        if (wildcardExtraType !== null) {
+            const wildcardResults = extraBetsResults[wildcardExtraType] as number[];
+            isWildcard = wildcardResults.find((result) => result === team.id) !== undefined;
+        }
     }
 
     if (isChampion && !team.name.includes('Champion')) {
