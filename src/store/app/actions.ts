@@ -81,13 +81,9 @@ export const fetchSeasonRanking = (season: number) => async (dispatch: Dispatch<
             });
         })
         .catch((error) => {
-            dispatch({
+            return dispatch({
                 type: ACTIONTYPES.FETCHING_SEASON_RANKING_ERROR,
                 errorMessage: error.message
-            });
-            return dispatch({
-                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
-                notificationMessage: error.message
             });
         })
 };

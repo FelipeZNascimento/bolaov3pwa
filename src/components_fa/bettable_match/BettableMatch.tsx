@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { isMobile } from "react-device-detect";
 import classNames from 'classnames';
-import { DateTime } from 'luxon';
+
+// Actions
+import { updateRegularBet } from 'store/bets/actions';
 
 // Selectors
 import { selectUser } from 'store/user/selector';
@@ -14,6 +16,7 @@ import {
 
 import {
     RadioButtonUnchecked as RadioButtonUncheckedIcon,
+    Block as BlockIcon,
     // RadioButtonChecked as RadioButtonCheckedIcon,
 } from '@material-ui/icons';
 
@@ -26,24 +29,41 @@ import { BETS_VALUES } from 'constants/bets';
 type TProps = TMatch;
 
 const BettableMatch = ({
+    id,
     away,
     loggedUserBets = null,
     home,
     timestamp,
 }: TProps) => {
-    const [currentTimestamp, setCurrentTimestamp] = useState(DateTime.now().toMillis());
-    const correctBets = calculateCorrectBets(away.score || 0, home.score || 0 );
+    const [currentTimestamp, setCurrentTimestamp] = useState(Math.floor(Date.now() / 1000));
+    // const [currentTimestamp, setCurrentTimestamp] = useState(1599753600);
+    const [currentBetValue, setCurrentBetValue] = useState<null | number>(null);
+    const correctBets = calculateCorrectBets(away.score || 0, home.score || 0);
     const loggedUser = useSelector(selectUser);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (loggedUserBets !== null) {
+            setCurrentBetValue(loggedUserBets.value);
+        }
+    }, [loggedUserBets]);
+
+    const updateBet = (betValue: number) => {
+        if (currentTimestamp < timestamp) {
+            dispatch(updateRegularBet(id, betValue));
+            setCurrentBetValue(betValue);
+        }
+    };
 
     let isBullseyeBet, isHalfBet = false;
 
     if (loggedUserBets) {
-        isBullseyeBet = correctBets.bullseye.find((correctBet) => correctBet === loggedUserBets.value) !== undefined;
-        isHalfBet = correctBets.half.find((correctBet) => correctBet === loggedUserBets.value) !== undefined;
+        isBullseyeBet = correctBets.bullseye.find((correctBet) => correctBet === currentBetValue) !== undefined;
+        isHalfBet = correctBets.half.find((correctBet) => correctBet === currentBetValue) !== undefined;
     }
 
     setInterval(() => {
-        setCurrentTimestamp(Date.now());
+        setCurrentTimestamp(Math.floor(Date.now() / 1000));
     }, 30000); //30s
 
     const borderClass = classNames({
@@ -59,18 +79,19 @@ const BettableMatch = ({
             [styles.betButtonCorrect]: correctBets.bullseye.find((correctBet) => correctBet === betValue) !== undefined
         });
 
+        const renderIcon = () => {
+            if (currentBetValue === betValue) {
+                return <Icon fontSize="small" className={loggedUser?.icon} style={{ color: loggedUser?.color }} />;
+            } else if (currentTimestamp < timestamp) {
+                return <RadioButtonUncheckedIcon fontSize="small" />;
+            }
 
-        if (loggedUserBets?.value === betValue) {
-            return (
-                <div className={buttonClass}>
-                    <Icon fontSize="small" className={loggedUser?.icon} style={{ color: loggedUser?.color }} />
-                </div>
-            );
-        }
+            return <BlockIcon fontSize="small" />;
+        };
 
         return (
-            <div className={buttonClass}>
-                <RadioButtonUncheckedIcon fontSize="small" />
+            <div className={buttonClass} onClick={() => updateBet(betValue)}>
+                {renderIcon()}
             </div>
         )
     };

@@ -6,22 +6,19 @@ export type TState = {
     errorMessage: string;
     loading: boolean;
     week: null | number;
-    userBets: TMatch[];
     extraBetsResults: TExtraBets | null;
     extraBets: TUserExtraBets[];
+    updating: boolean;
+    userBets: TMatch[];
+    userExtraBets: TExtraBets | null;
 };
 
 export type TAction = {
     type: string;
-    response?: {
-        season: string;
-        week: string;
-        matches: TMatch[];
-        results: TExtraBets | null;
-        bets: TUserExtraBets[];
-    };
-    errorMessage?: string;
+    status?: number;
+    notificationMessage?: string;
 }
+
 export type TFetchUserBets = TAction & {
     readonly type: typeof ACTIONTYPES.FETCHING_USER_BETS
     | typeof ACTIONTYPES.FETCHING_USER_BETS_SUCCESS
@@ -32,6 +29,20 @@ export type TFetchUserBets = TAction & {
         week: string;
         matches: TMatch[];
     };
+    readonly errorMessage?: string;
+};
+
+export type TUpdateUserBets = TAction & {
+    readonly type: typeof ACTIONTYPES.UPDATING_REGULAR_BET
+    | typeof ACTIONTYPES.UPDATING_REGULAR_BET_SUCCESS
+    | typeof ACTIONTYPES.UPDATING_REGULAR_BET_ERROR
+    | typeof ACTIONTYPES.TOGGLE_NOTIFICATION;
+    readonly response?: {
+        season: string;
+        week: string;
+        matches: TMatch[];
+    };
+    readonly errorMessage?: string;
 };
 
 export type TFetchExtraBets = TAction & {
@@ -47,8 +58,22 @@ export type TFetchExtraBets = TAction & {
         };
         results: TExtraBets;
         bets: TUserExtraBets[];
+        userBets: TExtraBets;
     };
+    readonly errorMessage?: string;
 };
+
+export type TUpdateExtraBets = TAction & {
+    readonly type: typeof ACTIONTYPES.UPDATING_EXTRA_BETS
+    | typeof ACTIONTYPES.UPDATING_EXTRA_BETS_SUCCESS
+    | typeof ACTIONTYPES.UPDATING_EXTRA_BETS_ERROR
+    | typeof ACTIONTYPES.TOGGLE_NOTIFICATION;
+    readonly response?: {
+        userBets: TExtraBets;
+    };
+    readonly errorMessage?: string;
+};
+
 
 type TTeams = {
     id: number;
@@ -68,8 +93,8 @@ type TConference = {
     west: TTeams[];
 }
 
-type TExtraBets = {
-    [n: string]: number | number[];
+export type TExtraBets = {
+    [n: string]: null | number | number[];
 }
 
 export type TUserExtraBets = {

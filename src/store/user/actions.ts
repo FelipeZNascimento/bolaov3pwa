@@ -52,7 +52,6 @@ export const onLogin = (email: string, password: string) => async (dispatch: Dis
                     status: NOTIFICATION_STATUS.INFO,
                     notificationMessage: errorMessage
                 });
-
             }
         })
         .catch((error) => {

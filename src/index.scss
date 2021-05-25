@@ -32,6 +32,10 @@ body {
 	padding: 0 8px;
 }
 
+.fas, .fa {
+	display: inline-table !important;
+}
+
 @media screen and (max-width: 992px) {
 	.index-container {
 		width: 100vw;

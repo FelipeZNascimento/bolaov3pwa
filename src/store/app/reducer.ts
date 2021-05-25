@@ -16,6 +16,7 @@ const initialState: TState = {
     notifications: [],
     ranking: [],
     seasonRanking: [],
+    seasonStart: null,
     teams: [],
     teamsByConferenceAndDivision: {
         afc: {
@@ -69,10 +70,11 @@ export default function appReducer(
         case ACTIONTYPES.FETCHING_CONFIG_SUCCESS:
             return {
                 ...state,
-                loading: false,
-                error: false,
                 currentSeason: action.response?.currentSeason,
                 currentWeek: action.response?.currentWeek,
+                error: false,
+                loading: false,
+                seasonStart: action.response?.seasonStart ? parseInt(action.response?.seasonStart) : null,
                 teams: action.response?.teams,
                 teamsByConferenceAndDivision: action.response?.teamsByConferenceAndDivision
             };

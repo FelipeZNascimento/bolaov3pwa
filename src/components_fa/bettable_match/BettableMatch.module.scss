@@ -66,6 +66,10 @@
         height: 100%;
         transition: 0.4s;
 
+        span {
+            animation: scaleUp 0.4s ease-in-out;
+        }
+
         &:hover {
             @include bg-rgba-colored($color-grey1, 0.1);
             @include font-colored($color-grey1);
@@ -81,73 +85,16 @@
             cursor: default;
         }
     }
-
 }
+
 .atDivisor {
     @include padded(left, s);
     @include padded(right, s);
     @include font-colored($color-grey1);
-    
+
     background: url("http://omegafox.me/img/match_layer.png");
     line-height: $matchContainerHeight;
 }
-
-// .time {
-//     @include flex-aligned(flex-start, center);
-//     @include bg-colored($color-grey2);
-//     @include font-colored($color-grey5);
-//     @include font-sized(l);
-
-//     flex: 1;
-//     width: 100%;
-//     z-index: 10;
-
-//     &Mobile {
-//         @extend .time;
-
-//         flex: none;
-//         height: $matchContainerHeight;
-//         width: 100%;
-//     }
-
-//     .notStarted {
-//         @include flex-aligned(center, center);
-
-//         height: $matchContainerHeight;
-//         flex: 1;
-//     }
-
-//     .ended {
-//         @include flex-aligned(center, center);
-
-//         height: $matchContainerHeight;
-//         flex: 1;
-//     }
-
-//     .started {
-//         @include flex-aligned(center, center);
-
-//         height: $matchContainerHeight;
-//         flex: 1;
-//         flex-direction: row;
-
-//         .quarter {
-//             @include bg-colored($color-grey3);
-//             @include flex-aligned(center, center);
-//             @include font-colored($color-grey1);
-
-//             height: $matchContainerHeight;
-//             flex: 1;
-//         }
-
-//         .timeLeft {
-//             @include flex-aligned(center, center);
-
-//             height: $matchContainerHeight;
-//             flex: 1;
-//         }
-//     }
-// }
 
 .greenBorder {
     -webkit-box-shadow: 0 -2px 0px 0px $color-mint;
@@ -160,4 +107,17 @@
 .redBorder {
     -webkit-box-shadow: 0 -2px 0px 0px $color-red;
     box-shadow: 0 -2px 0px 0px $color-red;
+}
+
+@keyframes scaleUp {
+    0% {
+        @include font-colored($color-grey3);
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.5);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
