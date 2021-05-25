@@ -9,6 +9,7 @@ export type TState = {
     notifications: TNotification[];
     ranking: TRankingLine[];
     seasonRanking: TRankingLine[];
+    seasonStart: number | null;
     teams: TTeam[];
     teamsByConferenceAndDivision: TTeams;
 };
@@ -39,6 +40,7 @@ type TTeams = {
 type TConfig = {
     currentSeason: number;
     currentWeek: number;
+    seasonStart: string;
     teamsByConferenceAndDivision: TTeams;
     teams: TTeam[];
 }

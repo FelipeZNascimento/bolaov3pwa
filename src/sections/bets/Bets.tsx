@@ -66,7 +66,7 @@ const Bets = () => {
                     <div style={{ flex: 2 }}>Casa</div>
                 </div>}
                 {isLoading && <Loading />}
-                {!isLoading && userBets.map((match) => <BettableMatch {...match} />)}
+                {!isLoading && userBets.map((match) => <BettableMatch {...match} key={match.id} />)}
             </div>
             {renderRanking()}
         </div>

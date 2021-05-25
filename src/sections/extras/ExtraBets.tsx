@@ -4,28 +4,32 @@ import { isMobile } from "react-device-detect";
 import classNames from 'classnames';
 
 // Actions
-import { fetchExtraBets } from 'store/bets/actions';
-// import { setCurrentWeek } from 'store/app/actions';
+import {
+    fetchExtraBets,
+    updateExtraBets
+} from 'store/bets/actions';
 
 // Selectors
 import {
     selectIsLoading,
+    selectIsUpdating,
     selectExtraBets,
-    selectExtraBetsResults
+    selectExtraBetsResults,
+    selectUserExtraBets
 } from 'store/bets/selector';
 import {
     selectCurrentSeason,
+    selectSeasonStart,
     selectTeams,
     selectTeamsByConferenceAndDivision
 } from 'store/app/selector';
-import { selectUser } from 'store/user/selector';
 
 // Components
-import { Loading, TeamMini } from 'components_fa/index'
+import TeamWithExtras from './components/TeamWithExtras';
+import BettableTeam from './components/BettableTeam';
+import { Loading } from 'components_fa/index'
 import {
     Button,
-    Icon,
-    Tooltip
 } from '@material-ui/core';
 import {
     UnfoldMore as UnfoldMoreIcon,
@@ -33,6 +37,7 @@ import {
 } from '@material-ui/icons';
 
 import { TMatchTeam } from 'store/matches/types';
+import { TExtraBets } from 'store/bets/types';
 import { EXTRA_BETS_VALUES } from 'constants/bets';
 import styles from './ExtraBets.module.scss'
 
@@ -43,18 +48,36 @@ const EXTRA_SECTION = {
 };
 type EXTRA_SECTION_TYPE = typeof EXTRA_SECTION[keyof typeof EXTRA_SECTION];
 
+const emptyExtras = {
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null,
+    6: null,
+    7: null,
+    8: null,
+    9: null,
+    10: null,
+    11: null,
+    12: [],
+    13: []
+};
+
 const ExtraBets = () => {
     const [extraSection, setExtraSection] = useState<EXTRA_SECTION_TYPE>(EXTRA_SECTION.AFC);
     const [selectedDivision, setSelectedDivision] = useState<string | null>(null);
     const [selectAll, setSelectAll] = useState<boolean>(false);
-
+    const [selectedExtraBets, setSelectedExtraBets] = useState<TExtraBets>(emptyExtras);
     const dispatch = useDispatch();
 
     const currentSeason = useSelector(selectCurrentSeason);
     const isLoading = useSelector(selectIsLoading);
-    const loggedUser = useSelector(selectUser);
+    const isUpdating = useSelector(selectIsUpdating);
     const extraBets = useSelector(selectExtraBets);
+    const userExtraBets = useSelector(selectUserExtraBets);
     const extraBetsResults = useSelector(selectExtraBetsResults);
+    const seasonStart = useSelector(selectSeasonStart);
     const teams = useSelector(selectTeams);
     const teamsByConferenceAndDivision = useSelector(selectTeamsByConferenceAndDivision);
 
@@ -62,37 +85,69 @@ const ExtraBets = () => {
         ? EXTRA_BETS_VALUES.AFC_WILDCARD
         : EXTRA_BETS_VALUES.NFC_WILDCARD;
 
+    let seasonStarted = seasonStart !== null && Date.now() >= seasonStart;
+    // let seasonStarted = true;
+
+    // setTimeout(function () {
+    //     seasonStarted = seasonStart && Date.now() >= seasonStart;
+    // }, 60000);
 
     useEffect(() => {
         if (currentSeason) {
             dispatch(fetchExtraBets(currentSeason));
         }
-    }, [currentSeason, loggedUser, dispatch]);
+    }, [currentSeason, dispatch]);
 
-    const renderBets = (
-        teamId: number,
-        extraType: number
-    ) => {
-        return extraBets.map((user) => {
-            if (extraType === selectedWildcardExtraType) {
-                const wildcardBets = user.bets[extraType] as number[];
-                if (wildcardBets.find((bet) => bet === teamId)) {
-                    return (
-                        <Tooltip title={`${user.username} (WC)`} arrow>
-                            <Icon classes={{ root: styles.iconClass }} fontSize="small" className={`${user.icon} color-grey1`}
-                            />
-                        </Tooltip>
-                    )
-                }
-            } else if (user.bets[extraType] === teamId) {
-                return (
-                    <Tooltip title={user.username} arrow>
-                        <Icon classes={{ root: styles.iconClass }} fontSize="small" className={user.icon} style={{ color: user.color }} />
-                    </Tooltip>
-                )
+    useEffect(() => {
+        if (userExtraBets !== null) {
+            setSelectedExtraBets(userExtraBets);
+        }
+    }, [userExtraBets]);
+
+    useEffect(() => {
+        if (!isLoading
+            && JSON.stringify(selectedExtraBets) !== JSON.stringify(userExtraBets)
+            && JSON.stringify(selectedExtraBets) !== JSON.stringify(emptyExtras)
+        ) {
+            dispatch(updateExtraBets(selectedExtraBets))
+        }
+    }, [selectedExtraBets]);
+
+    const onSelect = (team: TMatchTeam, type: number) => {
+        const newSelectedExtraBets: TExtraBets = { ...selectedExtraBets };
+        let afcWc: number[] = [...newSelectedExtraBets[EXTRA_BETS_VALUES.AFC_WILDCARD] as number[]];
+        let nfcWc: number[] = [...newSelectedExtraBets[EXTRA_BETS_VALUES.NFC_WILDCARD] as number[]];
+
+        if (type === EXTRA_BETS_VALUES.AFC_WILDCARD) {
+            if (afcWc.find((wc) => wc === team.id) !== undefined) {
+                afcWc = afcWc.filter((wc) => wc !== team.id);
+            } else if (afcWc.length === 3) {
+                afcWc.shift();
+                afcWc.push(team.id);
+            } else {
+                afcWc.push(team.id);
             }
-            return null;
-        })
+
+        } else if (type === EXTRA_BETS_VALUES.NFC_WILDCARD) {
+            if (nfcWc.find((wc) => wc === team.id) !== undefined) {
+                nfcWc = nfcWc.filter((wc) => wc !== team.id);
+            } else if (nfcWc.length === 3) {
+                nfcWc.shift();
+                nfcWc.push(team.id);
+            } else {
+                nfcWc.push(team.id);
+            }
+        } else {
+            if (newSelectedExtraBets[type] === team.id) {
+                newSelectedExtraBets[type] = null;
+            } else {
+                newSelectedExtraBets[type] = team.id;
+            }
+        }
+
+        newSelectedExtraBets[EXTRA_BETS_VALUES.AFC_WILDCARD] = afcWc;
+        newSelectedExtraBets[EXTRA_BETS_VALUES.NFC_WILDCARD] = nfcWc;
+        setSelectedExtraBets({ ...newSelectedExtraBets });
     };
 
     const renderDivision = (
@@ -104,59 +159,58 @@ const ExtraBets = () => {
         const showBets = selectAll || (selectedDivision === title && !isMobile);
 
         const divisionClass = classNames({
-            [styles.division]: !showBets,
-            [styles.divisionAndBets]: showBets
+            [styles.division]: !showBets || !seasonStarted,
+            [styles.divisionAndBets]: showBets && seasonStarted
         });
 
-        return (
-            <>
-                <div className={divisionClass}>
+        const renderButton = () => {
+            if (seasonStarted) {
+                return (
                     <Button classes={{ root: `${selectedDivision === title ? styles.buttonActive : styles.button}` }}
                         variant="outlined"
                         onClick={() => setSelectedDivision(selectedDivision === title ? null : title)}
                     >
                         {title}
                     </Button>
+                )
+            }
 
-                    {teams.map((team) => {
-                        let isChampion = false;
-                        let isWildcard = false;
-                        if (extraBetsResults !== null) {
-                            const wildcardResults = extraBetsResults[selectedWildcardExtraType] as number[];
+            return (
+                <Button classes={{ root: styles.button }}
+                    variant="outlined"
+                    onClick={() => null}
+                >
+                    {title}
+                </Button>
+            );
+        };
 
-                            isChampion = extraBetsResults[extraType] === team.id;
-                            isWildcard = wildcardResults.find((result) => result === team.id) !== undefined;
-                        }
+        return (
+            <>
+                <div className={divisionClass}>
+                    {renderButton()}
+                    {seasonStarted && teams.map((team) => (
+                        <TeamWithExtras
+                            extraBets={extraBets}
+                            extraBetsResults={extraBetsResults}
+                            extraType={extraType}
+                            isExpanded={showBets}
+                            isVisible={showDivision}
+                            team={team}
+                            wildcardExtraType={selectedWildcardExtraType}
+                        />
+                    ))}
+                    {!seasonStarted && teams.map((team) => (
+                        <BettableTeam
+                            disabled={isUpdating}
+                            currentlySelectedByUser={selectedExtraBets}
+                            extraType={extraType}
+                            team={team}
+                            wildcardExtraType={selectedWildcardExtraType}
+                            onSelect={onSelect}
+                        />
+                    ))}
 
-                        if (isChampion && !team.name.includes('Champion')) {
-                            team.name += ' (Division Champion)';
-                        }
-                        if (isWildcard && !team.name.includes('Wildcard')) {
-                            team.name += ' (Wildcard)';
-                        }
-
-                        const teamClass = classNames({
-                            [styles.hidden]: !showDivision,
-                            [styles.teamContainerWinner]: isChampion,
-                            [styles.teamContainerWildcard]: isWildcard,
-                            [styles.teamContainer]: !isWildcard && !isChampion,
-                        });
-
-                        const extraBetsClass = classNames({
-                            [styles.extraBetsNone]: !showBets,
-                            [styles.extraBets]: showBets,
-                        });
-
-                        return (
-                            <div className={teamClass}>
-                                <TeamMini {...team} />
-                                <div className={extraBetsClass}>
-                                    {renderBets(team.id, extraType)}
-                                    {renderBets(team.id, selectedWildcardExtraType)}
-                                </div>
-                            </div>
-                        )
-                    })}
                 </div>
             </>
         )
@@ -166,48 +220,71 @@ const ExtraBets = () => {
         title: string,
         extraType: number
     ) => {
-        const bettedTeams: TMatchTeam[] = [];
-        extraBets.forEach((user) => {
-            const bettedTeam = user.bets[extraType];
-
-            if (bettedTeams.find((team) => team.id === bettedTeam) === undefined) {
-                const teamInfo = teams.find((team) => team.id === bettedTeam);
-                if (teamInfo !== undefined) {
-                    bettedTeams.push(teamInfo);
+        let renderTeams: TMatchTeam[] = [];
+        if (seasonStarted) {
+            extraBets.forEach((user) => {
+                const bettedTeam = user.bets[extraType];
+                if (renderTeams.find((team) => team.id === bettedTeam) === undefined) {
+                    const teamInfo = teams.find((team) => team.id === bettedTeam);
+                    if (teamInfo !== undefined) {
+                        renderTeams.push(teamInfo);
+                    }
                 }
+            })
+        } else {
+            if (extraType === EXTRA_BETS_VALUES.AFC) {
+                renderTeams = teams.filter((team) => team.conference.toLowerCase() === 'afc');
+            } else if (extraType === EXTRA_BETS_VALUES.NFC) {
+                renderTeams = teams.filter((team) => team.conference.toLowerCase() === 'nfc');
+            } else {
+                renderTeams = [...teams];
             }
-        })
+        }
 
-        return (
-            <div className={styles.divisionAndBets}>
-                <Button classes={{ root: `${selectedDivision === title ? styles.buttonActive : styles.button}` }}
+        const renderDivisionButton = () => {
+            if (seasonStarted) {
+                return (
+                    <Button classes={{ root: `${selectedDivision === title ? styles.buttonActive : styles.button}` }}
+                        variant="outlined"
+                        onClick={() => setSelectedDivision(selectedDivision === title ? null : title)}
+                    >
+                        {title}
+                    </Button>
+                );
+            }
+
+            return (
+                <Button classes={{ root: styles.button }}
                     variant="outlined"
-                    onClick={() => setSelectedDivision(selectedDivision === title ? null : title)}
+                    onClick={() => null}
                 >
                     {title}
                 </Button>
+            )
+        };
 
-                {bettedTeams.map((team) => {
-                    let isChampion = false;
-                    if (extraBetsResults !== null) {
-                        isChampion = extraBetsResults[extraType] === team.id;
-                    }
-
-                    const teamClass = classNames({
-                        [styles.teamContainerWinner]: isChampion,
-                        [styles.teamContainer]: !isChampion
-                    });
-
-                    return (
-                        <div className={teamClass}>
-                            <TeamMini {...team} />
-                            <div className={styles.extraBets}>
-                                {renderBets(team.id, extraType)}
-                            </div>
-                        </div>
-                    )
-                })}
-
+        return (
+            <div className={styles.divisionAndBets}>
+                {renderDivisionButton()}
+                {seasonStarted && renderTeams.map((team) => (
+                    <TeamWithExtras
+                        isExpanded
+                        isVisible
+                        extraBets={extraBets}
+                        extraBetsResults={extraBetsResults}
+                        extraType={extraType}
+                        team={team}
+                    />
+                ))}
+                {!seasonStarted && renderTeams.map((team) => (
+                    <BettableTeam
+                        disabled={isUpdating}
+                        currentlySelectedByUser={selectedExtraBets}
+                        extraType={extraType}
+                        team={team}
+                        onSelect={onSelect}
+                    />
+                ))}
             </div>
         )
     }
@@ -222,6 +299,7 @@ const ExtraBets = () => {
         [styles.divisionsContainerMobile]: isMobile
     });
 
+    const showExpandCollapseButton = !isMobile && seasonStarted && extraSection !== EXTRA_SECTION.PLAYOFFS;
     return (
         <div className={containerClass}>
             <div className={styles.buttonsContainer}>
@@ -244,7 +322,7 @@ const ExtraBets = () => {
                     Playoffs
                 </Button>
             </div>
-            {!isMobile && <Button classes={{ root: `color-grey1` }}
+            {showExpandCollapseButton && <Button classes={{ root: `color-grey1` }}
                 variant="outlined"
                 onClick={() => { setSelectAll(!selectAll); setSelectedDivision(null) }}
             >

@@ -1,19 +1,26 @@
 import * as ACTIONTYPES from 'store/actiontypes';
-import { TAction, TState } from './types';
+import {
+    TFetchUserBets,
+    TFetchExtraBets,
+    TUpdateExtraBets,
+    TState
+} from './types';
 
 const initialState: TState = {
     error: false,
     errorMessage: '',
-    loading: false,
+    updating: false,
+    loading: true,
     week: null,
     userBets: [],
     extraBetsResults: null,
     extraBets: [],
+    userExtraBets: null
 };
 
 export default function betsReducer(
     state: TState = initialState,
-    action: TAction
+    action: TFetchUserBets | TFetchExtraBets | TUpdateExtraBets
 ) {
     switch (action.type) {
         case ACTIONTYPES.FETCHING_EXTRA_BETS:
@@ -24,6 +31,20 @@ export default function betsReducer(
                 errorMessage: '',
                 error: false
             };
+        case ACTIONTYPES.UPDATING_EXTRA_BETS:
+            return {
+                ...state,
+                updating: true,
+                errorMessage: '',
+                error: false
+            };
+        case ACTIONTYPES.UPDATING_EXTRA_BETS_SUCCESS:
+            return {
+                ...state,
+                updating: false,
+                errorMessage: '',
+                error: false
+            };
         case ACTIONTYPES.FETCHING_USER_BETS_SUCCESS:
             return {
                 ...state,
@@ -31,7 +52,7 @@ export default function betsReducer(
                 errorMessage: '',
                 error: false,
                 userBets: action.response?.matches,
-                week: action.response? parseInt(action.response.week) : null
+                week: action.response ? parseInt(action.response.week) : null
             };
         case ACTIONTYPES.FETCHING_EXTRA_BETS_SUCCESS:
             return {
@@ -41,6 +62,7 @@ export default function betsReducer(
                 error: false,
                 extraBetsResults: action.response?.results,
                 extraBets: action.response?.bets,
+                userExtraBets: action.response?.userBets
             };
         default:
             return state;

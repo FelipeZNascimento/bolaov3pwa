@@ -174,7 +174,7 @@ const WeekPagination = ({
                 </div>
                 <div className={styles.currentPage}>
                     <Link
-                        key={'currentPage'}
+                        key={currentPage.num}
                         to={routeTo(currentPage.num)}
                         onClick={() => onClick(currentPage.num)}
                     >
@@ -189,7 +189,7 @@ const WeekPagination = ({
                             to={routeTo(week.num)}
                             onClick={() => onClick(week.num)}
                         >
-                            { week.num}
+                            {week.num}
                         </Link>
                     ))}
                     {rightWeeks.length < pageRange && renderEmptySpans(pageRange - rightWeeks.length)}
