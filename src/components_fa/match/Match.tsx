@@ -21,7 +21,7 @@ const Match = ({
     timestamp,
 }: TProps) => {
     const [isExpanded, setIsExpanded] = useState(false);
-    const [currentTimestamp, setCurrentTimestamp] = useState(DateTime.now().toMillis());
+    const [currentTimestamp, setCurrentTimestamp] = useState(Math.floor(Date.now() / 1000));
 
     const correctBets = calculateCorrectBets(away.score || 0, home.score || 0);
 
@@ -32,7 +32,7 @@ const Match = ({
     }
 
     setInterval(() => {
-        setCurrentTimestamp(Date.now());
+        setCurrentTimestamp(Math.floor(Date.now() / 1000));
     }, 30000); //30s
 
     const matchStatusClass = classNames({
@@ -49,8 +49,8 @@ const Match = ({
 
     const renderTime = () => {
         const date = isExpanded
-            ? DateTime.fromMillis(timestamp).setLocale('pt-Br').toFormat('(ZZZZ) cccc, T - dd/LL/yyyy')
-            : DateTime.fromMillis(timestamp).setLocale('pt-Br').toFormat('dd/LL/yyyy');
+            ? DateTime.fromSeconds(timestamp).setLocale('pt-Br').toFormat("EEE dd/LL, hh'h'mm")
+            : DateTime.fromSeconds(timestamp).setLocale('pt-Br').toFormat("dd/LL, hh'h'mm");
 
         // if match hasn't started
         if (currentTimestamp < timestamp) {
@@ -98,7 +98,7 @@ const Match = ({
     });
 
     const betsContainerClass = classNames(styles.betsContainer, {
-        [styles.betsContainerHidden]: !isExpanded || !bets,
+        [styles.betsContainerHidden]: !isExpanded || !bets || bets.length === 0,
     });
 
     return (
