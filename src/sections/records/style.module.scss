@@ -1,0 +1,100 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.container {
+    @include flex-aligned(center, center);
+    @include padded(all, xl);
+
+    flex: 1;
+    flex-direction: column;
+    min-width: 100%;
+
+    a {
+        text-decoration: none;
+    }
+}
+
+.content {
+    @include flex-aligned(center, center);
+
+    flex: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-width: 100%;
+}
+
+.buttonsContainer {
+    @include flex-aligned(center, center);
+    @include padded(all, xl);
+
+    flex: 1;
+    flex-wrap: wrap;
+
+    a {
+        text-decoration: none;
+    }
+}
+
+.table {
+    @include bg-rgba-colored($color-grey1, 0.1);
+    @include font-colored($color-grey3);
+    @include padded(all, m);
+    @include marged(bottom, m);
+    width: 100%;
+
+    &Header {
+        @include bg-rgba-colored($color-grey1, 0.1);
+        @include flex-aligned(flex-start, center);
+        @include marged(top, m);
+        font-weight: bold;
+
+        min-height: 36px;
+        transition: 0.2s;
+
+        div {
+            @include padded(left, s);
+        }
+
+        span {
+            text-decoration: underline;
+        }
+    }
+
+    .recordLine {
+        @include flex-aligned(flex-start, center);
+
+        display: flex;
+        min-height: 36px;
+        transition: 0.2s;
+
+        div,
+        span {
+            @include padded(left, s);
+        }
+
+        &:hover {
+            @include font-colored($color-grey1);
+            @include bg-rgba-colored($color-black, 0.1);
+        }
+    }
+}
+
+.week,
+.icon,
+.position,
+.points {
+    flex: 1;
+}
+
+.season,
+.name {
+    flex: 2;
+}
+.name,
+.position {
+    @include aligned(left);
+}

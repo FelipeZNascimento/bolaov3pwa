@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isMobile } from "react-device-detect";
 import { useParams } from 'react-router';
 
-import { Loading, Match, Ranking, WeekPagination } from 'components_fa/index'
+import { Loading, Match, Ranking, WeekPagination } from 'components_fa/index';
 import styles from './Results.module.scss';
 import ROUTES from 'constants/routes';
 

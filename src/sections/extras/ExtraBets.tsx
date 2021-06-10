@@ -307,6 +307,10 @@ const ExtraBets = () => {
     const showExpandCollapseButton = !isMobile && hasSeasonStarted && extraSection !== EXTRA_SECTION.PLAYOFFS;
     return (
         <div className={containerClass}>
+            <div className="sectionTitle">
+                <h1>Extras</h1>
+            </div>
+
             <div className={styles.buttonsContainer}>
                 <Button classes={{ root: `${extraSection === EXTRA_SECTION.AFC ? styles.buttonActive : styles.button}` }}
                     variant="outlined"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { isMobile } from "react-device-detect";
@@ -101,21 +101,47 @@ const weeksMock: TWeek[] = [
 ];
 
 type TProps = {
+    initialWeek?: null | number;
     onClick: (week: number) => void;
     routeTo: (week: number) => string;
 };
 
 const WeekPagination = ({
+    initialWeek = null,
     onClick,
     routeTo
 }: TProps) => {
+    const [controlledWeek, setControlledWeek] = useState<number | null>(null);
+    const [currentPage, setCurrentPage] = useState<TWeek | null>(null);
     const currentWeek = useSelector(selectCurrentWeek);
+
+    useEffect(() => {
+        if (controlledWeek !== null) {
+            return;
+        }
+
+        if (initialWeek === null) {
+            setControlledWeek(currentWeek);
+        } else {
+            setControlledWeek(initialWeek);
+        }
+    }, [controlledWeek, currentWeek, initialWeek]);
+
+    useEffect(() => {
+        const newPage = weeksMock.find((week) => week.num === controlledWeek);
+        if (newPage !== undefined) {
+            setCurrentPage(newPage);
+        }
+    }, [controlledWeek]);
+
+    const onWeekClick = (weekNum: number) => {
+        setControlledWeek(weekNum);
+        onClick(weekNum);
+    };
 
     const pageRange = isMobile ? 2 : 4;
     const leftWeeks: TWeek[] = [];
     const rightWeeks: TWeek[] = [];
-
-    const currentPage = weeksMock.find((week) => week.num === currentWeek);
 
     if (!currentPage) {
         return null;
@@ -166,7 +192,7 @@ const WeekPagination = ({
                             key={week.num}
                             className={pageClass}
                             to={routeTo(week.num)}
-                            onClick={() => onClick(week.num)}
+                            onClick={() => onWeekClick(week.num)}
                         >
                             {week.num}
                         </Link>
@@ -176,7 +202,7 @@ const WeekPagination = ({
                     <Link
                         key={currentPage.num}
                         to={routeTo(currentPage.num)}
-                        onClick={() => onClick(currentPage.num)}
+                        onClick={() => onWeekClick(currentPage.num)}
                     >
                         {isMobile ? currentPage.num : currentPage.display}
                     </Link>
@@ -187,7 +213,7 @@ const WeekPagination = ({
                             key={week.num}
                             className={pageClass}
                             to={routeTo(week.num)}
-                            onClick={() => onClick(week.num)}
+                            onClick={() => onWeekClick(week.num)}
                         >
                             {week.num}
                         </Link>

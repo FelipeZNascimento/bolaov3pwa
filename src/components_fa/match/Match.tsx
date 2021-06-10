@@ -49,8 +49,8 @@ const Match = ({
 
     const renderTime = () => {
         const date = isExpanded
-            ? DateTime.fromSeconds(timestamp).setLocale('pt-Br').toFormat("EEE dd/LL, hh'h'mm")
-            : DateTime.fromSeconds(timestamp).setLocale('pt-Br').toFormat("dd/LL, hh'h'mm");
+            ? DateTime.fromSeconds(timestamp).setLocale('pt-Br').toFormat("EEE dd/LL, HH'h'mm")
+            : DateTime.fromSeconds(timestamp).setLocale('pt-Br').toFormat("dd/LL, HH'h'mm");
 
         // if match hasn't started
         if (currentTimestamp < timestamp) {
@@ -66,7 +66,7 @@ const Match = ({
         if (currentTimestamp >= timestamp) {
             return (
                 <div className={matchStatusClass}>
-                    <div className={`${styles.quarter}`}>
+                    <div className={styles.quarter}>
                         1Q
                     </div>
                     <div className={styles.timeLeft}>
@@ -98,7 +98,7 @@ const Match = ({
     });
 
     const betsContainerClass = classNames(styles.betsContainer, {
-        [styles.betsContainerHidden]: !isExpanded || !bets || bets.length === 0,
+        [styles.betsContainerHidden]: !isExpanded || !bets || (bets.length === 0 && !loggedUserBets),
     });
 
     return (

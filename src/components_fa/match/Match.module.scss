@@ -58,7 +58,7 @@
     @include flex-aligned(flex-start, center);
     @include bg-colored($color-grey2);
     @include font-colored($color-grey5);
-    @include font-sized(l);
+    @include font-sized(m2);
 
     flex: 1;
     width: 100%;

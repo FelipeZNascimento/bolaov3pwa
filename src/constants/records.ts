@@ -1,0 +1,103 @@
+import { TRecordFilter } from 'sections/records/types';
+
+const defaultFilter: TRecordFilter = {
+    id: null,
+    display: '',
+    description: '',
+    orderBy: '',
+    limit: 0,
+    needsLoggedUser: false,
+    route: '',
+    sortAsc: false,
+    season: null,
+    week: null,
+    userId: null,
+};
+
+const defaultButtons: TRecordFilter[] = [
+    {
+        id: 0,
+        display: 'top 10',
+        description: 'Melhores 10 semanas da história do Bolão',
+        orderBy: 'percentage',
+        limit: 10,
+        needsLoggedUser: false,
+        route: 'top',
+        sortAsc: false,
+        season: null,
+        week: null,
+        userId: null,
+    },
+    {
+        id: 1,
+        display: 'bottom 10',
+        description: 'Piores 10 semanas da história do Bolão',
+        orderBy: 'percentage',
+        limit: 10,
+        needsLoggedUser: false,
+        route: 'bottom',
+        sortAsc: true,
+        season: null,
+        week: null,
+        userId: null,
+    },
+    {
+        id: 2,
+        accumulated: true,
+        display: 'checkpoints',
+        description: 'Semana a semana com pontuação acumulada',
+        orderBy: 'points',
+        limit: 10,
+        needsLoggedUser: false,
+        route: 'checkpoints',
+        sortAsc: false,
+        season: null,
+        week: 1,
+        userId: null,
+        weekPagination: true
+    },
+    {
+        id: 3,
+        display: 'meu top 10',
+        description: 'Minhas melhores 10 semanas',
+        orderBy: 'percentage',
+        limit: 10,
+        needsLoggedUser: true,
+        route: 'topmine',
+        sortAsc: false,
+        season: null,
+        week: null,
+        userId: null,
+    },
+    {
+        id: 4,
+        display: 'meu bottom 10',
+        description: 'Minhas piores 10 semanas',
+        orderBy: 'percentage',
+        limit: 10,
+        needsLoggedUser: true,
+        route: 'bottommine',
+        sortAsc: true,
+        season: null,
+        week: null,
+        userId: null
+    },
+    {
+        id: 2,
+        accumulated: true,
+        display: 'meus checkpoints',
+        description: 'Semana a semana com pontuação acumulada',
+        orderBy: 'points',
+        limit: 10,
+        needsLoggedUser: true,
+        route: 'checkpointsmine',
+        sortAsc: false,
+        season: null,
+        week: 1,
+        userId: null,
+        weekPagination: true
+    },
+
+];
+
+export { defaultButtons, defaultFilter };

@@ -21,7 +21,14 @@ export const ROUTES = {
     },
     RECORDS: {
         display: 'Records',
-        url: '/records'
+        url: '/records',
+        urlWithParams: (recordsParam: string, weekParam?: string) => {
+            if (weekParam !== undefined) {
+                return `${ROUTES.RECORDS.url}/${recordsParam}/${weekParam}`
+            }
+
+            return `${ROUTES.RECORDS.url}/${recordsParam}/`;
+        },
     },
     REGRAS: {
         display: 'Regras',
