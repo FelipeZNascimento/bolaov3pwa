@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import LargeButtons from './components/largeButtons';
+import { LargeButton } from 'components/index';
 
 // Selectors
 import {
@@ -49,7 +49,7 @@ const App = () => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.buttonsContainer}>
-				{menuOptions.map((option) => <LargeButtons {...option} />)}
+				{menuOptions.map((option) => <LargeButton {...option} />)}
 			</div>
 		</div>
 	);

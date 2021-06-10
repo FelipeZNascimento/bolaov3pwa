@@ -48,11 +48,6 @@ export default function matchesReducer(
                 error: false,
                 user: null
             };
-        // case ACTIONTYPES.FETCHING_CONFIG_SUCCESS:
-        //     return {
-        //         ...state,
-        //         user: action.response?.loggedUser
-        //     };
 
         case ACTIONTYPES.UPDATING_USER_ERROR:
         case ACTIONTYPES.REGISTERING_ERROR:

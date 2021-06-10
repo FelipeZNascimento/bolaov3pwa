@@ -32,8 +32,28 @@ body {
 	padding: 0 8px;
 }
 
-.fas, .fa, .fab {
+.fas,
+.far,
+.fa,
+.fab {
 	display: inline-table !important;
+}
+
+.sectionTitle {
+	@include font-colored($color-grey2);
+	@include padded(bottom, xl);
+
+	flex: 0;
+	transition: 0.4s;
+
+	&Link {
+		@extend .sectionTitle;
+		cursor: pointer;
+
+		&:hover {
+			@include font-colored($color-grey1);
+		}
+	}
 }
 
 @media screen and (max-width: 992px) {
