@@ -31,10 +31,6 @@ import { Loading } from 'components_fa/index'
 import {
     Button,
 } from '@material-ui/core';
-import {
-    UnfoldMore as UnfoldMoreIcon,
-    UnfoldLess as UnfoldLessIcon,
-} from '@material-ui/icons';
 
 import { TMatchTeam } from 'store/matches/types';
 import { TExtraBets } from 'store/bets/types';
@@ -67,8 +63,6 @@ const emptyExtras = {
 const ExtraBets = () => {
     const [hasSeasonStarted, setHasSeasonStarted] = useState<boolean>(true);
     const [extraSection, setExtraSection] = useState<EXTRA_SECTION_TYPE>(EXTRA_SECTION.AFC);
-    const [selectedDivision, setSelectedDivision] = useState<string | null>(null);
-    const [selectAll, setSelectAll] = useState<boolean>(false);
     const [selectedExtraBets, setSelectedExtraBets] = useState<TExtraBets>(emptyExtras);
     const dispatch = useDispatch();
 
@@ -160,34 +154,15 @@ const ExtraBets = () => {
         teams: TMatchTeam[],
         extraType: number
     ) => {
-        const showDivision = isMobile || selectedDivision === null || selectedDivision === title;
-        const showBets = selectAll || (selectedDivision === title && !isMobile);
-
         const divisionClass = classNames({
-            [styles.division]: !showBets || !hasSeasonStarted,
-            [styles.divisionAndBets]: showBets && hasSeasonStarted
+            [styles.division]: !hasSeasonStarted,
+            'left-margin-s right-margin-s': !hasSeasonStarted && !isMobile,
+            [styles.divisionAndBets]: hasSeasonStarted
         });
 
+        const divisionName = extraSection === EXTRA_SECTION.AFC ? 'AFC' : 'NFC';
         const renderButton = () => {
-            if (hasSeasonStarted) {
-                return (
-                    <Button classes={{ root: `${selectedDivision === title ? styles.buttonActive : styles.button}` }}
-                        variant="outlined"
-                        onClick={() => setSelectedDivision(selectedDivision === title ? null : title)}
-                    >
-                        {title}
-                    </Button>
-                )
-            }
-
-            return (
-                <Button classes={{ root: styles.button }}
-                    variant="outlined"
-                    onClick={() => null}
-                >
-                    {title}
-                </Button>
-            );
+            return <h3 className={styles.divisionTitle}>{divisionName} {title}</h3>;
         };
 
         return (
@@ -196,11 +171,11 @@ const ExtraBets = () => {
                     {renderButton()}
                     {hasSeasonStarted && teams.map((team) => (
                         <TeamWithExtras
+                            isVisible
+                            isExpanded
                             extraBets={extraBets}
                             extraBetsResults={extraBetsResults}
                             extraType={extraType}
-                            isExpanded={showBets}
-                            isVisible={showDivision}
                             team={team}
                             wildcardExtraType={selectedWildcardExtraType}
                         />
@@ -247,25 +222,7 @@ const ExtraBets = () => {
         }
 
         const renderDivisionButton = () => {
-            if (hasSeasonStarted) {
-                return (
-                    <Button classes={{ root: `${selectedDivision === title ? styles.buttonActive : styles.button}` }}
-                        variant="outlined"
-                        onClick={() => setSelectedDivision(selectedDivision === title ? null : title)}
-                    >
-                        {title}
-                    </Button>
-                );
-            }
-
-            return (
-                <Button classes={{ root: styles.button }}
-                    variant="outlined"
-                    onClick={() => null}
-                >
-                    {title}
-                </Button>
-            )
+            return <h3 className={styles.divisionTitle}>{title}</h3>;
         };
 
         return (
@@ -304,7 +261,6 @@ const ExtraBets = () => {
         [styles.divisionsContainerMobile]: isMobile
     });
 
-    const showExpandCollapseButton = !isMobile && hasSeasonStarted && extraSection !== EXTRA_SECTION.PLAYOFFS;
     return (
         <div className={containerClass}>
             <div className="sectionTitle">
@@ -314,29 +270,23 @@ const ExtraBets = () => {
             <div className={styles.buttonsContainer}>
                 <Button classes={{ root: `${extraSection === EXTRA_SECTION.AFC ? styles.buttonActive : styles.button}` }}
                     variant="outlined"
-                    onClick={() => { setExtraSection(EXTRA_SECTION.AFC); setSelectedDivision(null); }}
+                    onClick={() => setExtraSection(EXTRA_SECTION.AFC)}
                 >
                     AFC
                 </Button>
                 <Button classes={{ root: `${extraSection === EXTRA_SECTION.NFC ? styles.buttonActive : styles.button}` }}
                     variant="outlined"
-                    onClick={() => { setExtraSection(EXTRA_SECTION.NFC); setSelectedDivision(null); }}
+                    onClick={() => setExtraSection(EXTRA_SECTION.NFC)}
                 >
                     NFC
                 </Button>
                 <Button classes={{ root: `${extraSection === EXTRA_SECTION.PLAYOFFS ? styles.buttonActive : styles.button}` }}
                     variant="outlined"
-                    onClick={() => { setExtraSection(EXTRA_SECTION.PLAYOFFS); setSelectedDivision(null); }}
+                    onClick={() => setExtraSection(EXTRA_SECTION.PLAYOFFS)}
                 >
                     Playoffs
                 </Button>
             </div>
-            {showExpandCollapseButton && <Button classes={{ root: `color-grey1` }}
-                variant="outlined"
-                onClick={() => { setSelectAll(!selectAll); setSelectedDivision(null) }}
-            >
-                {selectAll ? <UnfoldLessIcon classes={{ root: styles.rotated }} /> : <UnfoldMoreIcon classes={{ root: styles.rotated }} />}
-            </Button>}
 
             {isLoading && <Loading />}
             {!isLoading && extraSection === EXTRA_SECTION.AFC && <div className={divisionsContainerClass}>

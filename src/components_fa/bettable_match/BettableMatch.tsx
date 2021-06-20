@@ -89,9 +89,19 @@ const BettableMatch = ({
             return <BlockIcon fontSize="small" />;
         };
 
+        const renderDescription = () => {
+            const description = betValue === BETS_VALUES.AWAY_EASY || betValue === BETS_VALUES.HOME_EASY
+                ? 'Fácil'
+                : 'Difícil';
+            return <div className={styles.betDescription}>{description}</div>;
+        }
+
         return (
             <div className={buttonClass} onClick={() => updateBet(betValue)}>
-                {renderIcon()}
+                <div>
+                    {renderIcon()}
+                    {isMobile && renderDescription()}
+                </div>
             </div>
         )
     };

@@ -1,5 +1,12 @@
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { isMobile } from "react-device-detect";
+import classNames from 'classnames';
 
+// Selectors
+import { selectUser } from 'store/user/selector';
+
+// Components
 import { WeekPagination } from 'components_fa/index';
 import {
     Icon,
@@ -22,9 +29,15 @@ const RecordsTable = ({
     filter,
     records
 }: TProps) => {
+    const loggedUser = useSelector(selectUser);
+
     const renderRecordTableLine = (recordLine: TRecord, position: number) => {
+        const recordLineClass = classNames(styles.recordLine, {
+            [styles.userBet]: recordLine.userId === loggedUser?.id
+        });
+
         return (
-            <div className={styles.recordLine} key={position}>
+            <div className={recordLineClass} key={position}>
                 <div className={styles.position}>{position}.</div>
                 <div className={styles.icon}>
                     <Icon classes={{ root: styles.icon }} fontSize="small" className={recordLine.userIcon} style={{ color: recordLine.userColor }} />
@@ -35,9 +48,9 @@ const RecordsTable = ({
                 <div className={styles.season}>
                     {recordLine.seasonId}
                 </div>
-                <div className={styles.week}>
+                {!filter.weekPagination && <div className={styles.week}>
                     {recordLine.week}
-                </div>
+                </div>}
                 <div className={styles.points}>
                     {recordLine.percentage}
                 </div>
@@ -68,11 +81,14 @@ const RecordsTable = ({
                 <div className={styles.icon}>&nbsp;</div>
                 <div className={styles.name}>&nbsp;</div>
                 <div className={styles.season}>
-                    Temporada
-                    </div>
-                <div className={styles.week}>
+                    {isMobile
+                        ? <Tooltip title="Temporada" arrow><span>Temp.</span></Tooltip>
+                        : 'Temporada'
+                    }
+                </div>
+                {!filter.weekPagination && <div className={styles.week}>
                     Semana
-                    </div>
+                </div>}
                 <div className={styles.points}>
                     <Tooltip title="Aproveitamento de pontos" arrow><span>%</span></Tooltip>
                 </div>

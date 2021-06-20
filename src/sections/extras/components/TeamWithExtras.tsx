@@ -1,4 +1,5 @@
 import React from 'react';
+import { isMobile } from "react-device-detect";
 import classNames from 'classnames';
 
 import { TeamMini } from 'components_fa/index'
@@ -86,6 +87,7 @@ const TeamWithExtras = ({
         [styles.teamContainerWinner]: isChampion,
         [styles.teamContainerWildcard]: isWildcard,
         [styles.teamContainer]: !isWildcard && !isChampion,
+        'left-margin-m right-margin-m': !isMobile
     });
 
     const extraBetsClass = classNames({

@@ -36,7 +36,7 @@ export type TRecord = {
     seasonId: number;
     userColor: string;
     userIcon: string;
-    userId: number;
+    userId: string;
     userName: string;
     week: number;
     winners: number;

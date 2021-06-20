@@ -7,39 +7,44 @@
 
 .teamContainer {
     @include flex-aligned(flex-start, center);
-    @include marged(all, m);
+    @include padded(left, m);
+    @include padded(right, m);
+    @include marged(top, m);
+    @include marged(bottom, m);
 
     border-radius: 4px;
     box-sizing: border-box;
     max-height: $matchContainerHeight;
     max-width: 800px;
-    opacity: 0.3;
-    transition: 0.4s;
-
-    &Bright {
-        @extend .teamContainer;
-        opacity: 0.8;
-    }
 
     &Wildcard {
-        @extend .teamContainerBright;
+        @extend .teamContainer;
         -webkit-box-shadow: 0px 0px 0px 1px $color-grey3;
         box-shadow: 0px 0px 0px 1px $color-grey3;
     }
     &Winner {
-        @extend .teamContainerBright;
+        @extend .teamContainer;
         -webkit-box-shadow: 0px 0px 0px 1px $color-gold;
         box-shadow: 0px 0px 0px 1px $color-gold;
-    }
-
-    &:hover {
-        opacity: 0.6;
     }
 
     .bets {
         @include flex-aligned(center, center);
         flex: 1;
     }
+}
+
+.translucid {
+    transition: 0.4s;
+    opacity: 0.3;
+
+    &:hover {
+        opacity: 0.6;
+    }
+}
+
+.bright {
+    opacity: 0.8;
 }
 
 .extraBets {
@@ -65,23 +70,20 @@
         @include padded(all, none);
 
         visibility: hidden;
+        max-height: 0;
         max-width: 0;
         transition: 0.4s;
     }
-}
-
-.hidden {
-    opacity: 0.05;
 }
 
 .icon {
     @include font-colored($color-grey5);
     @include marged(left, xs);
     @include marged(right, xs);
-    
+
     cursor: pointer;
     transition: 0.4s;
-    
+
     &Small {
         @include marged(left, xs);
         @include marged(right, none);

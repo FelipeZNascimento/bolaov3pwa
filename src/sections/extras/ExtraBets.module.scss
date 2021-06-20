@@ -7,7 +7,6 @@
 
 .container {
     @include flex-aligned(center, center);
-    @include padded(all, xl);
 
     flex: 1;
     flex-direction: column;
@@ -63,40 +62,21 @@
 }
 
 .division {
-    @include marged(all, m);
     @include font-sized(l);
     @include font-colored($color-grey1);
-    min-width: 0px;
 
+    min-width: 0px;
     transition: 0.8s;
 
     &AndBets {
         @extend .division;
 
-        min-width: 200px;
+        flex: 1;
     }
 
-    .button {
-        @include bg-rgba-colored($color-grey1, 0.1);
+    &Title {
         @include font-colored($color-grey3);
-        @include font-sized(m);
-        @include marged(all, m);
-        @include padded(left, xl);
-        @include padded(right, xl);
-
-        font-weight: bold;
-        flex: 1;
-        transition: 0.4s;
-
-        &Active {
-            @extend .button;
-            @include font-colored($color-gold);
-        }
-
-        &:hover {
-            @include bg-rgba-colored($color-grey1, 0.1);
-            @include font-colored($color-grey1);
-        }
+        @include marged(top, xl);
     }
 }
 
@@ -109,7 +89,6 @@
 //     flex: 3;
 //     transition: 0.4s;
 // }
-
 
 .rotated {
     transform: rotate(90deg);

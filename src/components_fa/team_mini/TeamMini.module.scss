@@ -10,6 +10,7 @@
     @include font-sized(l);
     
     background: url("http://omegafox.me/img/match_layer.png");
+    flex-direction: column;
     height: $matchContainerHeight;
     min-width: calc(#{$matchContainerHeight}*2);
     position: relative;
@@ -20,16 +21,6 @@
         @include flex-aligned(center, center);
         flex: 1;
     }
-
-    .name {
-        @include flex-aligned(center, center);
-
-        flex: 1;
-        font-weight: bold;
-        height: $matchContainerHeight;
-        min-width: 60px;
-    }
-
 }
 
 .logoContainer {

@@ -79,13 +79,27 @@ const Records = () => {
         })
     };
 
-    return (
-        <div className={styles.container}>
+    const renderTitle = () => {
+        if (filter.id === null) {
+            return (
+                <div className="sectionTitle">
+                    <h1>Records</h1>
+                </div>
+            );
+        }
+
+        return (
             <Link to={ROUTES.RECORDS.url}>
                 <div className="sectionTitleLink" onClick={() => setFilter(defaultFilter)}>
                     <h1>Records</h1>
                 </div>
             </Link>
+        );
+    };
+
+    return (
+        <div className={styles.container}>
+            {renderTitle()}
             <div className={styles.content}>
                 {filter.id !== null && <RecordsTable filter={filter} records={records} />}
                 {filter.id === null && renderButtons()}
