@@ -42,6 +42,7 @@ body {
 .sectionTitle {
 	@include font-colored($color-grey2);
 	@include padded(bottom, xl);
+	@include padded(top, xl);
 
 	flex: 0;
 	transition: 0.4s;

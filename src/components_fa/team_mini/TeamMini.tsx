@@ -11,10 +11,10 @@ type TProps = TMatchTeam;
 const Team = ({
     foreground,
     id,
-    name,
+    alias,
 }: TProps) => {
     return (
-        <Tooltip title={name} arrow>
+        <Tooltip title={alias} arrow>
             <div className={styles.container} style={{ color: foreground }}>
                 <div className={styles.logoContainer}>
                     <img className={styles.logo} alt="logo" src={`/team_logos_std/${id}.gif`} />

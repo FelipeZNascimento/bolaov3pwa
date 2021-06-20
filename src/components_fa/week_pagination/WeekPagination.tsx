@@ -6,99 +6,9 @@ import classNames from 'classnames';
 
 import { selectCurrentWeek } from 'store/app/selector';
 
+import { WEEKS } from 'constants/weeks';
+import { TWeek } from 'components_fa/commonTypes';
 import styles from './WeekPagination.module.scss';
-
-type TWeek = {
-    num: number;
-    display: string;
-};
-
-const weeksMock: TWeek[] = [
-    {
-        num: 1,
-        display: 'Semana 1'
-    },
-    {
-        num: 2,
-        display: 'Semana 2'
-    },
-    {
-        num: 3,
-        display: 'Semana 3'
-    },
-    {
-        num: 4,
-        display: 'Semana 4'
-    },
-    {
-        num: 5,
-        display: 'Semana 5'
-    },
-    {
-        num: 6,
-        display: 'Semana 6'
-    },
-    {
-        num: 7,
-        display: 'Semana 7'
-    },
-    {
-        num: 8,
-        display: 'Semana 8'
-    },
-    {
-        num: 9,
-        display: 'Semana 9'
-    },
-    {
-        num: 10,
-        display: 'Semana 10'
-    },
-    {
-        num: 11,
-        display: 'Semana 11'
-    },
-    {
-        num: 12,
-        display: 'Semana 12'
-    },
-    {
-        num: 13,
-        display: 'Semana 13'
-    },
-    {
-        num: 14,
-        display: 'Semana 14'
-    },
-    {
-        num: 15,
-        display: 'Semana 15'
-    },
-    {
-        num: 16,
-        display: 'Semana 16'
-    },
-    {
-        num: 17,
-        display: 'Semana 17'
-    },
-    {
-        num: 18,
-        display: 'Wild Card'
-    },
-    {
-        num: 19,
-        display: 'Divisional'
-    },
-    {
-        num: 20,
-        display: 'Conferência'
-    },
-    {
-        num: 21,
-        display: 'Super Bowl'
-    }
-];
 
 type TProps = {
     initialWeek?: null | number;
@@ -128,7 +38,7 @@ const WeekPagination = ({
     }, [controlledWeek, currentWeek, initialWeek]);
 
     useEffect(() => {
-        const newPage = weeksMock.find((week) => week.num === controlledWeek);
+        const newPage = WEEKS.find((week) => week.num === controlledWeek);
         if (newPage !== undefined) {
             setCurrentPage(newPage);
         }
@@ -147,7 +57,7 @@ const WeekPagination = ({
         return null;
     }
 
-    weeksMock.forEach((week) => {
+    WEEKS.forEach((week) => {
         if (currentPage.num - pageRange <= week.num && currentPage.num > week.num) {
             leftWeeks.push(week);
         }

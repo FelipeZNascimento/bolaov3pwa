@@ -1,4 +1,5 @@
 import React from 'react';
+import { isMobile } from "react-device-detect";
 import classNames from 'classnames';
 
 import { TeamMini } from 'components_fa/index'
@@ -32,9 +33,9 @@ const BettableTeam = ({
     onSelect
 }: TProps) => {
     const winnerIconClass = classNames({
-        [styles.icon]: !disabled,
+        [`${styles.icon} ${styles.translucid}`]: !disabled,
         [styles.iconDisabled]: disabled,
-        'color-gold': currentlySelectedByUser[extraType] === team.id,
+        [`color-gold ${styles.bright}`]: currentlySelectedByUser[extraType] === team.id,
     });
 
     let selectedWildcards: number[] = [];
@@ -43,14 +44,26 @@ const BettableTeam = ({
     }
 
     const wildCardIconClass = classNames({
-        [styles.icon]: !disabled,
+        [`${styles.icon} ${styles.translucid}`]: !disabled,
         [styles.iconDisabled]: disabled,
-        'color-grey1': selectedWildcards.find((wc) => wc === team.id)
+        [`color-grey1 ${styles.bright}`]: selectedWildcards.find((wc) => wc === team.id)
     });
 
-    const teamContainerClass = classNames(styles.teamContainer, {
-        [styles.teamContainerWildcard]: currentlySelectedByUser[extraType] === team.id || selectedWildcards.find((wc) => wc === team.id),
+    const isSelected = currentlySelectedByUser[extraType] === team.id || selectedWildcards.find((wc) => wc === team.id);
+
+    const containerClass = classNames(styles.teamContainer, {
+        [styles.teamContainerWildcard]: isSelected,
+        'color-grey1': isMobile
     });
+
+    const teamContainerClass = classNames({
+        [styles.translucid]: !isSelected,
+        [styles.bright]: isSelected,
+    });
+
+    // const t = classNames(styles.teamContainer, {
+    //     [styles.teamContainerWildcard]: currentlySelectedByUser[extraType] === team.id || selectedWildcards.find((wc) => wc === team.id),
+    // });
 
     const onClick = (clickedTeam: TMatchTeam, clickedType: number) => {
         if (!disabled) {
@@ -59,11 +72,13 @@ const BettableTeam = ({
     };
 
     return (
-        <div className={teamContainerClass}>
+        <div className={containerClass}>
             <Tooltip title='Vencedor' arrow>
                 <Icon classes={{ root: `fas fa-crown ${winnerIconClass}` }} onClick={() => onClick(team, extraType)} />
             </Tooltip>
-            <TeamMini {...team} />
+            <div className={teamContainerClass}>
+                <TeamMini {...team} />
+            </div>
             {wildcardExtraType && <Tooltip title='Wildcard' arrow>
                 <Icon classes={{ root: `fas fa-running ${wildCardIconClass}` }} onClick={() => onClick(team, wildcardExtraType)} />
             </Tooltip>}

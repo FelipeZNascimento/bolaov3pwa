@@ -7,7 +7,6 @@
 
 .container {
     @include flex-aligned(center, center);
-    @include padded(all, xl);
 
     flex: 1;
     flex-direction: column;
@@ -80,6 +79,11 @@
             @include font-colored($color-grey1);
             @include bg-rgba-colored($color-black, 0.1);
         }
+    }
+    
+    .userBet {
+        @include bg-rgba-colored($color-black, 0.1);
+        font-weight: bold;
     }
 }
 

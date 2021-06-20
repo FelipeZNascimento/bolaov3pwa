@@ -52,15 +52,15 @@
     @include font-colored($color-grey3);
 
     flex: 2;
-    flex-direction: row;
-    min-height: $matchContainerHeight;
-    width: 100%;
+    flex-direction: row; 
+    min-height: $matchContainerHeight; 
+    width: 100%; 
 
     .betButton {
         @include flex-aligned(center, center);
         @include font-sized(l);
-
         background: url("http://omegafox.me/img/match_layer.png");
+
         cursor: pointer;
         flex: 1;
         height: 100%;
@@ -85,6 +85,12 @@
             cursor: default;
         }
     }
+}
+
+.betDescription {
+    @include flex-aligned(center, center);
+    @include font-sized(s);
+    flex: 1;
 }
 
 .atDivisor {
