@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import SimpleBar from 'simplebar-react';
 import classNames from 'classnames';
 
@@ -10,16 +10,9 @@ import {
     Tooltip
 } from '@material-ui/core';
 
-// Actions
-import {
-    fetchRanking,
-    fetchSeasonRanking
-} from 'store/app/actions';
-
 // Selectors
 import {
     selectCurrentWeek,
-    selectCurrentSeason,
     selectIsLoading,
     selectRanking,
     selectSeasonRanking
@@ -35,24 +28,10 @@ import 'simplebar/dist/simplebar.min.css';
 const Ranking = () => {
     const [showSeasonRanking, setShowSeasonRanking] = useState<boolean>(false);
 
-    const dispatch = useDispatch();
     const currentWeek = useSelector(selectCurrentWeek);
-    const currentSeason = useSelector(selectCurrentSeason);
     const ranking = useSelector(selectRanking);
     const seasonRanking = useSelector(selectSeasonRanking);
     const isLoading = useSelector(selectIsLoading);
-
-    useEffect(() => {
-        if (currentSeason !== null && currentWeek !== null) {
-            dispatch(fetchRanking(currentSeason, currentWeek));
-        }
-    }, [currentSeason, currentWeek, dispatch]);
-
-    useEffect(() => {
-        if (currentSeason !== null) {
-            dispatch(fetchSeasonRanking(currentSeason));
-        }
-    }, [currentSeason, dispatch]);
 
     const renderRankingLine = (rankingLine: TRankingLine, index: number) => {
         const positionClass = classNames(styles.position, {
@@ -61,12 +40,18 @@ const Ranking = () => {
             'color-grey2': index === 2
         });
 
+        const onlineBadgeClass = classNames({
+            [styles.badgeOnline]: rankingLine.isOnline,
+            [styles.badgeOffline]: !rankingLine.isOnline
+        });
+
         return (
             <div className={styles.rankingLine} key={rankingLine.name}>
                 <div className={positionClass}>
                     {index + 1}
                 </div>
                 <Icon classes={{ root: styles.icon }} fontSize="small" className={rankingLine.icon} style={{ color: rankingLine.color }} />
+                <div className={onlineBadgeClass} />
                 <div className={styles.name}>
                     {rankingLine.name}
                 </div>
@@ -92,6 +77,14 @@ const Ranking = () => {
     }
 
     const activeRanking = showSeasonRanking ? seasonRanking : ranking;
+
+    const renderLoading = () => {
+        if(activeRanking.length === 0) {
+            return <Loading />;
+        }
+
+        return <Loading overlay size='small' />
+    }
     return (
         <div className={styles.container}>
             <div className={styles.fixed}>
@@ -129,16 +122,16 @@ const Ranking = () => {
                     </div>
                     {showSeasonRanking
                         && <div className={styles.points}>
-                        <Tooltip title="Pontos extras" arrow><span className="color-purple">PE</span></Tooltip>
-                    </div>
+                            <Tooltip title="Pontos extras" arrow><span className="color-purple">PE</span></Tooltip>
+                        </div>
                     }
 
                 </div>
                 <div className={styles.lineContainer}>
-                    {isLoading && <Loading />}
-                    {!isLoading && <SimpleBar style={{ maxHeight: '100%' }}>
+                    {isLoading && renderLoading()}
+                    <SimpleBar style={{ maxHeight: '100%' }}>
                         {activeRanking && activeRanking.map((rankingLine, index) => renderRankingLine(rankingLine, index))}
-                    </SimpleBar>}
+                    </SimpleBar>
                 </div>
             </div>
         </div>
