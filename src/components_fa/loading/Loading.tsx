@@ -5,15 +5,18 @@ import logo from 'img/favicon.png';
 import styles from './Loading.module.scss';
 
 type TProps = {
-    size?: 'small' | 'regular'
+    size?: 'small' | 'regular',
+    overlay?: boolean;
 };
 
 const Loading = ({
-    size = 'regular'
+    size = 'regular',
+    overlay = false
 }: TProps) => {
     const containerClass = classNames({
         [styles.containerRegular]: size === 'regular',
         [styles.container]: size === 'small',
+        [styles.overlay]: overlay
     });
 
     const imageClass = classNames({
@@ -24,7 +27,7 @@ const Loading = ({
     return (
         <div className={containerClass}>
             <img className={imageClass} alt="logo" src={logo} />
-            {size === 'regular' && <p className="padding-none margin-none">Carregando...</p>}
+            {size === 'regular' && <p className={styles.text}>Carregando...</p>}
         </div>
     );
 }

@@ -49,6 +49,7 @@ export type TRankingLine = {
     color: string;
     icon: string;
     id: number;
+    isOnline: boolean;
     name: string;
     totalBullseye: number;
     totalPercentage: number;

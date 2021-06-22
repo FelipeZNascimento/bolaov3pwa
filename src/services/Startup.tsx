@@ -1,13 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { loadCSS } from "fg-loadcss";
 
 // Actions
 import { fetchDefaultConfig } from 'store/app/actions';
+import {
+    fetchRanking,
+    fetchSeasonRanking
+} from 'store/app/actions';
 
 // Selectors
 import { selectIsLoading, selectUser } from 'store/user/selector';
+import {
+    selectCurrentWeek,
+    selectCurrentSeason
+} from 'store/app/selector';
 
 import { ROUTES } from 'constants/routes';
 import { TMenuOption } from 'components/commonTypes';
@@ -16,9 +24,14 @@ const Startup = (props: any) => {
     const dispatch = useDispatch();
     const isLoadingUser = useSelector(selectIsLoading);
     const loggedUser = useSelector(selectUser);
+    const currentWeek = useSelector(selectCurrentWeek);
+    const currentSeason = useSelector(selectCurrentSeason);
+    const timer = useRef<ReturnType<typeof setInterval> | null>(null);
+
     const { pathname } = useLocation();
     const history = useHistory();
 
+    const updateDelay = 5 * 60 * 1000; //5min
     const menuOptions: TMenuOption[] = [
         {
             display: ROUTES.HOME.display,
@@ -62,6 +75,39 @@ const Startup = (props: any) => {
             }
         }
     }, [history, isLoadingUser, loggedUser, pathname]);
+
+    const fetchRankings = () => {
+        dispatch(fetchSeasonRanking(currentSeason as number));
+        dispatch(fetchRanking(currentSeason as number, currentWeek as number));
+    };
+
+    useEffect(() => {
+        if (currentSeason !== null && currentWeek !== null) {
+            if (timer.current !== null) {
+                console.log('Clearing interval..');
+                clearInterval(timer.current);
+            }
+
+            timer.current = setInterval(
+                () => fetchRankings(),
+                updateDelay
+            );
+            fetchRankings();
+        }
+    }, [currentSeason, currentWeek]);
+
+    useEffect(() => {
+        timer.current = setInterval(
+            () => fetchRankings(),
+            updateDelay
+        );
+
+        return () => {
+            if (timer.current !== null) {
+                clearInterval(timer.current);
+            }
+        };
+    }, []);
 
     return props.children;
 };
