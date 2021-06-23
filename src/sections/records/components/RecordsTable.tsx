@@ -33,7 +33,8 @@ const RecordsTable = ({
 
     const renderRecordTableLine = (recordLine: TRecord, position: number) => {
         const recordLineClass = classNames(styles.recordLine, {
-            [styles.userBet]: recordLine.userId === loggedUser?.id
+            [styles.userBet]: recordLine.userId === loggedUser?.id,
+            [styles.smallFont]: isMobile,
         });
 
         return (
@@ -57,15 +58,23 @@ const RecordsTable = ({
                 <div className={styles.points}>
                     {recordLine.points}
                 </div>
-                <div className={styles.points}>
-                    {recordLine.bullseye}
-                </div>
-                <div className={styles.points}>
-                    {recordLine.winners}
-                </div>
+                {!isMobile &&
+                    <div className={styles.points}>
+                        {recordLine.bullseye}
+                    </div>
+                }
+                {!isMobile &&
+                    <div className={styles.points}>
+                        {recordLine.winners}
+                    </div>
+                }
             </div>
         )
     };
+
+    const tableHeaderClass = classNames(styles.tableHeader, {
+        [styles.smallFont]: isMobile,
+    });
 
     return (
         <div className={styles.table}>
@@ -76,13 +85,13 @@ const RecordsTable = ({
                 onClick={() => null}
                 initialWeek={filter.week}
             />}
-            <div className={styles.tableHeader}>
+            <div className={tableHeaderClass}>
                 <div className={styles.position}>&nbsp;</div>
                 <div className={styles.icon}>&nbsp;</div>
                 <div className={styles.name}>&nbsp;</div>
                 <div className={styles.season}>
                     {isMobile
-                        ? <Tooltip title="Temporada" arrow><span>Temp.</span></Tooltip>
+                        ? ''
                         : 'Temporada'
                     }
                 </div>
@@ -98,18 +107,16 @@ const RecordsTable = ({
                         : 'Pontos'
                     }
                 </div>
-                <div className={styles.points}>
-                    {isMobile
-                        ? <Tooltip title="Acertos na mosca" arrow><span className="color-mint">M</span></Tooltip>
-                        : <Tooltip title="Acertos na mosca" arrow><span className="color-mint">Moscas</span></Tooltip>
-                    }
-                </div>
-                <div className={styles.points}>
-                    {isMobile
-                        ? <Tooltip title="Vencedores corretos" arrow><span className="color-blue">V</span></Tooltip>
-                        : <Tooltip title="Vencedores corretos" arrow><span className="color-blue">Vencedores</span></Tooltip>
-                    }
-                </div>
+                {!isMobile &&
+                    <div className={styles.points}>
+                        <Tooltip title="Acertos na mosca" arrow><span className="color-mint">Moscas</span></Tooltip>
+                    </div>
+                }
+                {!isMobile &&
+                    <div className={styles.points}>
+                        <Tooltip title="Vencedores corretos" arrow><span className="color-blue">Vencedores</span></Tooltip>
+                    </div>
+                }
             </div>
             {records.map((recordLine, index) => renderRecordTableLine(recordLine, index + 1))}
         </div>
