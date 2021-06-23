@@ -33,6 +33,7 @@ export type TRecord = {
     numOfGames: number;
     percentage: string;
     points: number;
+    season: string;
     seasonId: number;
     userColor: string;
     userIcon: string;

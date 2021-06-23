@@ -60,6 +60,10 @@ const TopBar = () => {
             route: ROUTES.RECORDS.url
         },
         {
+            display: ROUTES.RANKING.display,
+            route: ROUTES.RANKING.url
+        },
+        {
             display: ROUTES.REGRAS.display,
             route: ROUTES.REGRAS.url
         },
