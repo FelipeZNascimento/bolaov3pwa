@@ -8,11 +8,15 @@
 .container {
     display: flex;
     flex-direction: column;
+    height: 100%;
     width: 100%;
 }
 
 .colorContainer {
     @include flex-aligned(center, center);
+    @include marged(all, s);
+
+    flex: 0;
 
     div {
         @include flex-aligned(center, center);
@@ -28,7 +32,9 @@
 .iconsContainer {
     @include flex-aligned(center, center);
     display: flex;
+    flex: 1;
     flex-wrap: wrap;
+    overflow-y: auto;
 }
 
 .icon {
