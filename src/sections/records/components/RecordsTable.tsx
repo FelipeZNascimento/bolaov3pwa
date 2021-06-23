@@ -46,7 +46,7 @@ const RecordsTable = ({
                     {recordLine.userName}
                 </div>
                 <div className={styles.season}>
-                    {recordLine.seasonId}
+                    {recordLine.season}
                 </div>
                 {!filter.weekPagination && <div className={styles.week}>
                     {recordLine.week}
