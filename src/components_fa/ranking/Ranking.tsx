@@ -25,7 +25,13 @@ import {
 import styles from './Ranking.module.scss';
 import 'simplebar/dist/simplebar.min.css';
 
-const Ranking = () => {
+type TProps = {
+    full?: boolean
+};
+
+const Ranking = ({
+    full = false
+}: TProps) => {
     const [showSeasonRanking, setShowSeasonRanking] = useState<boolean>(false);
 
     const currentWeek = useSelector(selectCurrentWeek);
@@ -79,15 +85,16 @@ const Ranking = () => {
     const activeRanking = showSeasonRanking ? seasonRanking : ranking;
 
     const renderLoading = () => {
-        if(activeRanking.length === 0) {
+        if (activeRanking.length === 0) {
             return <Loading />;
         }
 
         return <Loading overlay size='small' />
     }
-    return (
-        <div className={styles.container}>
-            <div className={styles.fixed}>
+
+    const renderRanking = () => {
+        return (
+            <>
                 <div className={styles.title}>
                     <Button
                         classes={{ root: `${showSeasonRanking ? styles.buttonActive : styles.button}` }}
@@ -133,6 +140,21 @@ const Ranking = () => {
                         {activeRanking && activeRanking.map((rankingLine, index) => renderRankingLine(rankingLine, index))}
                     </SimpleBar>
                 </div>
+            </>
+        )
+    }
+    if (full) {
+        return (
+            <div className={styles.containerFull}>
+                {renderRanking()}
+            </div >
+        )
+    }
+
+    return (
+        <div className={styles.container}>
+            <div className={styles.fixed}>
+                {renderRanking()}
             </div>
         </div>
     );

@@ -12,7 +12,7 @@ import reportWebVitals from './reportWebVitals';
 import store from './store';
 
 // Sections & Components
-import { Bets, ExtraBets, Home, Records, Results } from 'sections/index';
+import { Bets, ExtraBets, Home, Ranking, Records, Results } from 'sections/index';
 import Startup from 'services/Startup';
 import { Notification, TopBar } from 'components/index';
 
@@ -40,6 +40,9 @@ render(
 							</Route>
 							<Route path={ROUTES.RECORDS.url}>
 								<Route path={ROUTES.RECORDS.url + "/:recordsParam?/:weekParam?"} component={Records} />
+							</Route>
+							<Route path={ROUTES.RANKING.url}>
+								<Ranking />
 							</Route>
 							<Route exact path={ROUTES.EXTRAS.url}>
 								<ExtraBets />

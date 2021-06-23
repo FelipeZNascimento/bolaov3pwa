@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-
 import { LargeButton } from 'components/index';
 
 // Selectors
@@ -38,6 +37,11 @@ const App = () => {
 			description: 'Nunca na história desse bolão...',
 			display: ROUTES.RECORDS.display,
 			route: ROUTES.RECORDS.url
+		},
+		{
+			description: 'Geral e rodada a rodada',
+			display: ROUTES.RANKING.display,
+			route: ROUTES.RANKING.url
 		},
 		{
 			description: 'Quanto valem as apostas nos playoffs?',

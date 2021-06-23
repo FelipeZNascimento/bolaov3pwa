@@ -30,6 +30,10 @@ export const ROUTES = {
             return `${ROUTES.RECORDS.url}/${recordsParam}/`;
         },
     },
+    RANKING: {
+        display: 'Ranking',
+        url: '/ranking'
+    },
     REGRAS: {
         display: 'Regras',
         url: '/regras'

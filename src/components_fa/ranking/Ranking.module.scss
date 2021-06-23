@@ -26,6 +26,16 @@
     }
 }
 
+.containerFull {
+    @include bg-rgba-colored($color-grey1, 0.1);
+
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    overflow-y: auto;
+    width: 100%;
+}
+
 .title {
     @include font-sized(l);
     @include font-colored($color-grey1);
