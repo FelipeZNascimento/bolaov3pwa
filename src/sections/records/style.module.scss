@@ -102,3 +102,7 @@
 .position {
     @include aligned(left);
 }
+
+.smallFont {
+    @include font-sized(s);
+}
