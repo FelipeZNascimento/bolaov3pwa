@@ -53,6 +53,10 @@ const Bets = () => {
         return <Ranking />;
     };
 
+    const renderMatches = () => {
+        return userBets.map((match) => <BettableMatch {...match} key={match.id} />);
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.matchesContainer}>
@@ -65,8 +69,8 @@ const Bets = () => {
                     <div><Tooltip title="Mais de 7 pontos" placement="top" arrow><span>Fácil</span></Tooltip></div>
                     <div style={{ flex: 2 }}>Casa</div>
                 </div>}
-                {isLoading && <Loading />}
-                {!isLoading && userBets.map((match) => <BettableMatch {...match} key={match.id} />)}
+                {isLoading && <Loading overlay />}
+                {renderMatches()}
             </div>
             {renderRanking()}
         </div>
