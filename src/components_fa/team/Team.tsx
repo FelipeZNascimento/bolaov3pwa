@@ -28,7 +28,7 @@ const Team = ({
             setScoreChanged(true);
             setTimeout(() => setScoreChanged(false), 20000); //20s
         }
-    }, [prevScore, score]);
+    }, [score]);
 
     const containerClass = classNames(
         [styles.container], {

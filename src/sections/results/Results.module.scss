@@ -11,8 +11,16 @@
     width: 100%;
 }
 
-.matchesContainer {
+.leftContainer {
     @include flex-aligned(flex-start, center);
     flex: 2;
     flex-direction: column;
+}
+
+.matchesContainer {
+    @include flex-aligned(flex-start, center);
+    flex: 1;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
 }

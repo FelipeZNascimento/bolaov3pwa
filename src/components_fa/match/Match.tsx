@@ -9,7 +9,10 @@ import { TMatch } from 'store/matches/types';
 import { calculateCorrectBets } from 'constants/bets';
 import styles from './Match.module.scss';
 
-type TProps = TMatch;
+type TProps = TMatch & {
+    isExpanded: boolean;
+    onExpandClick: (id: number) => void;
+};
 
 const Match = ({
     away,
@@ -17,10 +20,11 @@ const Match = ({
     loggedUserBets = null,
     home,
     id,
+    isExpanded = false,
     status,
     timestamp,
+    onExpandClick,
 }: TProps) => {
-    const [isExpanded, setIsExpanded] = useState(false);
     const [currentTimestamp, setCurrentTimestamp] = useState(Math.floor(Date.now() / 1000));
 
     const correctBets = calculateCorrectBets(away.score || 0, home.score || 0);
@@ -46,6 +50,11 @@ const Match = ({
         [styles.blueBorder]: loggedUserBets && isHalfBet && currentTimestamp >= timestamp, // bullseye
         [styles.redBorder]: loggedUserBets && !isBullseyeBet && !isHalfBet && currentTimestamp >= timestamp, // bullseye
     });
+
+    const onClick = () => {
+        // setIsExpanded
+        onExpandClick(id);
+    }
 
     const renderTime = () => {
         const date = isExpanded
@@ -106,7 +115,7 @@ const Match = ({
             <div
                 className={matchContainerClass}
                 key={id}
-                onClick={() => setIsExpanded(!isExpanded)}
+                onClick={onClick}
             >
                 <div className={timeClass}>
                     {renderTime()}
