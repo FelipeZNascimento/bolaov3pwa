@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { isMobile } from "react-device-detect";
+
 import SimpleBar from 'simplebar-react';
 import classNames from 'classnames';
 
-import { Loading } from 'components_fa/index'
+import { Loading, WeekPagination } from 'components_fa/index'
 import {
     Button,
     Icon,
@@ -18,12 +20,15 @@ import {
     selectSeasonRanking
 } from 'store/app/selector';
 
+// Actions
+import { setCurrentWeek } from 'store/app/actions';
+
 import {
     TRankingLine
 } from 'store/app/types';
+import ROUTES from 'constants/routes';
 
 import styles from './Ranking.module.scss';
-import 'simplebar/dist/simplebar.min.css';
 
 type TProps = {
     full?: boolean
@@ -38,6 +43,11 @@ const Ranking = ({
     const ranking = useSelector(selectRanking);
     const seasonRanking = useSelector(selectSeasonRanking);
     const isLoading = useSelector(selectIsLoading);
+    const dispatch = useDispatch();
+
+    const onWeekClick = (newWeek: number) => {
+        dispatch(setCurrentWeek(newWeek));
+    };
 
     const renderRankingLine = (rankingLine: TRankingLine, index: number) => {
         const positionClass = classNames(styles.position, {
@@ -54,7 +64,7 @@ const Ranking = ({
         return (
             <div className={styles.rankingLine} key={rankingLine.name}>
                 <div className={positionClass}>
-                    {index + 1}
+                    {index + 1}.
                 </div>
                 <Icon classes={{ root: styles.icon }} fontSize="small" className={rankingLine.icon} style={{ color: rankingLine.color }} />
                 <div className={onlineBadgeClass} />
@@ -89,7 +99,7 @@ const Ranking = ({
             return <Loading />;
         }
 
-        return <Loading overlay size='small' />
+        return <Loading overlay />
     }
 
     const renderRanking = () => {
@@ -144,10 +154,16 @@ const Ranking = ({
         )
     }
     if (full) {
+        const containerClass = classNames({
+            [styles.containerFullMobile]: isMobile,
+            [styles.containerFull]: !isMobile
+        });
+
         return (
-            <div className={styles.containerFull}>
+            <div className={containerClass}>
+                <WeekPagination routeTo={ROUTES.RANKING.urlWithParams} onClick={onWeekClick} />
                 {renderRanking()}
-            </div >
+            </div>
         )
     }
 

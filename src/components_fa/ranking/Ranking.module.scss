@@ -26,7 +26,7 @@
     }
 }
 
-.containerFull {
+.containerFullMobile {
     @include bg-rgba-colored($color-grey1, 0.1);
 
     display: flex;
@@ -34,6 +34,18 @@
     flex-direction: column;
     overflow-y: auto;
     width: 100%;
+}
+
+.containerFull {
+    @include bg-rgba-colored($color-grey1, 0.1);
+    @include padded(left, xl);
+    @include padded(right, xl);
+
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    overflow-y: auto;
+    width: 90%;
 }
 
 .title {
@@ -76,7 +88,7 @@
 
 .header {
     @include flex-aligned(flex-start, center);
-    @include font-colored($color-grey2);
+    @include font-colored($color-grey3);
     font-weight: bold;
 
     min-height: 36px;
