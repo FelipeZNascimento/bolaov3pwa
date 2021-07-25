@@ -42,6 +42,11 @@
         flex: 0;
         height: $matchContainerHeight;
         min-width: 60px;
+        transition: 2s;
+
+        &Highlight {
+            animation: scorepulse 10s ease-out infinite;
+        }
     }
 }
 
@@ -49,6 +54,7 @@
     flex: 1;
 
     .logo {
+        filter: drop-shadow(0px 0px 10px #222);
         position: absolute;
         top: 50%;
         left: 15%;
@@ -56,5 +62,27 @@
         z-index: -1;
         height: 120px;
         width: auto;
+    }
+}
+
+.logoHighlight {
+    animation: logomovement 10s infinite;
+}
+
+@keyframes logomovement {
+    20% {
+        transform: translateX(-5%) translateY(-50%);
+    }
+}
+
+@keyframes scorepulse {
+    5% {
+        text-shadow: 0px 0px 5px white;
+    }
+    40% {
+        text-shadow: 0px 0px 5px black;
+    }
+    90% {
+        text-shadow: 0px 0px 5px white;
     }
 }
