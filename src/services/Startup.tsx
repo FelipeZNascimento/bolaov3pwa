@@ -1,11 +1,15 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { loadCSS } from "fg-loadcss";
 
+// Components
+import { LinearProgress } from 'components/index';
+
 // Actions
-import { fetchDefaultConfig } from 'store/app/actions';
+import { fetchMatches } from 'store/matches/actions';
 import {
+    fetchDefaultConfig,
     fetchRanking,
     fetchSeasonRanking
 } from 'store/app/actions';
@@ -21,17 +25,19 @@ import { ROUTES } from 'constants/routes';
 import { TMenuOption } from 'components/commonTypes';
 
 const Startup = (props: any) => {
+    const [progress, setProgress] = useState<number>(0);
+    const [isOnResultsOrBets, setIsOnResultsOrBets] = useState<boolean>(false);
+
     const dispatch = useDispatch();
     const isLoadingUser = useSelector(selectIsLoading);
     const loggedUser = useSelector(selectUser);
     const currentWeek = useSelector(selectCurrentWeek);
     const currentSeason = useSelector(selectCurrentSeason);
-    const timer = useRef<ReturnType<typeof setInterval> | null>(null);
+    const progressBarTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 
     const { pathname } = useLocation();
     const history = useHistory();
 
-    const updateDelay = 5 * 60 * 1000; //5min
     const menuOptions: TMenuOption[] = [
         {
             display: ROUTES.HOME.display,
@@ -77,39 +83,61 @@ const Startup = (props: any) => {
     }, [history, isLoadingUser, loggedUser, pathname]);
 
     const fetchRankings = () => {
-        dispatch(fetchSeasonRanking(currentSeason as number));
-        dispatch(fetchRanking(currentSeason as number, currentWeek as number));
+        if (currentSeason !== null && currentWeek !== null) {
+            dispatch(fetchSeasonRanking(currentSeason as number));
+            dispatch(fetchRanking(currentSeason as number, currentWeek as number));
+
+            if (isOnResultsOrBets) {
+                dispatch(fetchMatches(currentSeason as number, currentWeek as number));
+            }
+        }
     };
 
     useEffect(() => {
-        if (currentSeason !== null && currentWeek !== null) {
-            if (timer.current !== null) {
-                console.log('Clearing interval..');
-                clearInterval(timer.current);
-            }
-
-            timer.current = setInterval(
-                () => fetchRankings(),
-                updateDelay
-            );
+        if (progressBarTimer.current !== null) {
             fetchRankings();
+            setProgress(0);
+            clearInterval(progressBarTimer.current);
+            progressBarTimer.current = setInterval(timerFunction, 333); // From 0 to 100 -> every 30 seconds
         }
     }, [currentSeason, currentWeek]);
 
     useEffect(() => {
-        timer.current = setInterval(
-            () => fetchRankings(),
-            updateDelay
-        );
+        if (pathname.includes(ROUTES.RESULTS.url) || pathname.includes(ROUTES.BETS.url)) {
+            setIsOnResultsOrBets(true);
+        } else {
+            setIsOnResultsOrBets(false);
+        }
+    }, [pathname]);
 
-        return () => {
-            if (timer.current !== null) {
-                clearInterval(timer.current);
+    useEffect(() => {
+        if (progressBarTimer.current === null && isOnResultsOrBets) {
+            progressBarTimer.current = setInterval(timerFunction, 333); // From 0 to 100 -> every 30 seconds
+        }
+
+        if (progressBarTimer.current !== null && !isOnResultsOrBets) {
+            setProgress(0);
+            clearInterval(progressBarTimer.current);
+            progressBarTimer.current = null;
+        }
+    }, [isOnResultsOrBets]);
+
+    const timerFunction = () => {
+        setProgress((oldProgress) => {
+            if (oldProgress >= 100) {
+                fetchRankings();
+                return 0;
             }
-        };
-    }, []);
+            return oldProgress + 1.1111;
+        });
+    };
 
-    return props.children;
+    return (
+        <>
+            {isOnResultsOrBets && <LinearProgress progress={progress} />}
+            {props.children}
+        </>
+    )
 };
 
 export default Startup;
