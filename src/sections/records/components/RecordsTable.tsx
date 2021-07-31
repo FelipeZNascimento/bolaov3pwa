@@ -26,6 +26,27 @@ type TProps = {
     records: TRecord[]
 };
 
+const placeholders: TRecord[] = [];
+const placeholder = {
+    bullseye: 0,
+    numOfBets: 0,
+    numOfGames: 0,
+    percentage: '0%',
+    points: 0,
+    season: '0000',
+    seasonId: 0,
+    userColor: '#000000',
+    userIcon: 'fas fa-circle-notch',
+    userId: '---',
+    userName: '---',
+    week: 0,
+    winners: 0
+};
+
+for (var i = 0; i < 20; i++) {
+    placeholders.push(placeholder);
+}
+
 const RecordsTable = ({
     filter,
     records
@@ -37,6 +58,7 @@ const RecordsTable = ({
         const recordLineClass = classNames(styles.recordLine, {
             [styles.userBet]: recordLine.userId === loggedUser?.id,
             [styles.smallFont]: isMobile,
+            [styles.recordLineLoading]: isLoading
         });
 
         return (
@@ -119,7 +141,8 @@ const RecordsTable = ({
             </div>
             <div className={styles.lineContainer}>
                 {isLoading && <Loading overlay />}
-                {records.map((recordLine, index) => renderRecordTableLine(recordLine, index + 1))}
+                {isLoading && placeholders.map((recordLine, index) => renderRecordTableLine(recordLine, index + 1))}
+                {!isLoading && records.map((recordLine, index) => renderRecordTableLine(recordLine, index + 1))}
             </div>
         </div>
     )

@@ -50,6 +50,10 @@ const Ranking = ({
     };
 
     const renderRankingLine = (rankingLine: TRankingLine, index: number) => {
+        const rankingLineClass = classNames(styles.rankingLine, {
+            [styles.rankingLineLoading]: isLoading,
+        });
+
         const positionClass = classNames(styles.position, {
             'color-gold': index === 0,
             'color-grey1': index === 1,
@@ -62,7 +66,7 @@ const Ranking = ({
         });
 
         return (
-            <div className={styles.rankingLine} key={rankingLine.name}>
+            <div className={rankingLineClass} key={rankingLine.name}>
                 <div className={positionClass}>
                     {index + 1}.
                 </div>
