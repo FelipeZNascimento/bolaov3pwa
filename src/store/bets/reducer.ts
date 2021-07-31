@@ -6,6 +6,10 @@ import {
     TState
 } from './types';
 
+import {
+    TFetchLogout
+} from 'store/user/types';
+
 const initialState: TState = {
     error: false,
     errorMessage: '',
@@ -20,7 +24,7 @@ const initialState: TState = {
 
 export default function betsReducer(
     state: TState = initialState,
-    action: TFetchUserBets | TFetchExtraBets | TUpdateExtraBets
+    action: TFetchUserBets | TFetchExtraBets | TUpdateExtraBets | TFetchLogout
 ) {
     switch (action.type) {
         case ACTIONTYPES.FETCHING_EXTRA_BETS:
@@ -64,6 +68,14 @@ export default function betsReducer(
                 extraBets: action.response?.bets,
                 userExtraBets: action.response?.userBets
             };
+        case ACTIONTYPES.FETCHING_LOGOUT_SUCCESS:
+            return {
+                ...state,
+                userBets: [],
+                extraBets: [],
+                userExtraBets: []
+            };
+
         default:
             return state;
     }

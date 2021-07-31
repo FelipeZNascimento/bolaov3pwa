@@ -83,13 +83,10 @@ const Startup = (props: any) => {
     }, [history, isLoadingUser, loggedUser, pathname]);
 
     const fetchRankings = () => {
-        if (currentSeason !== null && currentWeek !== null) {
+        if (currentSeason !== null && currentWeek !== null && isOnResultsOrBets) {
             dispatch(fetchSeasonRanking(currentSeason as number));
             dispatch(fetchRanking(currentSeason as number, currentWeek as number));
-
-            if (isOnResultsOrBets) {
-                dispatch(fetchMatches(currentSeason as number, currentWeek as number));
-            }
+            dispatch(fetchMatches(currentSeason as number, currentWeek as number));
         }
     };
 
@@ -100,7 +97,7 @@ const Startup = (props: any) => {
             clearInterval(progressBarTimer.current);
             progressBarTimer.current = setInterval(timerFunction, 333); // From 0 to 100 -> every 30 seconds
         }
-    }, [currentSeason, currentWeek]);
+    }, [currentSeason, currentWeek, pathname]);
 
     useEffect(() => {
         if (pathname.includes(ROUTES.RESULTS.url)

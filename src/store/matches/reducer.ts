@@ -30,6 +30,11 @@ export default function matchesReducer(
                 matches: action.response?.matches,
                 week: action.response? parseInt(action.response.week) : null
             };
+        case ACTIONTYPES.FETCHING_LOGOUT_SUCCESS:
+            return {
+                ...state,
+                matches: []
+            };
         default:
             return state;
     }

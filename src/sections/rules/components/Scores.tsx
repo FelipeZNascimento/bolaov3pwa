@@ -105,7 +105,7 @@ const Scores = () => {
                 />
                 <p>
                     Uma <span className={styles.highlight}>vitória difícil</span> acontece quando o time vencedor tem <span className={styles.highlight}>7 pontos ou menos</span> de vantagem sobre o perdedor.<br />
-                    No exemplo abaixo, os Packers tem 7 pontos de vantagem. Ou seja, uma vitória fácil.
+                    No exemplo abaixo, os Packers tem 7 pontos de vantagem. Ou seja, uma vitória difícil.
                 </p>
                 <Match
                     key={guidGenerator()}
