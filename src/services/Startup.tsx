@@ -103,7 +103,10 @@ const Startup = (props: any) => {
     }, [currentSeason, currentWeek]);
 
     useEffect(() => {
-        if (pathname.includes(ROUTES.RESULTS.url) || pathname.includes(ROUTES.BETS.url)) {
+        if (pathname.includes(ROUTES.RESULTS.url)
+            || pathname.includes(ROUTES.BETS.url)
+            || pathname.includes(ROUTES.RANKING.url)
+        ) {
             setIsOnResultsOrBets(true);
         } else {
             setIsOnResultsOrBets(false);
