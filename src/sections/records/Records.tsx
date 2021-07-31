@@ -5,13 +5,12 @@ import { Link } from 'react-router-dom';
 
 import RecordsTable from './components/RecordsTable';
 import { LargeButton } from 'components/index';
-import { Loading } from 'components_fa/index';
 
 // Actions
 import { fetchRecords } from 'store/records/actions';
 
 // Selectors
-import { selectIsLoading, selectRecords } from 'store/records/selector';
+import { selectRecords } from 'store/records/selector';
 import { selectUser } from 'store/user/selector';
 
 // Types
@@ -23,7 +22,6 @@ import styles from './style.module.scss';
 
 const Records = () => {
     const [filter, setFilter] = useState<TRecordFilter>(defaultFilter);
-    const isLoading = useSelector(selectIsLoading);
     const records = useSelector(selectRecords);
     const loggedUser = useSelector(selectUser);
 
@@ -103,7 +101,6 @@ const Records = () => {
             <div className={styles.content}>
                 {filter.id !== null && <RecordsTable filter={filter} records={records} />}
                 {filter.id === null && renderButtons()}
-                {isLoading && <Loading />}
             </div>
         </div>
     )
