@@ -59,18 +59,20 @@ const Bets = () => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.matchesContainer}>
+            <div className={styles.leftContainer}>
                 <WeekPagination routeTo={ROUTES.BETS.urlWithParams} onClick={onWeekClick} />
-                {!isMobile && <div className={styles.header}>
-                    <div style={{ flex: 2 }}>Visitante</div>
-                    <div><Tooltip title="Mais de 7 pontos" placement="top" arrow><span>Fácil</span></Tooltip></div>
-                    <div><Tooltip title="7 pontos ou menos" placement="top" arrow><span>Difícil</span></Tooltip></div>
-                    <div><Tooltip title="7 pontos ou menos" placement="top" arrow><span>Difícil</span></Tooltip></div>
-                    <div><Tooltip title="Mais de 7 pontos" placement="top" arrow><span>Fácil</span></Tooltip></div>
-                    <div style={{ flex: 2 }}>Casa</div>
-                </div>}
-                {isLoading && <Loading overlay />}
-                {renderMatches()}
+                <div className={styles.matchesContainer}>
+                    {!isMobile && <div className={styles.header}>
+                        <div style={{ flex: 2 }}>Visitante</div>
+                        <div><Tooltip title="Mais de 7 pontos" placement="top" arrow><span>Fácil</span></Tooltip></div>
+                        <div><Tooltip title="7 pontos ou menos" placement="top" arrow><span>Difícil</span></Tooltip></div>
+                        <div><Tooltip title="7 pontos ou menos" placement="top" arrow><span>Difícil</span></Tooltip></div>
+                        <div><Tooltip title="Mais de 7 pontos" placement="top" arrow><span>Fácil</span></Tooltip></div>
+                        <div style={{ flex: 2 }}>Casa</div>
+                    </div>}
+                    {isLoading && <Loading overlay />}
+                    {renderMatches()}
+                </div>
             </div>
             {renderRanking()}
         </div>
