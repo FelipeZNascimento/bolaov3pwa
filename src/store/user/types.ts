@@ -23,6 +23,7 @@ export type TUser = {
     name: string;
     email: string;
     loggedUser?: TUser;
+    status: number;
 };
 
 export type TFetchLogin = TAction & {

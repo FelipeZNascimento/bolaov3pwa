@@ -1,0 +1,141 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.container {
+    @include flex-aligned(center, center);
+
+    flex: 1;
+    flex-direction: column;
+    width: 100%;
+
+    &Standard {
+        @extend .container;
+        @include padded(all, xl);
+    }
+    &Mobile {
+        @extend .container;
+        @include padded(all, none);
+    }
+}
+
+.buttonsContainer {
+    flex: 0;
+
+    .button {
+        @include bg-rgba-colored($color-grey1, 0.1);
+        @include font-colored($color-grey3);
+        @include font-sized(l);
+        @include marged(all, m);
+        @include padded(left, xl);
+        @include padded(right, xl);
+
+        flex: 1;
+        transition: 0.4s;
+
+        &Active {
+            @extend .button;
+            @include font-colored($color-gold);
+        }
+
+        &:hover {
+            @include bg-rgba-colored($color-grey1, 0.1);
+            @include font-colored($color-grey1);
+        }
+    }
+}
+
+.rulesContainer {
+    @include font-colored($color-grey3);
+    @include bg-rgba-colored($color-grey1, 0.1);
+    @include padded(top, l);
+    @include padded(bottom, l);
+
+    flex: 1;
+    width: 100%;
+}
+
+.internalRules {
+    @include flex-aligned(center, center);
+    display: flex;
+    flex-direction: column;
+
+    &Table {
+        @include bg-rgba-colored($color-grey3, 0.2);
+        @include padded(top, m);
+
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        width: 100%;
+
+        &Line {
+            @include padded(all, xs);
+
+            display: flex;
+            flex-direction: row;
+
+            .left {
+                flex: 1;
+            }
+            .right {
+                flex: 1;
+                font-weight: bold;
+            }
+
+            &:hover {
+                @include bg-rgba-colored($color-grey3, 0.1);
+            }
+        }
+    }
+
+    .description {
+        @include font-sized(m);
+
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        width: 100%;
+
+        p {
+            @include padded(all, none);
+            @include marged(all, none);
+
+            flex: 1;
+        }
+    }
+
+    .examples {
+        @include flex-aligned(center, center);
+        @include padded(all, xl);
+
+        flex: 1;
+        flex-direction: column;
+        width: 100%;
+
+        p {
+            @include padded(all, none);
+        }
+    }
+
+    .text {
+        @include padded(top, s);
+        @include padded(bottom, s);
+
+        flex: 1;
+        flex-direction: column;
+        width: 100%;
+
+        p {
+            @include padded(all, none);
+        }
+    }
+}
+
+.highlight {
+    @include font-colored($color-grey1);
+    font-weight: bold;
+}

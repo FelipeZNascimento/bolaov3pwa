@@ -64,8 +64,8 @@ const TopBar = () => {
             route: ROUTES.RANKING.url
         },
         {
-            display: ROUTES.REGRAS.display,
-            route: ROUTES.REGRAS.url
+            display: ROUTES.RULES.display,
+            route: ROUTES.RULES.url
         },
     ];
 

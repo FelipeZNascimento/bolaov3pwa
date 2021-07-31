@@ -12,7 +12,7 @@ import reportWebVitals from './reportWebVitals';
 import store from './store';
 
 // Sections & Components
-import { Bets, ExtraBets, Home, Ranking, Records, Results } from 'sections/index';
+import { Bets, ExtraBets, Home, Ranking, Records, Results, Rules } from 'sections/index';
 import Startup from 'services/Startup';
 import { Notification, TopBar } from 'components/index';
 
@@ -46,6 +46,9 @@ render(
 							</Route>
 							<Route exact path={ROUTES.EXTRAS.url}>
 								<ExtraBets />
+							</Route>
+							<Route exact path={ROUTES.RULES.url}>
+								<Rules />
 							</Route>
 							<Route>
 								<Home />

@@ -28,9 +28,7 @@ import {
 import TeamWithExtras from './components/TeamWithExtras';
 import BettableTeam from './components/BettableTeam';
 import { Loading } from 'components_fa/index'
-import {
-    Button,
-} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 import { TMatchTeam } from 'store/matches/types';
 import { TExtraBets } from 'store/bets/types';
