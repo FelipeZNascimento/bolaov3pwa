@@ -90,6 +90,10 @@
             @include font-colored($color-grey1);
             @include bg-rgba-colored($color-black, 0.1);
         }
+
+        &Loading {
+            opacity: 0.2;
+        }
     }
 
     .userBet {

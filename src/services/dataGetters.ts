@@ -1,16 +1,10 @@
 import Axios from "axios";
 import { apiBaseUrl } from 'services/endpoints';
 import { guidGenerator } from 'services/helpers';
+import TRequest from './types';
 
 type TProps = {
     endpoint: string
-};
-
-type TRequest = {
-    id: string;
-    endpoint: string;
-    params: string;
-    cancel: any;
 };
 
 const CancelToken = Axios.CancelToken;
