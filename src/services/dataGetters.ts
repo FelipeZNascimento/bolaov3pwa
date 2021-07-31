@@ -58,7 +58,11 @@ const fetchItems = ({
         })
         .catch((error) => {
             requests = requests.filter((request) => request.id !== currentRequest.id);
-            throw new Error(error.response.data);
+            if (Axios.isCancel(error)) {
+                throw new Error(undefined);
+            } else {
+                throw new Error(error.response.data);
+            }
         });
 };
 

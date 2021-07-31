@@ -26,16 +26,17 @@ const Bets = () => {
 
     const currentWeek = useSelector(selectCurrentWeek);
     const currentSeason = useSelector(selectCurrentSeason);
-    const userBets = useSelector(selectUserBets);
+    const matchesWithBets = useSelector(selectUserBets);
     const isLoading = useSelector(selectIsLoading);
     const loggedUser = useSelector(selectUser);
 
     useEffect(() => {
         if (currentSeason) {
             if (week && parseInt(week) !== currentWeek) {
+                // When there's week param on URL and it's different from current
                 dispatch(fetchUserBets(currentSeason, parseInt(week)));
                 dispatch(setCurrentWeek(parseInt(week)))
-            } else if (currentWeek) {
+            } else if (currentWeek !== null && currentWeek !== undefined) {
                 dispatch(fetchUserBets(currentSeason, currentWeek));
             }
         }
@@ -54,7 +55,7 @@ const Bets = () => {
     };
 
     const renderMatches = () => {
-        return userBets.map((match) => <BettableMatch {...match} key={match.id} />);
+        return matchesWithBets.map((match) => <BettableMatch {...match} key={match.id} />);
     }
 
     return (

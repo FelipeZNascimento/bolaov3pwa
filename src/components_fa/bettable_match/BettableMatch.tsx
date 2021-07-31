@@ -9,7 +9,7 @@ import { updateRegularBet } from 'store/bets/actions';
 
 // Selectors
 import { selectUser } from 'store/user/selector';
-import { selectIsLoading } from 'store/matches/selector';
+import { selectIsLoading } from 'store/bets/selector';
 
 import {
     Icon
