@@ -43,6 +43,7 @@ const BettableMatch = ({
     const isLoading = useSelector(selectIsLoading);
 
     const dispatch = useDispatch();
+    const isBetBlocked = currentTimestamp >= timestamp || (loggedUser && loggedUser.status === 0);
 
     useEffect(() => {
         if (loggedUserBets !== null) {
@@ -51,7 +52,7 @@ const BettableMatch = ({
     }, [loggedUserBets]);
 
     const updateBet = (betValue: number) => {
-        if (currentTimestamp < timestamp) {
+        if (!isBetBlocked) {
             dispatch(updateRegularBet(id, betValue));
             setCurrentBetValue(betValue);
         }
@@ -76,7 +77,7 @@ const BettableMatch = ({
 
     const renderBettingButton = (betValue: number) => {
         const buttonClass = classNames({
-            [styles.betButtonDisabled]: currentTimestamp >= timestamp || (loggedUser && loggedUser.status === 0),
+            [styles.betButtonDisabled]: isBetBlocked,
             [styles.betButton]: currentTimestamp < timestamp,
             [styles.betButtonCorrect]: correctBets.bullseye.find((correctBet) => correctBet === betValue) !== undefined
         });
@@ -84,7 +85,7 @@ const BettableMatch = ({
         const renderIcon = () => {
             if (currentBetValue === betValue) {
                 return <Icon fontSize="small" className={loggedUser?.icon} style={{ color: loggedUser?.color }} />;
-            } else if (currentTimestamp < timestamp) {
+            } else if (currentTimestamp < timestamp && !isBetBlocked) {
                 return <RadioButtonUncheckedIcon fontSize="small" />;
             }
 

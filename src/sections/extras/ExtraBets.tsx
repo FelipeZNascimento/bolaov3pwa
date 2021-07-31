@@ -23,6 +23,7 @@ import {
     selectTeams,
     selectTeamsByConferenceAndDivision
 } from 'store/app/selector';
+import { selectUser } from 'store/user/selector';
 
 // Components
 import TeamWithExtras from './components/TeamWithExtras';
@@ -64,6 +65,7 @@ const ExtraBets = () => {
     const [selectedExtraBets, setSelectedExtraBets] = useState<TExtraBets>(emptyExtras);
     const dispatch = useDispatch();
 
+    const loggedUser = useSelector(selectUser);
     const currentSeason = useSelector(selectCurrentSeason);
     const isLoading = useSelector(selectIsLoading);
     const isUpdating = useSelector(selectIsUpdating);
@@ -73,6 +75,8 @@ const ExtraBets = () => {
     const seasonStart = useSelector(selectSeasonStart);
     const teams = useSelector(selectTeams);
     const teamsByConferenceAndDivision = useSelector(selectTeamsByConferenceAndDivision);
+
+    const isBetBlocked = loggedUser !== null && loggedUser.status === 0;
 
     const selectedWildcardExtraType = extraSection === EXTRA_SECTION.AFC
         ? EXTRA_BETS_VALUES.AFC_WILDCARD
@@ -111,6 +115,10 @@ const ExtraBets = () => {
     }, [selectedExtraBets]);
 
     const onSelect = (team: TMatchTeam, type: number) => {
+        if (isBetBlocked) {
+            return;
+        }
+
         const newSelectedExtraBets: TExtraBets = { ...selectedExtraBets };
         let afcWc: number[] = [...newSelectedExtraBets[EXTRA_BETS_VALUES.AFC_WILDCARD] as number[]];
         let nfcWc: number[] = [...newSelectedExtraBets[EXTRA_BETS_VALUES.NFC_WILDCARD] as number[]];
@@ -177,7 +185,7 @@ const ExtraBets = () => {
                     ))}
                     {!hasSeasonStarted && teams.map((team) => (
                         <BettableTeam
-                            disabled={isUpdating}
+                            disabled={isUpdating || isBetBlocked}
                             currentlySelectedByUser={selectedExtraBets}
                             extraType={extraType}
                             team={team}
