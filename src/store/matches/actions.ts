@@ -22,10 +22,12 @@ export const fetchMatches = (season: number, week: number) => async (dispatch: D
                 type: ACTIONTYPES.FETCHING_MATCHES_ERROR,
                 errorMessage: error.message
             });
-            return dispatch({
-                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
-                errorMessage: error.message
-            });
+            if (error.message !== '' && error.message !== undefined) {
+                return dispatch({
+                    type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                    errorMessage: error.message
+                });
+            }
         })
 
 };
