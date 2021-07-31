@@ -47,7 +47,6 @@ export default function appReducer(
         case ACTIONTYPES.TOGGLE_NOTIFICATION:
             return {
                 ...state,
-                notificationIsOpen: true,
                 notifications: [...state.notifications, {
                     id: Date.now(),
                     message: action.notificationMessage || '',

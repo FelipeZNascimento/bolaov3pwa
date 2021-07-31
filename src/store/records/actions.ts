@@ -43,9 +43,11 @@ export const fetchRecords = (
                 type: ACTIONTYPES.FETCHING_RECORDS_ERROR,
                 errorMessage: error.message
             });
-            return dispatch({
-                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
-                errorMessage: error.message
-            });
+            if (error.message !== '' && error.message !== undefined) {
+                return dispatch({
+                    type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                    errorMessage: error.message
+                });
+            }
         })
 };

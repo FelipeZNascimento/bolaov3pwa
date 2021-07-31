@@ -10,7 +10,7 @@
 
     flex: 1;
     flex-direction: column;
-    min-width: 100%;
+    min-width: 90%;
 
     a {
         text-decoration: none;
@@ -41,12 +41,15 @@
 .table {
     @include bg-rgba-colored($color-grey1, 0.1);
     @include font-colored($color-grey3);
-    @include padded(all, m);
+    @include padded(top, m);
+    @include padded(right, xl);
+    @include padded(bottom, m);
+    @include padded(left, xl);
     @include marged(bottom, m);
+
     width: 100%;
 
     &Header {
-        @include bg-rgba-colored($color-grey1, 0.1);
         @include flex-aligned(flex-start, center);
         @include marged(top, m);
         font-weight: bold;
@@ -61,6 +64,14 @@
         span {
             text-decoration: underline;
         }
+    }
+
+    .lineContainer {
+        @include marged(top, m);
+
+        flex: 1;
+        overflow-y: hidden;
+        position: relative;
     }
 
     .recordLine {
@@ -80,7 +91,7 @@
             @include bg-rgba-colored($color-black, 0.1);
         }
     }
-    
+
     .userBet {
         @include bg-rgba-colored($color-black, 0.1);
         font-weight: bold;

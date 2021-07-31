@@ -61,7 +61,7 @@ const emptyExtras = {
 };
 
 const ExtraBets = () => {
-    const [hasSeasonStarted, setHasSeasonStarted] = useState<boolean>(true);
+    const [hasSeasonStarted, setHasSeasonStarted] = useState<boolean>(false);
     const [extraSection, setExtraSection] = useState<EXTRA_SECTION_TYPE>(EXTRA_SECTION.AFC);
     const [selectedExtraBets, setSelectedExtraBets] = useState<TExtraBets>(emptyExtras);
     const dispatch = useDispatch();
@@ -161,14 +161,11 @@ const ExtraBets = () => {
         });
 
         const divisionName = extraSection === EXTRA_SECTION.AFC ? 'AFC' : 'NFC';
-        const renderButton = () => {
-            return <h3 className={styles.divisionTitle}>{divisionName} {title}</h3>;
-        };
 
         return (
             <>
                 <div className={divisionClass}>
-                    {renderButton()}
+                    <h3 className={styles.divisionTitle}>{divisionName} {title}</h3>
                     {hasSeasonStarted && teams.map((team) => (
                         <TeamWithExtras
                             isVisible
@@ -225,8 +222,14 @@ const ExtraBets = () => {
             return <h3 className={styles.divisionTitle}>{title}</h3>;
         };
 
+        const divisionClass = classNames({
+            [styles.division]: !hasSeasonStarted,
+            'left-margin-s right-margin-s': !hasSeasonStarted && !isMobile,
+            [styles.divisionAndBets]: hasSeasonStarted
+        });
+
         return (
-            <div className={styles.divisionAndBets}>
+            <div className={divisionClass}>
                 {renderDivisionButton()}
                 {hasSeasonStarted && renderTeams.map((team) => (
                     <TeamWithExtras

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { usePrevious } from 'services/hooks';
 import { isMobile } from "react-device-detect";
 import classNames from 'classnames';
 
@@ -19,9 +20,29 @@ const Team = ({
     foreground,
     score
 }: TProps) => {
+    const [scoreChanged, setScoreChanged] = useState<boolean>(false);
+    const prevScore = usePrevious(score);
+
+    useEffect(() => {
+        if (prevScore !== undefined) {
+            setScoreChanged(true);
+            setTimeout(() => setScoreChanged(false), 20000); //20s
+        }
+    }, [score]);
+
     const containerClass = classNames(
         [styles.container], {
         [styles.containerMobile]: isMobile
+    });
+
+    const logoClass = classNames(
+        [styles.logo], {
+        [styles.logoHighlight]: scoreChanged
+    });
+
+    const scoreClass = classNames(
+        [styles.score], {
+        [styles.scoreHighlight]: scoreChanged
     });
 
     return (
@@ -30,7 +51,7 @@ const Team = ({
             background: `url(/match_layer.png) ${background}`
         }}>
             <div className={styles.logoContainer}>
-                <img className={styles.logo} alt="logo" src={`/team_logos_std/${id}.gif`} />
+                <img className={logoClass} alt="logo" src={`/team_logos_std/${id}.gif`} />
             </div>
             <div className={styles.nameContainer}>
                 <div className={styles.name} style={{
@@ -38,7 +59,7 @@ const Team = ({
                 }}>
                     {isExpanded && !isMobile ? name : code}
                 </div>
-                {score !== undefined && <div className={styles.score}>
+                {score !== undefined && <div className={scoreClass}>
                     {score}
                 </div>}
             </div>

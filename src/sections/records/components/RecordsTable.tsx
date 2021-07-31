@@ -5,9 +5,10 @@ import classNames from 'classnames';
 
 // Selectors
 import { selectUser } from 'store/user/selector';
+import { selectIsLoading } from 'store/records/selector';
 
 // Components
-import { WeekPagination } from 'components_fa/index';
+import { Loading, WeekPagination } from 'components_fa/index';
 import {
     Icon,
     Tooltip
@@ -30,6 +31,7 @@ const RecordsTable = ({
     records
 }: TProps) => {
     const loggedUser = useSelector(selectUser);
+    const isLoading = useSelector(selectIsLoading);
 
     const renderRecordTableLine = (recordLine: TRecord, position: number) => {
         const recordLineClass = classNames(styles.recordLine, {
@@ -102,10 +104,7 @@ const RecordsTable = ({
                     <Tooltip title="Aproveitamento de pontos" arrow><span>%</span></Tooltip>
                 </div>
                 <div className={styles.points}>
-                    {isMobile
-                        ? <Tooltip title="Pontos" arrow><span>Pts</span></Tooltip>
-                        : 'Pontos'
-                    }
+                    <Tooltip title="Pontos" arrow><span>Pts</span></Tooltip>
                 </div>
                 {!isMobile &&
                     <div className={styles.points}>
@@ -118,7 +117,10 @@ const RecordsTable = ({
                     </div>
                 }
             </div>
-            {records.map((recordLine, index) => renderRecordTableLine(recordLine, index + 1))}
+            <div className={styles.lineContainer}>
+                {isLoading && <Loading overlay />}
+                {records.map((recordLine, index) => renderRecordTableLine(recordLine, index + 1))}
+            </div>
         </div>
     )
 };

@@ -32,7 +32,10 @@ export const ROUTES = {
     },
     RANKING: {
         display: 'Ranking',
-        url: '/ranking'
+        url: '/ranking',
+        urlWithParams: (week: number) => {
+            return `${ROUTES.RANKING.url}/${week}/`;
+        },
     },
     REGRAS: {
         display: 'Regras',

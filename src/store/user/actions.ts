@@ -59,10 +59,13 @@ export const onLogin = (email: string, password: string) => async (dispatch: Dis
                 type: ACTIONTYPES.FETCHING_LOGIN_ERROR,
                 errorMessage: error.message
             });
-            return dispatch({
-                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
-                errorMessage: error.message
-            });
+
+            if (error.message !== '' && error.message !== undefined) {
+                return dispatch({
+                    type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                    errorMessage: error.message
+                });
+            }
         })
 };
 
@@ -98,11 +101,13 @@ export const onRegister = (
                 errorMessage: error.message
             });
 
-            return dispatch({
-                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
-                status: NOTIFICATION_STATUS.INFO,
-                notificationMessage: error.message
-            });
+            if (error.message !== '' && error.message !== undefined) {
+                return dispatch({
+                    type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                    status: NOTIFICATION_STATUS.INFO,
+                    notificationMessage: error.message
+                });
+            }
         })
 };
 
@@ -121,10 +126,12 @@ export const onLogout = () => async (dispatch: Dispatch<TFetchLogout>) => {
                 type: ACTIONTYPES.FETCHING_LOGOUT_ERROR,
                 errorMessage: error.message
             });
-            return dispatch({
-                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
-                errorMessage: error.message
-            });
+            if (error.message !== '' && error.message !== undefined) {
+                return dispatch({
+                    type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                    errorMessage: error.message
+                });
+            }
         })
 };
 
@@ -160,11 +167,14 @@ export const onUpdateUserPreferences = (
                 type: ACTIONTYPES.UPDATING_USER_ERROR,
                 errorMessage: error.message
             });
-            return dispatch({
-                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
-                status: NOTIFICATION_STATUS.INFO,
-                notificationMessage: error.message
-            });
+
+            if (error.message !== '' && error.message !== undefined) {
+                return dispatch({
+                    type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                    status: NOTIFICATION_STATUS.INFO,
+                    notificationMessage: error.message
+                });
+            }
         })
 
 }
@@ -218,11 +228,14 @@ export const onUpdateUser = (
                 type: ACTIONTYPES.UPDATING_USER_ERROR,
                 errorMessage: error.message
             });
-            return dispatch({
-                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
-                status: NOTIFICATION_STATUS.INFO,
-                notificationMessage: error.message
-            });
+
+            if (error.message !== '' && error.message !== undefined) {
+                return dispatch({
+                    type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                    status: NOTIFICATION_STATUS.INFO,
+                    notificationMessage: error.message
+                });
+            }
         })
 };
 

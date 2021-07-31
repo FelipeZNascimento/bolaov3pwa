@@ -14,8 +14,8 @@
     width: 100%;
 
     .column:not(:last-child) {
-        -webkit-box-shadow: 1px 0 0 0px $color-grey3;
-        box-shadow: 1px 0 0 0px $color-grey3;
+        -webkit-box-shadow: 1px 0 0 0px $color-grey5;
+        box-shadow: 1px 0 0 0px $color-grey5;
     }
 
     .column {
@@ -40,7 +40,6 @@
         .header {
             @include bg-rgba-colored($color-navy, 0.5);
             @include flex-aligned(center, center);
-            font-weight: bold;
 
             &Bullseye {
                 @extend .header;
@@ -49,12 +48,12 @@
 
             &Half {
                 @extend .header;
-                @include font-colored($color-sky);
+                @include font-colored($color-grey1);
             }
 
             &Zero {
                 @extend .header;
-                @include font-colored($color-red);
+                @include font-colored($color-grey4);
             }
         }
 

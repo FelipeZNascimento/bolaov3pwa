@@ -39,3 +39,8 @@
     -webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, $opacity);
     box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, $opacity);
 }
+
+.drop-shadowed {
+    filter: drop-shadow(10px 10px 20px #222);
+    text-shadow: 2px 2px 5px #222, -2px -2px 5px #222;
+}

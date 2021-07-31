@@ -26,16 +26,17 @@ const Bets = () => {
 
     const currentWeek = useSelector(selectCurrentWeek);
     const currentSeason = useSelector(selectCurrentSeason);
-    const userBets = useSelector(selectUserBets);
+    const matchesWithBets = useSelector(selectUserBets);
     const isLoading = useSelector(selectIsLoading);
     const loggedUser = useSelector(selectUser);
 
     useEffect(() => {
         if (currentSeason) {
             if (week && parseInt(week) !== currentWeek) {
+                // When there's week param on URL and it's different from current
                 dispatch(fetchUserBets(currentSeason, parseInt(week)));
                 dispatch(setCurrentWeek(parseInt(week)))
-            } else if (currentWeek) {
+            } else if (currentWeek !== null && currentWeek !== undefined) {
                 dispatch(fetchUserBets(currentSeason, currentWeek));
             }
         }
@@ -53,20 +54,26 @@ const Bets = () => {
         return <Ranking />;
     };
 
+    const renderMatches = () => {
+        return matchesWithBets.map((match) => <BettableMatch {...match} key={match.id} />);
+    }
+
     return (
         <div className={styles.container}>
-            <div className={styles.matchesContainer}>
+            <div className={styles.leftContainer}>
                 <WeekPagination routeTo={ROUTES.BETS.urlWithParams} onClick={onWeekClick} />
-                {!isMobile && <div className={styles.header}>
-                    <div style={{ flex: 2 }}>Visitante</div>
-                    <div><Tooltip title="Mais de 7 pontos" placement="top" arrow><span>Fácil</span></Tooltip></div>
-                    <div><Tooltip title="7 pontos ou menos" placement="top" arrow><span>Difícil</span></Tooltip></div>
-                    <div><Tooltip title="7 pontos ou menos" placement="top" arrow><span>Difícil</span></Tooltip></div>
-                    <div><Tooltip title="Mais de 7 pontos" placement="top" arrow><span>Fácil</span></Tooltip></div>
-                    <div style={{ flex: 2 }}>Casa</div>
-                </div>}
-                {isLoading && <Loading />}
-                {!isLoading && userBets.map((match) => <BettableMatch {...match} key={match.id} />)}
+                <div className={styles.matchesContainer}>
+                    {!isMobile && <div className={styles.header}>
+                        <div style={{ flex: 2 }}>Visitante</div>
+                        <div><Tooltip title="Mais de 7 pontos" placement="top" arrow><span>Fácil</span></Tooltip></div>
+                        <div><Tooltip title="7 pontos ou menos" placement="top" arrow><span>Difícil</span></Tooltip></div>
+                        <div><Tooltip title="7 pontos ou menos" placement="top" arrow><span>Difícil</span></Tooltip></div>
+                        <div><Tooltip title="Mais de 7 pontos" placement="top" arrow><span>Fácil</span></Tooltip></div>
+                        <div style={{ flex: 2 }}>Casa</div>
+                    </div>}
+                    {isLoading && <Loading overlay />}
+                    {renderMatches()}
+                </div>
             </div>
             {renderRanking()}
         </div>

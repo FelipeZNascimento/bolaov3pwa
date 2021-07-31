@@ -58,6 +58,10 @@ const WeekPagination = ({
     }
 
     WEEKS.forEach((week) => {
+        if (week.hidden) {
+            return;
+        }
+
         if (currentPage.num - pageRange <= week.num && currentPage.num > week.num) {
             leftWeeks.push(week);
         }
@@ -104,7 +108,7 @@ const WeekPagination = ({
                             to={routeTo(week.num)}
                             onClick={() => onWeekClick(week.num)}
                         >
-                            {week.num}
+                            {week.displayShort}
                         </Link>
                     ))}
                 </div>
@@ -114,7 +118,7 @@ const WeekPagination = ({
                         to={routeTo(currentPage.num)}
                         onClick={() => onWeekClick(currentPage.num)}
                     >
-                        {isMobile ? currentPage.num : currentPage.display}
+                        {isMobile ? currentPage.displayShort : currentPage.display}
                     </Link>
                 </div>
                 <div className={neighbourPagesClass}>
@@ -125,7 +129,7 @@ const WeekPagination = ({
                             to={routeTo(week.num)}
                             onClick={() => onWeekClick(week.num)}
                         >
-                            {week.num}
+                            {week.displayShort}
                         </Link>
                     ))}
                     {rightWeeks.length < pageRange && renderEmptySpans(pageRange - rightWeeks.length)}

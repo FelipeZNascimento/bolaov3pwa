@@ -66,12 +66,13 @@ export const updateRegularBet = (
             });
         })
         .catch((error) => {
-            debugger;
-            dispatch({
-                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
-                status: NOTIFICATION_STATUS.INFO,
-                notificationMessage: error.message
-            });
+            if (error.message !== '' && error.message !== undefined) {
+                dispatch({
+                    type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                    status: NOTIFICATION_STATUS.INFO,
+                    notificationMessage: error.message
+                });
+            }
 
             return dispatch({
                 type: ACTIONTYPES.UPDATING_REGULAR_BET_ERROR,
@@ -95,10 +96,12 @@ export const fetchExtraBets = (season: number) => async (dispatch: Dispatch<TFet
                 type: ACTIONTYPES.FETCHING_EXTRA_BETS_ERROR,
                 errorMessage: error.message
             });
-            return dispatch({
-                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
-                errorMessage: error.message
-            });
+            if (error.message !== '' && error.message !== undefined) {
+                return dispatch({
+                    type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                    errorMessage: error.message
+                });
+            }
         })
 };
 
@@ -124,11 +127,13 @@ export const updateExtraBets = (
             });
         })
         .catch((error) => {
-            dispatch({
-                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
-                status: NOTIFICATION_STATUS.INFO,
-                notificationMessage: error.message
-            });
+            if (error.message !== '' && error.message !== undefined) {
+                dispatch({
+                    type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                    status: NOTIFICATION_STATUS.INFO,
+                    notificationMessage: error.message
+                });
+            }
 
             return dispatch({
                 type: ACTIONTYPES.UPDATING_EXTRA_BETS_ERROR,

@@ -9,6 +9,7 @@ import { updateRegularBet } from 'store/bets/actions';
 
 // Selectors
 import { selectUser } from 'store/user/selector';
+import { selectIsLoading } from 'store/bets/selector';
 
 import {
     Icon
@@ -36,10 +37,11 @@ const BettableMatch = ({
     timestamp,
 }: TProps) => {
     const [currentTimestamp, setCurrentTimestamp] = useState(Math.floor(Date.now() / 1000));
-    // const [currentTimestamp, setCurrentTimestamp] = useState(1599753600);
     const [currentBetValue, setCurrentBetValue] = useState<null | number>(null);
     const correctBets = calculateCorrectBets(away.score || 0, home.score || 0);
     const loggedUser = useSelector(selectUser);
+    const isLoading = useSelector(selectIsLoading);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -119,8 +121,12 @@ const BettableMatch = ({
     }
 
     const renderTeams = () => {
+        const teamsContainerClass = classNames(styles.teamsContainer, {
+            [styles.teamsContainerLoading]: isLoading
+        });
+
         return (
-            <div className={styles.teamsContainer}>
+            <div className={teamsContainerClass}>
                 <Team {...away} isExpanded={false} />
                 {renderBettingColumns()}
                 <Team {...home} isExpanded={false} />

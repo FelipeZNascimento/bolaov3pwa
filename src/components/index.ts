@@ -3,6 +3,7 @@ export { default as CustomButton } from './button/Button';
 export { default as CustomTextField } from './text_field/TextField';
 export { default as LargeButton } from './large_button/largeButton';
 export { default as LeftDrawer } from './left_drawer/LeftDrawer';
+export { default as LinearProgress } from './linear_progress/LinearProgress';
 export { default as Login } from './login/Login';
 export { default as Notification } from './notification/Notification';
 export { default as RightDrawer } from './right_drawer/RightDrawer';

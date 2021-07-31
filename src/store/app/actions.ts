@@ -41,10 +41,13 @@ export const fetchDefaultConfig = () => async (dispatch: Dispatch<TFetchConfig>)
                 type: ACTIONTYPES.FETCHING_CONFIG_ERROR,
                 errorMessage: error.message
             });
-            return dispatch({
-                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
-                notificationMessage: error.message
-            });
+
+            if (error.message !== '' && error.message !== undefined) {
+                return dispatch({
+                    type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                    notificationMessage: error.message
+                });
+            }
         })
 };
 
@@ -63,10 +66,12 @@ export const fetchRanking = (season: number, week: number) => async (dispatch: D
                 type: ACTIONTYPES.FETCHING_RANKING_ERROR,
                 errorMessage: error.message
             });
-            return dispatch({
-                type: ACTIONTYPES.TOGGLE_NOTIFICATION,
-                notificationMessage: error.message
-            });
+            if (error.message !== '' && error.message !== undefined) {
+                return dispatch({
+                    type: ACTIONTYPES.TOGGLE_NOTIFICATION,
+                    notificationMessage: error.message
+                });
+            }
         })
 };
 
@@ -96,7 +101,6 @@ export const setCurrentWeek = (week: number) => async (dispatch: Dispatch<TSetWe
 };
 
 export const onClearNotification = (id: string) => async (dispatch: Dispatch<TClearNotification>) => {
-    console.log(id);
     return dispatch({
         type: ACTIONTYPES.CLEAR_NOTIFICATION,
         id

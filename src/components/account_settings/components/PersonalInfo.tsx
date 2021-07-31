@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import validateEmail from 'services/helpers';
+import { validateEmail } from 'services/helpers';
 
 // Actions
 import {
