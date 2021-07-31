@@ -17,6 +17,7 @@ import {
 } from '@material-ui/icons';
 import {
     Icon,
+    Tooltip
 } from '@material-ui/core';
 import { CustomButton } from 'components/index';
 import PersonalInfo from './components/PersonalInfo';
@@ -55,6 +56,9 @@ const AccountSettings = () => {
                 text='Logout'
                 onClick={() => dispatch(onLogout())}
             />
+            <Tooltip title='Entre no nosso grupo do Telegram' arrow>
+                <a href="https://t.me/joinchat/SvMGiAUj4m2FZge4" target="blank"><Icon className='fab fa-telegram' style={{ color: 'color-white', fontSize: 48 }} /></a>
+            </Tooltip>
         </>
     )
 };
