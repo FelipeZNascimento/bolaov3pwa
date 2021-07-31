@@ -45,8 +45,8 @@ const App = () => {
 		},
 		{
 			description: 'Quanto valem as apostas nos playoffs?',
-			display: ROUTES.REGRAS.display,
-			route: ROUTES.REGRAS.url
+			display: ROUTES.RULES.display,
+			route: ROUTES.RULES.url
 		},
 	];
 

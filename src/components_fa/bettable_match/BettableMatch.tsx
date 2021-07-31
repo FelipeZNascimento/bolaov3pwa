@@ -76,7 +76,7 @@ const BettableMatch = ({
 
     const renderBettingButton = (betValue: number) => {
         const buttonClass = classNames({
-            [styles.betButtonDisabled]: currentTimestamp >= timestamp,
+            [styles.betButtonDisabled]: currentTimestamp >= timestamp || (loggedUser && loggedUser.status === 0),
             [styles.betButton]: currentTimestamp < timestamp,
             [styles.betButtonCorrect]: correctBets.bullseye.find((correctBet) => correctBet === betValue) !== undefined
         });

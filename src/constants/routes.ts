@@ -37,7 +37,7 @@ export const ROUTES = {
             return `${ROUTES.RANKING.url}/${week}/`;
         },
     },
-    REGRAS: {
+    RULES: {
         display: 'Regras',
         url: '/regras'
     },
