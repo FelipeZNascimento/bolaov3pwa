@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import { isMobile } from "react-device-detect";
 import classNames from 'classnames';
 import { DateTime } from 'luxon';
 
+// Components
 import { Team } from 'components_fa/index'
 import Bets from './components/Bets'
+
+// Selectors
+import { selectIsLoading } from 'store/matches/selector';
+
+// Types & Constants
 import { TMatch } from 'store/matches/types';
 import { calculateCorrectBets } from 'constants/bets';
 import styles from './Match.module.scss';
@@ -26,6 +34,7 @@ const Match = ({
     onExpandClick,
 }: TProps) => {
     const [currentTimestamp, setCurrentTimestamp] = useState(Math.floor(Date.now() / 1000));
+    const isLoading = useSelector(selectIsLoading);
 
     const correctBets = calculateCorrectBets(away.score || 0, home.score || 0);
 
@@ -87,8 +96,12 @@ const Match = ({
     };
 
     const renderTeams = () => {
+        const teamsContainerClass = classNames(styles.teamsContainer, {
+            [styles.teamsContainerLoading]: isLoading
+        });
+
         return (
-            <div className={styles.teamsContainer}>
+            <div className={teamsContainerClass}>
                 <Team {...away} isExpanded={isExpanded} />
                 <Team {...home} isExpanded={isExpanded} />
             </div>

@@ -96,7 +96,6 @@ export const setCurrentWeek = (week: number) => async (dispatch: Dispatch<TSetWe
 };
 
 export const onClearNotification = (id: string) => async (dispatch: Dispatch<TClearNotification>) => {
-    console.log(id);
     return dispatch({
         type: ACTIONTYPES.CLEAR_NOTIFICATION,
         id

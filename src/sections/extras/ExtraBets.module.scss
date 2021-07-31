@@ -80,16 +80,6 @@
     }
 }
 
-// .bets {
-//     background-color: white;
-//     @include marged(all, m);
-//     @include font-sized(l);
-//     @include font-colored($color-grey1);
-
-//     flex: 3;
-//     transition: 0.4s;
-// }
-
 .rotated {
     transform: rotate(90deg);
 }

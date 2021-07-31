@@ -161,14 +161,11 @@ const ExtraBets = () => {
         });
 
         const divisionName = extraSection === EXTRA_SECTION.AFC ? 'AFC' : 'NFC';
-        const renderButton = () => {
-            return <h3 className={styles.divisionTitle}>{divisionName} {title}</h3>;
-        };
 
         return (
             <>
                 <div className={divisionClass}>
-                    {renderButton()}
+                    <h3 className={styles.divisionTitle}>{divisionName} {title}</h3>
                     {hasSeasonStarted && teams.map((team) => (
                         <TeamWithExtras
                             isVisible

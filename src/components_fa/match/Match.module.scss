@@ -52,6 +52,10 @@
     flex-direction: row;
     flex: 2;
     width: 100%;
+
+    &Loading {
+        opacity: 0.3;
+    }
 }
 
 .time {

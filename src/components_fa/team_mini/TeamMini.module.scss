@@ -9,7 +9,6 @@
     @include flex-aligned(flex-start, center);
     @include font-sized(l);
     
-    background: url("http://omegafox.me/img/match_layer.png");
     flex-direction: column;
     height: $matchContainerHeight;
     min-width: calc(#{$matchContainerHeight}*2);
