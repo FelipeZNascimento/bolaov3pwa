@@ -82,7 +82,7 @@ const Startup = (props: any) => {
         }
     }, [history, isLoadingUser, loggedUser, pathname]);
 
-    const fetchRankings = () => {
+    const fetchMatchesAndRanking = () => {
         if (currentSeason !== null && currentWeek !== null && isOnResultsOrBets) {
             dispatch(fetchSeasonRanking(currentSeason as number));
             dispatch(fetchRanking(currentSeason as number, currentWeek as number));
@@ -92,7 +92,7 @@ const Startup = (props: any) => {
 
     useEffect(() => {
         if (progressBarTimer.current !== null) {
-            fetchRankings();
+            fetchMatchesAndRanking();
             setProgress(0);
             clearInterval(progressBarTimer.current);
             progressBarTimer.current = setInterval(timerFunction, 333); // From 0 to 100 -> every 30 seconds
@@ -112,6 +112,7 @@ const Startup = (props: any) => {
 
     useEffect(() => {
         if (progressBarTimer.current === null && isOnResultsOrBets) {
+            fetchMatchesAndRanking();
             progressBarTimer.current = setInterval(timerFunction, 333); // From 0 to 100 -> every 30 seconds
         }
 
@@ -125,7 +126,7 @@ const Startup = (props: any) => {
     const timerFunction = () => {
         setProgress((oldProgress) => {
             if (oldProgress >= 100) {
-                fetchRankings();
+                fetchMatchesAndRanking();
                 return 0;
             }
             return oldProgress + 1.1111;
