@@ -54,7 +54,7 @@ const defaultButtons: TRecordFilter[] = [
         season: null,
         week: 1,
         userId: null,
-        weekPagination: true
+        weekSelector: true
     },
     {
         id: 3,
@@ -95,7 +95,7 @@ const defaultButtons: TRecordFilter[] = [
         season: null,
         week: 1,
         userId: null,
-        weekPagination: true
+        weekSelector: true
     },
 
 ];
