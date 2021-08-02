@@ -1,27 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isMobile } from "react-device-detect";
 
-import { Loading, Match, Ranking, WeekPagination } from 'components_fa/index';
-import styles from './Results.module.scss';
-import ROUTES from 'constants/routes';
+// Components
+import { Loading, Match, Ranking, WeekSelector } from 'components_fa/index';
+import { Fab, Icon } from '@material-ui/core';
 
 // Actions
 import { setCurrentWeek } from 'store/app/actions';
 
 // Selectors
 import { selectIsLoading, selectMatches } from 'store/matches/selector';
+import { selectCurrentWeek } from 'store/app/selector';
+
+import styles from './Results.module.scss';
+import ROUTES from 'constants/routes';
 
 const Results = () => {
     const [expandedMatches, setExpandedMatches] = useState<number[]>([]);
 
     const dispatch = useDispatch();
-    const matches = useSelector(selectMatches);
+    const currentWeek = useSelector(selectCurrentWeek);
     const isLoading = useSelector(selectIsLoading);
+    const matches = useSelector(selectMatches);
+
+    useEffect(() => {
+        setExpandedMatches([]);
+    }, [currentWeek])
 
     const onWeekClick = (newWeek: number) => {
         dispatch(setCurrentWeek(newWeek));
     };
+
+    const onExpandAll = () => {
+        if (expandedMatches.length > 0) {
+            setExpandedMatches([])
+        } else {
+            const allMatchIds = matches.map((match) => match.id);
+            setExpandedMatches([...allMatchIds]);
+        }
+    }
 
     const onExpandClick = (matchId: number) => {
         let updatedExpandedMatches = [...expandedMatches];
@@ -55,7 +73,15 @@ const Results = () => {
     return (
         <div className={styles.container}>
             <div className={styles.leftContainer}>
-                <WeekPagination routeTo={ROUTES.RESULTS.urlWithParams} onClick={onWeekClick} />
+                <div className={styles.floatingButtonContainer}>
+                    <div className={styles.floatingButton}>
+                        <Fab aria-label="expand or collapse matches" variant="extended" onClick={onExpandAll}>
+                            <Icon classes={{ root: 'fas fa-arrows-alt-v' }} />
+                            {expandedMatches.length > 0 ? 'Colapsar' : 'Expandir'}
+                        </Fab>
+                    </div>
+                </div>
+                <WeekSelector routeTo={ROUTES.RESULTS.urlWithParams} onClick={onWeekClick} />
                 <div className={styles.matchesContainer}>
                     {isLoading && <Loading overlay />}
                     {renderMatches()}

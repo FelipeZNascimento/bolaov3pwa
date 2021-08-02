@@ -3,11 +3,12 @@ import { useSelector } from 'react-redux';
 
 import { isMobile } from "react-device-detect";
 import classNames from 'classnames';
-import { DateTime } from 'luxon';
 
 // Components
-import { Team } from 'components_fa/index'
-import Bets from './components/Bets'
+import { Icon } from '@material-ui/core';
+import { Team } from 'components_fa/index';
+import Bets from './components/Bets';
+import Time from './components/Time';
 
 // Selectors
 import { selectIsLoading } from 'store/matches/selector';
@@ -48,12 +49,6 @@ const Match = ({
         setCurrentTimestamp(Math.floor(Date.now() / 1000));
     }, 30000); //30s
 
-    const matchStatusClass = classNames({
-        [styles.notStarted]: currentTimestamp < timestamp, // not started
-        [styles.started]: currentTimestamp >= timestamp, // has started
-        [styles.ended]: currentTimestamp >= timestamp && status === 'final', // match has ended
-    });
-
     const borderClass = classNames({
         [styles.greenBorder]: loggedUserBets && isBullseyeBet && currentTimestamp >= timestamp, // bullseye
         [styles.blueBorder]: loggedUserBets && isHalfBet && currentTimestamp >= timestamp, // bullseye
@@ -61,39 +56,8 @@ const Match = ({
     });
 
     const onClick = () => {
-        // setIsExpanded
         onExpandClick(id);
     }
-
-    const renderTime = () => {
-        const date = isExpanded
-            ? DateTime.fromSeconds(timestamp).setLocale('pt-Br').toFormat("EEE dd/LL, HH'h'mm")
-            : DateTime.fromSeconds(timestamp).setLocale('pt-Br').toFormat("dd/LL, HH'h'mm");
-
-        // if match hasn't started
-        if (currentTimestamp < timestamp) {
-            return <div className={`${matchStatusClass}`} style={{ background: `url(/match_layer.png), #9da4a7` }}>{date}</div>
-        }
-
-        // if match has ended
-        if (currentTimestamp >= timestamp && status === 'final') {
-            return <div className={`${matchStatusClass}`} style={{ background: `url(/match_layer.png), #9da4a7` }}>Encerrado</div>;
-        }
-
-        // if match has started
-        if (currentTimestamp >= timestamp) {
-            return (
-                <div className={matchStatusClass}>
-                    <div className={styles.quarter}>
-                        1Q
-                    </div>
-                    <div className={styles.timeLeft}>
-                        9:18
-                    </div>
-                </div>
-            );
-        }
-    };
 
     const renderTeams = () => {
         const teamsContainerClass = classNames(styles.teamsContainer, {
@@ -107,11 +71,6 @@ const Match = ({
             </div>
         )
     };
-
-    const timeClass = classNames(
-        [styles.time], {
-        [styles.timeMobile]: isMobile,
-    });
 
     const matchContainerClass = classNames(borderClass, {
         [styles.matchContainer]: !isExpanded && !isMobile,
@@ -130,9 +89,16 @@ const Match = ({
                 key={id}
                 onClick={onClick}
             >
-                <div className={timeClass}>
-                    {renderTime()}
-                </div>
+                {!isMobile && <div className={styles.collapsibleIcon}>
+                    {!isExpanded && <Icon fontSize="small" classes={{ root: 'fas fa-angle-down color-grey2' }} />}
+                    {isExpanded && <Icon fontSize="small" classes={{ root: 'fas fa-angle-up color-grey2' }} />}
+                </div>}
+                <Time
+                    currentTimestamp={currentTimestamp}
+                    isExpanded={isExpanded}
+                    status={status}
+                    timestamp={timestamp}
+                />
                 {renderTeams()}
             </div>
             <div className={betsContainerClass}>
