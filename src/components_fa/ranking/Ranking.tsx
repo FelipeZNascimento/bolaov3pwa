@@ -5,7 +5,7 @@ import { isMobile } from "react-device-detect";
 import SimpleBar from 'simplebar-react';
 import classNames from 'classnames';
 
-import { Loading, WeekPagination } from 'components_fa/index'
+import { Loading, WeekSelector } from 'components_fa/index'
 import {
     Button,
     Icon,
@@ -164,10 +164,12 @@ const Ranking = ({
         });
 
         return (
-            <div className={containerClass}>
-                <WeekPagination routeTo={ROUTES.RANKING.urlWithParams} onClick={onWeekClick} />
-                {renderRanking()}
-            </div>
+            <>
+                <WeekSelector routeTo={ROUTES.RANKING.urlWithParams} onClick={onWeekClick} />
+                <div className={containerClass}>
+                    {renderRanking()}
+                </div>
+            </>
         )
     }
 

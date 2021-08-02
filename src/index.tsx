@@ -33,7 +33,7 @@ render(
 								<Home />
 							</Route>
 							<Route path={ROUTES.BETS.url}>
-								<Route path={ROUTES.BETS.url + "/:season?/:week?/"} component={Bets} />
+								<Route path={ROUTES.BETS.url + "/:week?/"} component={Bets} />
 							</Route>
 							<Route path={ROUTES.RESULTS.url}>
 								<Route path={ROUTES.RESULTS.url + "/:week?/"} component={Results} />

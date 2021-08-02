@@ -70,7 +70,7 @@ export default function appReducer(
             return {
                 ...state,
                 currentSeason: action.response?.currentSeason,
-                currentWeek: action.response?.currentWeek,
+                currentWeek: state.currentWeek === null ? action.response?.currentWeek : state.currentWeek,
                 error: false,
                 loading: false,
                 seasonStart: action.response?.seasonStart ? parseInt(action.response?.seasonStart) : null,
