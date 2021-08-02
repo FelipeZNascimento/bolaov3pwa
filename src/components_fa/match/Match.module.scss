@@ -22,6 +22,7 @@
     flex-direction: row;
     min-height: $matchContainerHeight;
     opacity: 0.8;
+    position: relative;
     transition: 0.4s;
     max-width: 1000px;
     width: 100%;
@@ -45,6 +46,13 @@
         min-height: calc(#{$matchContainerHeight} * 2);
         opacity: 1;
     }
+}
+
+.collapsibleIcon {
+    left: 0px;
+    position: absolute;
+    top: 40px;
+    z-index: 9999;
 }
 
 .teamsContainer {

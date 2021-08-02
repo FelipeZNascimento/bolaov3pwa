@@ -2,6 +2,7 @@ import { Match } from 'components_fa/index';
 import { guidGenerator } from 'services/helpers';
 
 import styles from 'sections/rules/styles.module.scss';
+import MATCH_STATUS from 'constants/matches';
 
 const Scores = () => {
     const awayTeam = {
@@ -29,7 +30,7 @@ const Scores = () => {
     const matchOne = {
         id: 0,
         timestamp: 1441945800,
-        status: 'final',
+        status: MATCH_STATUS.FINAL,
         away: awayTeam,
         home: homeTeam,
         bets: [],
@@ -39,7 +40,7 @@ const Scores = () => {
     const matchTwo = {
         id: 0,
         timestamp: 1441945800,
-        status: 'final',
+        status: MATCH_STATUS.FINAL,
         away: { ...awayTeam, score: 13 },
         home: { ...homeTeam, score: 20 },
         bets: [],

@@ -13,14 +13,30 @@
 
 .leftContainer {
     @include flex-aligned(flex-start, center);
+
     flex: 2;
     flex-direction: column;
+    position: relative;
 }
 
 .matchesContainer {
     @include flex-aligned(flex-start, center);
+    @include marged(bottom, xl);
+    @include padded(bottom, xxl);
+
     flex: 1;
     flex-direction: column;
     position: relative;
     width: 100%;
+}
+
+.floatingButton {
+    position: fixed;
+    bottom: 25px;
+    z-index: 99999;
+
+    &Container {
+        position: absolute;
+        left: 50%;
+    }
 }

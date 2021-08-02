@@ -44,7 +44,7 @@ export type TMatchBet = {
 export type TMatch = {
     id: number;
     timestamp: number;
-    status: string;
+    status: number;
     away: TMatchTeam;
     home: TMatchTeam;
     bets: TMatchBet[];
