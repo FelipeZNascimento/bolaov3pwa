@@ -8,7 +8,7 @@ import { selectUser } from 'store/user/selector';
 import { selectIsLoading } from 'store/records/selector';
 
 // Components
-import { Loading, WeekPagination } from 'components_fa/index';
+import { Loading, WeekSelector } from 'components_fa/index';
 import {
     Icon,
     Tooltip
@@ -73,7 +73,7 @@ const RecordsTable = ({
                 <div className={styles.season}>
                     {recordLine.season}
                 </div>
-                {!filter.weekPagination && <div className={styles.week}>
+                {!filter.weekSelector && <div className={styles.week}>
                     {recordLine.week}
                 </div>}
                 <div className={styles.points}>
@@ -104,7 +104,7 @@ const RecordsTable = ({
         <div className={styles.table}>
             <h1>{filter.display}</h1>
             <h3>{filter.description}</h3>
-            {filter.weekPagination && <WeekPagination
+            {filter.weekSelector && <WeekSelector
                 routeTo={(weekNum) => ROUTES.RECORDS.urlWithParams(filter.route, JSON.stringify(weekNum))}
                 onClick={() => null}
                 initialWeek={filter.week}
@@ -119,7 +119,7 @@ const RecordsTable = ({
                         : 'Temporada'
                     }
                 </div>
-                {!filter.weekPagination && <div className={styles.week}>
+                {!filter.weekSelector && <div className={styles.week}>
                     Semana
                 </div>}
                 <div className={styles.points}>

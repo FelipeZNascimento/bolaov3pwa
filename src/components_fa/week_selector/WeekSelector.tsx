@@ -4,11 +4,15 @@ import { useSelector } from 'react-redux';
 import { isMobile } from "react-device-detect";
 import classNames from 'classnames';
 
+// Components
+import Dropdown from 'components/dropdown/Dropdown';
+
+// Selectors
 import { selectCurrentWeek } from 'store/app/selector';
 
 import { WEEKS } from 'constants/weeks';
 import { TWeek } from 'components_fa/commonTypes';
-import styles from './WeekPagination.module.scss';
+import styles from './WeekSelector.module.scss';
 
 type TProps = {
     initialWeek?: null | number;
@@ -16,7 +20,7 @@ type TProps = {
     routeTo: (week: number) => string;
 };
 
-const WeekPagination = ({
+const WeekSelector = ({
     initialWeek = null,
     onClick,
     routeTo
@@ -97,7 +101,7 @@ const WeekPagination = ({
 
     return (
         <div className={styles.container}>
-            {isMobile && <div className={styles.weekTitle}>Semana</div>}
+            {isMobile && <br />}
             <div className={containerClass}>
                 <div className={neighbourPagesClass}>
                     {leftWeeks.length < pageRange && renderEmptySpans(pageRange - leftWeeks.length)}
@@ -113,13 +117,12 @@ const WeekPagination = ({
                     ))}
                 </div>
                 <div className={styles.currentPage}>
-                    <Link
-                        key={currentPage.num}
-                        to={routeTo(currentPage.num)}
-                        onClick={() => onWeekClick(currentPage.num)}
-                    >
-                        {isMobile ? currentPage.displayShort : currentPage.display}
-                    </Link>
+                    <Dropdown
+                        currentValue={currentPage.num}
+                        label='Semana'
+                        options={WEEKS}
+                        onChange={onWeekClick}
+                    />
                 </div>
                 <div className={neighbourPagesClass}>
                     {rightWeeks.map((week) => (
@@ -139,4 +142,4 @@ const WeekPagination = ({
     );
 };
 
-export default WeekPagination;
+export default WeekSelector;
