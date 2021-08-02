@@ -54,9 +54,7 @@ const Time = ({
     };
 
     const renderTime = () => {
-        const date = isExpanded
-            ? DateTime.fromSeconds(timestamp).setLocale('pt-Br').toFormat("EEE dd/LL, HH'h'mm")
-            : DateTime.fromSeconds(timestamp).setLocale('pt-Br').toFormat("dd/LL, HH'h'mm");
+        const date = DateTime.fromSeconds(timestamp).setLocale('pt-Br').toFormat("dd/LL, HH'h'mm");
 
         // if match hasn't started
         if (currentTimestamp < timestamp) {

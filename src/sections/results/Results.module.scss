@@ -34,6 +34,7 @@
     position: fixed;
     bottom: 25px;
     z-index: 99999;
+    transform: translateX(-50%);
 
     &Container {
         position: absolute;
