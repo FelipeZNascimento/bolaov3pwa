@@ -14,7 +14,7 @@ const initialState: TState = {
     error: false,
     errorMessage: '',
     updating: false,
-    loading: true,
+    loading: false,
     week: null,
     userBets: [],
     extraBetsResults: null,

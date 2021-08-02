@@ -10,6 +10,9 @@ import {
     selectIsLoading,
     selectUser,
 } from 'store/user/selector';
+import {
+    selectCurrentWeek
+} from 'store/app/selector';
 
 // Components
 import { CustomButton, LeftDrawer, RightDrawer } from 'components/index';
@@ -35,6 +38,7 @@ const TopBar = () => {
 
     const isLoading = useSelector(selectIsLoading);
     const loggedUser = useSelector(selectUser);
+    const currentWeek = useSelector(selectCurrentWeek);
 
     const menuOptions: TMenuOption[] = [
         {
@@ -43,11 +47,11 @@ const TopBar = () => {
         },
         {
             display: ROUTES.RESULTS.display,
-            route: ROUTES.RESULTS.url
+            route: currentWeek !== null ? ROUTES.RESULTS.urlWithParams(currentWeek) : ROUTES.RESULTS.url,
         },
         {
             display: ROUTES.BETS.display,
-            route: ROUTES.BETS.url,
+            route: currentWeek !== null ? ROUTES.BETS.urlWithParams(currentWeek) : ROUTES.BETS.url,
             disabled: loggedUser ? false : true
         },
         {

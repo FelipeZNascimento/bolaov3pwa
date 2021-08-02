@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { isMobile } from "react-device-detect";
 import classNames from 'classnames';
@@ -28,6 +28,7 @@ const WeekSelector = ({
     const [controlledWeek, setControlledWeek] = useState<number | null>(null);
     const [currentPage, setCurrentPage] = useState<TWeek | null>(null);
     const currentWeek = useSelector(selectCurrentWeek);
+    const history = useHistory();
 
     useEffect(() => {
         if (controlledWeek !== null) {
@@ -52,6 +53,11 @@ const WeekSelector = ({
         setControlledWeek(weekNum);
         onClick(weekNum);
     };
+
+    const onDropdownClick = (weekNum: number) => {
+        onWeekClick(weekNum);
+        history.push(routeTo(weekNum));
+    }
 
     const pageRange = isMobile ? 2 : 4;
     const leftWeeks: TWeek[] = [];
@@ -121,7 +127,7 @@ const WeekSelector = ({
                         currentValue={currentPage.num}
                         label='Semana'
                         options={WEEKS}
-                        onChange={onWeekClick}
+                        onChange={onDropdownClick}
                     />
                 </div>
                 <div className={neighbourPagesClass}>

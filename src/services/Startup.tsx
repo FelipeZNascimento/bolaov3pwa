@@ -8,6 +8,7 @@ import { LinearProgress } from 'components/index';
 
 // Actions
 import { fetchMatches } from 'store/matches/actions';
+import { fetchUserBets } from 'store/bets/actions';
 import {
     fetchDefaultConfig,
     fetchRanking,
@@ -26,7 +27,7 @@ import { TMenuOption } from 'components/commonTypes';
 
 const Startup = (props: any) => {
     const [progress, setProgress] = useState<number>(0);
-    const [isOnResultsOrBets, setIsOnResultsOrBets] = useState<boolean>(false);
+    const [currentPage, setCurrentPage] = useState<string>(ROUTES.HOME.display);
 
     const dispatch = useDispatch();
     const isLoadingUser = useSelector(selectIsLoading);
@@ -34,6 +35,8 @@ const Startup = (props: any) => {
     const currentWeek = useSelector(selectCurrentWeek);
     const currentSeason = useSelector(selectCurrentSeason);
     const progressBarTimer = useRef<ReturnType<typeof setInterval> | null>(null);
+    const isOnResultsOrBets = currentPage === ROUTES.RESULTS.display
+        || currentPage === ROUTES.BETS.display;
 
     const { pathname } = useLocation();
     const history = useHistory();
@@ -82,37 +85,49 @@ const Startup = (props: any) => {
         }
     }, [history, isLoadingUser, loggedUser, pathname]);
 
-    const fetchMatchesAndRanking = () => {
+    const fetchSectionMatches = () => {
+        if (currentSeason !== null && currentWeek !== null) {
+            if (currentPage === ROUTES.RESULTS.display) {
+                dispatch(fetchMatches(currentSeason as number, currentWeek as number));
+            } else if (currentPage === ROUTES.BETS.display) {
+                dispatch(fetchUserBets(currentSeason as number, currentWeek as number));
+            }
+        }
+    };
+
+    const fetchBothRankings = () => {
         if (currentSeason !== null && currentWeek !== null && isOnResultsOrBets) {
             dispatch(fetchSeasonRanking(currentSeason as number));
             dispatch(fetchRanking(currentSeason as number, currentWeek as number));
-            dispatch(fetchMatches(currentSeason as number, currentWeek as number));
         }
     };
 
     useEffect(() => {
         if (progressBarTimer.current !== null) {
-            fetchMatchesAndRanking();
+            fetchSectionMatches();
+            fetchBothRankings();
             setProgress(0);
             clearInterval(progressBarTimer.current);
             progressBarTimer.current = setInterval(timerFunction, 333); // From 0 to 100 -> every 30 seconds
         }
-    }, [currentSeason, currentWeek, pathname]);
+    }, [currentSeason, currentWeek, currentPage]);
 
     useEffect(() => {
-        if (pathname.includes(ROUTES.RESULTS.url)
-            || pathname.includes(ROUTES.BETS.url)
-            || pathname.includes(ROUTES.RANKING.url)
-        ) {
-            setIsOnResultsOrBets(true);
+        if (pathname.includes(ROUTES.RESULTS.url)) {
+            setCurrentPage(ROUTES.RESULTS.display);
+        } else if (pathname.includes(ROUTES.BETS.url)) {
+            setCurrentPage(ROUTES.BETS.display);
+        } else if (pathname.includes(ROUTES.RANKING.url)) {
+            setCurrentPage(ROUTES.RANKING.display);
         } else {
-            setIsOnResultsOrBets(false);
+            setCurrentPage(ROUTES.HOME.display);
         }
     }, [pathname]);
 
     useEffect(() => {
         if (progressBarTimer.current === null && isOnResultsOrBets) {
-            fetchMatchesAndRanking();
+            fetchSectionMatches();
+            fetchBothRankings();
             progressBarTimer.current = setInterval(timerFunction, 333); // From 0 to 100 -> every 30 seconds
         }
 
@@ -121,12 +136,13 @@ const Startup = (props: any) => {
             clearInterval(progressBarTimer.current);
             progressBarTimer.current = null;
         }
-    }, [isOnResultsOrBets]);
+    }, [currentSeason, currentPage]);
 
     const timerFunction = () => {
         setProgress((oldProgress) => {
             if (oldProgress >= 100) {
-                fetchMatchesAndRanking();
+                fetchSectionMatches();
+                fetchBothRankings();
                 return 0;
             }
             return oldProgress + 1.1111;

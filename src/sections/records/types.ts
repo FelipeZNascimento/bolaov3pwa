@@ -11,5 +11,5 @@ export type TRecordFilter = {
     week: number | null;
     userId: string | null;
     needsLoggedUser: boolean;
-    weekPagination?: boolean;
+    weekSelector?: boolean;
 }
