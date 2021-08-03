@@ -68,20 +68,29 @@ const Rules = () => {
         }
     };
 
+
     return (
         <div className={containerClass}>
             <div className="sectionTitle">
                 <h1>Regras</h1>
             </div>
             <div className={styles.buttonsContainer}>
-                {buttons.map((button) => (
-                    <Button classes={{ root: `${rulesSection === button.id ? styles.buttonActive : styles.button}` }}
-                        variant="outlined"
-                        onClick={() => setRulesSection(button.id)}
-                    >
-                        {button.display}
-                    </Button>
-                ))}
+                {buttons.map((button) => {
+                    const buttonClass = classNames(styles.button, {
+                        [styles.buttonActive]: rulesSection === button.id,
+                        [styles.buttonStandard]: !isMobile,
+                        [styles.buttonMobile]: isMobile
+                    });
+
+                    return (
+                        <Button classes={{ root: buttonClass }}
+                            variant="outlined"
+                            onClick={() => setRulesSection(button.id)}
+                        >
+                            {button.display}
+                        </Button>
+                    )
+                })}
             </div>
             <div className={styles.rulesContainer}>
                 {renderActiveRule()}

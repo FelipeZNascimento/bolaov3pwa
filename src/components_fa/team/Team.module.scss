@@ -33,6 +33,10 @@
         font-weight: bold;
         height: $matchContainerHeight;
         min-width: 60px;
+
+        &Expanded {
+            @include font-sized(m2);
+        }
     }
 
     .score {

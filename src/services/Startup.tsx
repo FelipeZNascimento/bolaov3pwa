@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { loadCSS } from "fg-loadcss";
+import { usePrevious } from 'services/hooks';
 
 // Components
 import { LinearProgress } from 'components/index';
@@ -40,6 +41,8 @@ const Startup = (props: any) => {
 
     const { pathname } = useLocation();
     const history = useHistory();
+    const prevWeek = usePrevious(currentWeek);
+    const prevPage = usePrevious(currentPage);
 
     const menuOptions: TMenuOption[] = [
         {
@@ -86,31 +89,19 @@ const Startup = (props: any) => {
     }, [history, isLoadingUser, loggedUser, pathname]);
 
     const fetchSectionMatches = () => {
-        if (currentSeason !== null && currentWeek !== null) {
-            if (currentPage === ROUTES.RESULTS.display) {
-                dispatch(fetchMatches(currentSeason as number, currentWeek as number));
-            } else if (currentPage === ROUTES.BETS.display) {
-                dispatch(fetchUserBets(currentSeason as number, currentWeek as number));
-            }
+        if (currentPage === ROUTES.RESULTS.display) {
+            dispatch(fetchMatches(currentSeason as number, currentWeek as number));
+        } else if (currentPage === ROUTES.BETS.display) {
+            dispatch(fetchUserBets(currentSeason as number, currentWeek as number));
         }
     };
 
     const fetchBothRankings = () => {
-        if (currentSeason !== null && currentWeek !== null && isOnResultsOrBets) {
+        if (isOnResultsOrBets || pathname.includes(ROUTES.RANKING.url)) {
             dispatch(fetchSeasonRanking(currentSeason as number));
             dispatch(fetchRanking(currentSeason as number, currentWeek as number));
         }
     };
-
-    useEffect(() => {
-        if (progressBarTimer.current !== null) {
-            fetchSectionMatches();
-            fetchBothRankings();
-            setProgress(0);
-            clearInterval(progressBarTimer.current);
-            progressBarTimer.current = setInterval(timerFunction, 333); // From 0 to 100 -> every 30 seconds
-        }
-    }, [currentSeason, currentWeek, currentPage]);
 
     useEffect(() => {
         if (pathname.includes(ROUTES.RESULTS.url)) {
@@ -125,18 +116,46 @@ const Startup = (props: any) => {
     }, [pathname]);
 
     useEffect(() => {
-        if (progressBarTimer.current === null && isOnResultsOrBets) {
-            fetchSectionMatches();
-            fetchBothRankings();
-            progressBarTimer.current = setInterval(timerFunction, 333); // From 0 to 100 -> every 30 seconds
+        if (currentSeason === null) {
+            return;
         }
 
-        if (progressBarTimer.current !== null && !isOnResultsOrBets) {
+        if (currentWeek === null) {
+            return;
+        }
+
+        if (isOnResultsOrBets && progressBarTimer.current === null) {
+            // Entering Results or Bets
+            fetchBothRankings();
+            fetchMatchesAndResetTimer();
+        } else if (!isOnResultsOrBets && progressBarTimer.current !== null) {
+            // Leaving Results or Bets
             setProgress(0);
             clearInterval(progressBarTimer.current);
             progressBarTimer.current = null;
+        } else if (prevPage !== currentPage && isOnResultsOrBets) {
+            // Switching between Results and Pages
+            fetchBothRankings();
+            fetchMatchesAndResetTimer();
+        } else if (prevWeek !== currentWeek) {
+            // If changed week
+            fetchBothRankings();
+
+            if (isOnResultsOrBets) {
+                fetchMatchesAndResetTimer();
+            }
         }
-    }, [currentSeason, currentPage]);
+    }, [currentSeason, currentWeek, currentPage]);
+
+    const fetchMatchesAndResetTimer = () => {
+        if (progressBarTimer.current !== null) {
+            setProgress(0);
+            clearInterval(progressBarTimer.current);
+        }
+
+        fetchSectionMatches();
+        progressBarTimer.current = setInterval(timerFunction, 333); // From 0 to 100 -> every 30 seconds
+    };
 
     const timerFunction = () => {
         setProgress((oldProgress) => {

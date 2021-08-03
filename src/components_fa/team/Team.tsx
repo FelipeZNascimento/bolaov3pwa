@@ -45,6 +45,11 @@ const Team = ({
         [styles.scoreHighlight]: scoreChanged
     });
 
+    const nameClass = classNames(
+        [styles.name], {
+        [styles.nameExpanded]: isExpanded
+    });
+
     return (
         <div className={containerClass} style={{
             color: foreground,
@@ -54,7 +59,7 @@ const Team = ({
                 <img className={logoClass} alt="logo" src={`/team_logos_std/${id}.gif`} />
             </div>
             <div className={styles.nameContainer}>
-                <div className={styles.name} style={{
+                <div className={nameClass} style={{
                     textShadow: `-1px 0 ${background}, 0 1px ${background}, 1px 0 ${background}, 0 -1px ${background}`
                 }}>
                     {isExpanded && !isMobile ? name : code}

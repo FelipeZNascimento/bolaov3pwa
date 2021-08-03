@@ -45,9 +45,9 @@
     @include padded(right, xl);
     @include padded(bottom, m);
     @include padded(left, xl);
-    @include marged(bottom, m);
 
     width: 100%;
+    overflow-y: auto;
 
     &Header {
         @include flex-aligned(flex-start, center);

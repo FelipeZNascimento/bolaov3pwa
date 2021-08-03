@@ -27,7 +27,9 @@ import { calculateCorrectBets } from 'constants/bets';
 import styles from './BettableMatch.module.scss';
 import { BETS_VALUES } from 'constants/bets';
 
-type TProps = TMatch;
+type TProps = TMatch & {
+    onChange: (id: number, betValue: number) => void
+};
 
 const BettableMatch = ({
     id,
@@ -35,6 +37,7 @@ const BettableMatch = ({
     loggedUserBets = null,
     home,
     timestamp,
+    onChange
 }: TProps) => {
     const [currentTimestamp, setCurrentTimestamp] = useState(Math.floor(Date.now() / 1000));
     const [currentBetValue, setCurrentBetValue] = useState<null | number>(null);
@@ -55,6 +58,7 @@ const BettableMatch = ({
         if (!isBetBlocked) {
             dispatch(updateRegularBet(id, betValue));
             setCurrentBetValue(betValue);
+            onChange(id, betValue);
         }
     };
 
