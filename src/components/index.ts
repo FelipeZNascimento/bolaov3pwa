@@ -7,4 +7,6 @@ export { default as LinearProgress } from './linear_progress/LinearProgress';
 export { default as Login } from './login/Login';
 export { default as Notification } from './notification/Notification';
 export { default as RightDrawer } from './right_drawer/RightDrawer';
+export { default as StatusComponent } from './status_component/StatusComponent';
+export { default as TextBox } from './text_box/TextBox';
 export { default as TopBar } from './top_bar/TopBar';

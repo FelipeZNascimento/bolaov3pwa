@@ -1,0 +1,15 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.textBox {
+    @include bg-rgba-colored($color-grey5, 0.1);
+    @include font-colored($color-grey2);
+    @include padded(all, m);
+
+    border: 1px solid $color-grey5;
+    border-radius: 4px;
+}
