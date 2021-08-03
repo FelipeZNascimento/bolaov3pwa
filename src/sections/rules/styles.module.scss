@@ -28,16 +28,30 @@
     .button {
         @include bg-rgba-colored($color-grey1, 0.1);
         @include font-colored($color-grey3);
-        @include font-sized(l);
-        @include marged(all, m);
-        @include padded(left, xl);
-        @include padded(right, xl);
 
         flex: 1;
         transition: 0.4s;
 
+        &Standard {
+            @include font-sized(m2);
+            @include marged(all, m);
+            @include padded(left, xl);
+            @include padded(right, xl);
+    
+            min-width: 160px;
+        }
+
+        &Mobile {
+            @include font-sized(s);
+            @include marged(all, xs);
+            @include padded(left, m);
+            @include padded(right, m);
+    
+            min-width: 110px;
+
+        }
+
         &Active {
-            @extend .button;
             @include font-colored($color-gold);
         }
 

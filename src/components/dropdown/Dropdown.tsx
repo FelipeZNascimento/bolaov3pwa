@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/core/styles';
+import styles from './styles.module.scss';
 
 type TProps = {
     currentValue: number;
@@ -21,18 +22,16 @@ const CustomFormControl = withStyles({
         width: '100%',
         "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
             borderColor: "#545859"
-        },
-        "& .MuiPopover-paper": {
-            maxHeight: "400px"
-        },
+        }
     }
 })(FormControl);
 
 const CustomSelect = withStyles({
     root: {
-        color: '#f4b303'
+        color: '#f4b303',
     }
 })(Select);
+
 
 const Dropdown = ({
     currentValue,
@@ -51,6 +50,11 @@ const Dropdown = ({
                 id="demo-simple-select-outlined"
                 value={currentValue}
                 onChange={onDropdownClick}
+                MenuProps={{
+                    classes: { paper: styles.dropdownStyle },
+                    variant: 'menu'
+                }}
+
             >
                 {options.map((option) => <MenuItem value={option.num}>{option.display}</MenuItem>)}
             </CustomSelect>

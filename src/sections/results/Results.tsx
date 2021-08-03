@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
 import { isMobile } from "react-device-detect";
 
 // Components
@@ -23,6 +24,13 @@ const Results = () => {
     const currentWeek = useSelector(selectCurrentWeek);
     const isLoading = useSelector(selectIsLoading);
     const matches = useSelector(selectMatches);
+    const { week } = useParams<{ week: string }>();
+
+    useEffect(() => {
+        if (week) {
+            dispatch(setCurrentWeek(parseInt(week)))
+        }
+    }, [dispatch, week]);
 
     useEffect(() => {
         setExpandedMatches([]);

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { isMobile } from "react-device-detect";
@@ -8,19 +8,26 @@ import { setCurrentWeek } from 'store/app/actions';
 
 // Selectors
 import { selectIsLoading, selectUserBets } from 'store/bets/selector';
+import { selectUser } from 'store/user/selector';
 
-import {
-    Tooltip
-} from '@material-ui/core';
-
+// Components
+import { Tooltip } from '@material-ui/core';
+import { StatusComponent } from 'components/index'
 import { Loading, BettableMatch, Ranking, WeekSelector } from 'components_fa/index'
+
 import styles from './Bets.module.scss';
 import ROUTES from 'constants/routes';
+import { TMatch } from 'store/matches/types';
 
 const Bets = () => {
+    const [betProgress, setBetProgress] = useState<number>(0);
+    const [matchesCurrentStatus, setMatchesCurrentStatus] = useState<TMatch[]>([]);
+
     const dispatch = useDispatch();
     const matchesWithBets = useSelector(selectUserBets);
     const isLoading = useSelector(selectIsLoading);
+    const loggedUser = useSelector(selectUser);
+
     const { week } = useParams<{ week: string }>();
 
     useEffect(() => {
@@ -29,9 +36,60 @@ const Bets = () => {
         }
     }, [dispatch, week]);
 
+    useEffect(() => {
+        if (matchesWithBets.length > 0) {
+            setMatchesCurrentStatus(matchesWithBets);
+        }
+    }, [matchesWithBets]);
+
+    useEffect(() => {
+        const totalBets = matchesCurrentStatus.length;
+        let numOfBets = 0;
+        matchesCurrentStatus.forEach((match) => {
+            if (match.loggedUserBets !== null && match.loggedUserBets !== undefined) {
+                numOfBets++
+            }
+        });
+
+        setBetProgress(100 * (numOfBets / totalBets));
+    }, [matchesCurrentStatus]);
+
     const onWeekClick = (newWeek: number) => {
         dispatch(setCurrentWeek(newWeek));
     };
+
+    const onBetChange = (id: number, betValue: number) => {
+        const newMatchStatuses = [...matchesCurrentStatus];
+
+        let foundIndex = newMatchStatuses.findIndex(x => x.id === id);
+        if (foundIndex !== -1 && loggedUser) {
+            newMatchStatuses[foundIndex].loggedUserBets = {
+                id: 0,
+                matchId: 0,
+                value: betValue,
+                user: { ...loggedUser, id: parseInt(loggedUser.id) }
+            };
+            setMatchesCurrentStatus(newMatchStatuses);
+        }
+    };
+
+    const renderBetsStatus = () => {
+        let numOfBets = 0;
+        matchesCurrentStatus.forEach((match) => {
+            if (match.loggedUserBets !== null && match.loggedUserBets !== undefined) {
+                numOfBets++
+            }
+        });
+
+        return (
+            <div>
+                <p>
+                    Apostas<br />
+                    {numOfBets} / {matchesCurrentStatus.length}
+                </p>
+            </div>
+        )
+    }
 
     const renderRanking = () => {
         if (isMobile) {
@@ -42,7 +100,7 @@ const Bets = () => {
     };
 
     const renderMatches = () => {
-        return matchesWithBets.map((match) => <BettableMatch {...match} key={match.id} />);
+        return matchesWithBets.map((match) => <BettableMatch {...match} key={match.id} onChange={onBetChange} />);
     }
 
     return (
@@ -63,6 +121,7 @@ const Bets = () => {
                 </div>
             </div>
             {renderRanking()}
+            <StatusComponent content={renderBetsStatus} progress={betProgress} />
         </div>
     );
 };

@@ -9,6 +9,7 @@ import { Icon } from '@material-ui/core';
 import { Team } from 'components_fa/index';
 import Bets from './components/Bets';
 import Time from './components/Time';
+import { TextBox } from 'components/index'
 
 // Selectors
 import { selectIsLoading } from 'store/matches/selector';
@@ -82,6 +83,7 @@ const Match = ({
         [styles.betsContainerHidden]: !isExpanded || !bets || (bets.length === 0 && !loggedUserBets),
     });
 
+    const noBets = bets.length === 0 && loggedUserBets === null;
     return (
         <div className={styles.container}>
             <div
@@ -95,12 +97,14 @@ const Match = ({
                 </div>}
                 <Time
                     currentTimestamp={currentTimestamp}
-                    isExpanded={isExpanded}
+                    isLoading={isLoading}
                     status={status}
                     timestamp={timestamp}
                 />
                 {renderTeams()}
             </div>
+            
+            {noBets && isExpanded && <p><TextBox text={() => 'Nenhuma aposta disponível ainda'} /></p>}
             <div className={betsContainerClass}>
                 <Bets
                     bets={bets}

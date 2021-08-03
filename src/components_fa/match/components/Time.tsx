@@ -8,14 +8,14 @@ import MATCH_STATUS from 'constants/matches';
 
 type TProps = {
     currentTimestamp: number,
-    isExpanded: boolean,
+    isLoading: boolean,
     status: number,
     timestamp: number,
 };
 
 const Time = ({
     currentTimestamp,
-    isExpanded,
+    isLoading,
     status,
     timestamp
 }: TProps) => {
@@ -89,6 +89,7 @@ const Time = ({
 
     const timeClass = classNames(
         [styles.time], {
+        [styles.timeLoading]: isLoading,
         [styles.timeMobile]: isMobile,
     });
 
