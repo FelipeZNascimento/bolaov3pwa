@@ -1,0 +1,41 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.statusComponent {
+    @include bg-rgba-colored($color-blue, 0.5);
+    @include shadowed(0.2);
+
+    left: 0;
+    position: fixed;
+    top: 50%;
+
+    &Mobile {
+        top: 60%;
+    }
+
+    &Text {
+        @include font-colored($color-grey2);
+        @include font-sized(s);
+        @include padded(right, s);
+        @include padded(left, s);
+    }
+}
+
+.barColor {
+    &Empty {
+        background-color: $color-red !important;
+    }
+    &Quarter {
+        background-color: $color-orange !important;
+    }    
+    &Half {
+        background-color: $color-gold !important;
+    }
+    &Full {
+        background-color: $color-mint !important;
+    }
+}
