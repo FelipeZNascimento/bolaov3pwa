@@ -52,7 +52,7 @@ const BettableMatch = ({
     const isLoading = useSelector(selectIsLoading);
 
     const dispatch = useDispatch();
-    const isBetBlocked = currentWeek !== 0 && (currentTimestamp >= timestamp || (loggedUser && loggedUser.status === 0));
+    const isBetBlocked = currentTimestamp >= timestamp || (loggedUser && loggedUser.status === 0 && currentWeek !== 0);
     const hasGameStarted = status !== MATCH_STATUS.NOT_STARTED;
 
     useEffect(() => {
