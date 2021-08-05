@@ -10,6 +10,7 @@ import { updateRegularBet } from 'store/bets/actions';
 // Selectors
 import { selectUser } from 'store/user/selector';
 import { selectIsLoading } from 'store/bets/selector';
+import { selectCurrentWeek } from 'store/app/selector';
 
 import {
     Icon
@@ -41,12 +42,13 @@ const BettableMatch = ({
 }: TProps) => {
     const [currentTimestamp, setCurrentTimestamp] = useState(Math.floor(Date.now() / 1000));
     const [currentBetValue, setCurrentBetValue] = useState<null | number>(null);
+    const currentWeek = useSelector(selectCurrentWeek);
     const correctBets = calculateCorrectBets(away.score || 0, home.score || 0);
     const loggedUser = useSelector(selectUser);
     const isLoading = useSelector(selectIsLoading);
 
     const dispatch = useDispatch();
-    const isBetBlocked = currentTimestamp >= timestamp || (loggedUser && loggedUser.status === 0);
+    const isBetBlocked = currentWeek !== 0 && (currentTimestamp >= timestamp || (loggedUser && loggedUser.status === 0));
 
     useEffect(() => {
         if (loggedUserBets !== null) {
