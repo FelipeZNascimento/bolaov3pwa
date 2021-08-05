@@ -85,7 +85,7 @@ const Results = () => {
                     <div className={styles.floatingButton}>
                         <Fab aria-label="expand or collapse matches" variant="extended" onClick={onExpandAll}>
                             <Icon classes={{ root: 'fas fa-arrows-alt-v' }} />
-                            {expandedMatches.length > 0 ? 'Colapsar' : 'Expandir'}
+                            {expandedMatches.length > 0 ? 'Esconder' : 'Expandir'}
                         </Fab>
                     </div>
                 </div>
