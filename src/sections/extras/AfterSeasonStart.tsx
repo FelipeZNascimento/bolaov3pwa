@@ -137,7 +137,7 @@ const AfterSeasonStart = ({
                     EXTRA_BETS_VALUES.NFC
                 )}
                 {renderPlayoffBets(
-                    'Superbowl',
+                    'Super Bowl',
                     EXTRA_BETS_VALUES.SUPERBOWL
                 )}
             </div>}

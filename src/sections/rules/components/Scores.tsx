@@ -86,7 +86,7 @@ const Scores = () => {
                 </div>
                 <div className={styles.internalRulesTableLine}>
                     <div className={styles.left}>
-                        Superbowl
+                        Super Bowl
                     </div>
                     <div className={styles.right}>
                         <span className='color-mint'>80</span> | <span className='color-blue'>40</span>
