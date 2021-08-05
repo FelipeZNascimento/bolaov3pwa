@@ -8,7 +8,6 @@ import { selectUser } from 'store/user/selector';
 import { selectIsLoading } from 'store/records/selector';
 
 // Components
-import SimpleBar from 'simplebar-react';
 import { Loading, WeekSelector } from 'components_fa/index';
 import {
     Icon,
