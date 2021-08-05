@@ -17,6 +17,7 @@ import { selectIsLoading } from 'store/matches/selector';
 // Types & Constants
 import { TMatch } from 'store/matches/types';
 import { calculateCorrectBets } from 'constants/bets';
+import MATCH_STATUS from 'constants/matches';
 import styles from './Match.module.scss';
 
 type TProps = TMatch & {
@@ -27,18 +28,22 @@ type TProps = TMatch & {
 const Match = ({
     away,
     bets,
-    loggedUserBets = null,
+    clock,
     home,
+    homeTeamOdds,
+    loggedUserBets = null,
     id,
     isExpanded = false,
     status,
     timestamp,
+    overUnder,
     onExpandClick,
 }: TProps) => {
     const [currentTimestamp, setCurrentTimestamp] = useState(Math.floor(Date.now() / 1000));
     const isLoading = useSelector(selectIsLoading);
 
     const correctBets = calculateCorrectBets(away.score || 0, home.score || 0);
+    const hasGameStarted = status !== MATCH_STATUS.NOT_STARTED;
 
     let isBullseyeBet, isHalfBet = false;
     if (loggedUserBets) {
@@ -67,8 +72,19 @@ const Match = ({
 
         return (
             <div className={teamsContainerClass}>
-                <Team {...away} isExpanded={isExpanded} />
-                <Team {...home} isExpanded={isExpanded} />
+                <Team
+                    {...away}
+                    hasGameStarted={hasGameStarted}
+                    isExpanded={isExpanded}
+                    displayOdd={overUnder}
+                />
+                <Team
+                    {...home}
+                    isHome
+                    hasGameStarted={hasGameStarted}
+                    isExpanded={isExpanded}
+                    displayOdd={homeTeamOdds}
+                />
             </div>
         )
     };
@@ -100,10 +116,10 @@ const Match = ({
                     isLoading={isLoading}
                     status={status}
                     timestamp={timestamp}
+                    clock={clock}
                 />
                 {renderTeams()}
             </div>
-            
             {noBets && isExpanded && <p><TextBox text={() => 'Nenhuma aposta disponível ainda'} /></p>}
             <div className={betsContainerClass}>
                 <Bets

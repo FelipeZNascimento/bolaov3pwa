@@ -3,22 +3,29 @@ import { usePrevious } from 'services/hooks';
 import { isMobile } from "react-device-detect";
 import classNames from 'classnames';
 
-import { TMatchTeam } from 'store/matches/types';
+import { Tooltip } from '@material-ui/core';
 
+import { TMatchTeam } from 'store/matches/types';
 import styles from './Team.module.scss';
 
 type TProps = TMatchTeam & {
-    isExpanded: boolean
+    hasGameStarted: boolean,
+    isExpanded: boolean,
+    isHome?: boolean,
+    displayOdd?: null | string
 }
 
 const Team = ({
+    hasGameStarted,
     id,
     isExpanded,
+    isHome = false,
     code,
     name,
     background,
     foreground,
-    score
+    score,
+    displayOdd = null
 }: TProps) => {
     const [scoreChanged, setScoreChanged] = useState<boolean>(false);
     const prevScore = usePrevious(score);
@@ -30,6 +37,34 @@ const Team = ({
         }
     }, [score]);
 
+    const renderScore = () => {
+        const scoreClass = classNames(
+            [styles.score], {
+            [styles.scoreHighlight]: scoreChanged
+        });
+
+        if (score === undefined) {
+            return;
+        }
+
+        return (
+            <div className={scoreClass}>
+                {score}
+            </div>
+        )
+    };
+
+    const renderOdds = () => {
+
+        return (
+            <Tooltip title={isHome ? 'Spread' : 'Over/Under'} placement="top" arrow>
+                <div className={styles.odds}>
+                    {displayOdd}
+                </div>
+            </Tooltip>
+        )
+    };
+
     const containerClass = classNames(
         [styles.container], {
         [styles.containerMobile]: isMobile
@@ -38,11 +73,6 @@ const Team = ({
     const logoClass = classNames(
         [styles.logo], {
         [styles.logoHighlight]: scoreChanged
-    });
-
-    const scoreClass = classNames(
-        [styles.score], {
-        [styles.scoreHighlight]: scoreChanged
     });
 
     const nameClass = classNames(
@@ -62,11 +92,11 @@ const Team = ({
                 <div className={nameClass} style={{
                     textShadow: `-1px 0 ${background}, 0 1px ${background}, 1px 0 ${background}, 0 -1px ${background}`
                 }}>
-                    {isExpanded && !isMobile ? name : code}
+                    {isExpanded && !isMobile ? name : code}<br />
+                    {/* <p className={styles.standings}>2-2</p> */}
                 </div>
-                {score !== undefined && <div className={scoreClass}>
-                    {score}
-                </div>}
+                {hasGameStarted && renderScore()}
+                {!hasGameStarted && renderOdds()}
             </div>
         </div>
     )

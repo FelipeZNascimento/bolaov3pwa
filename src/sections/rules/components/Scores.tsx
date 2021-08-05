@@ -3,6 +3,7 @@ import { guidGenerator } from 'services/helpers';
 
 import styles from 'sections/rules/styles.module.scss';
 import MATCH_STATUS from 'constants/matches';
+import { TMatch } from 'store/matches/types';
 
 const Scores = () => {
     const awayTeam = {
@@ -24,27 +25,33 @@ const Scores = () => {
         possession: true,
         score: 13,
         background: '#1e3630',
-        foreground: '#feb60e',
+        foreground: '#feb60e'
     };
 
-    const matchOne = {
+    const matchOne: TMatch = {
         id: 0,
         timestamp: 1441945800,
         status: MATCH_STATUS.FINAL,
         away: awayTeam,
         home: homeTeam,
         bets: [],
-        loggedUserBets: null
+        loggedUserBets: null,
+        clock: '0:0',
+        overUnder: '',
+        homeTeamOdds: ''
     };
 
-    const matchTwo = {
+    const matchTwo: TMatch = {
         id: 0,
         timestamp: 1441945800,
         status: MATCH_STATUS.FINAL,
         away: { ...awayTeam, score: 13 },
         home: { ...homeTeam, score: 20 },
         bets: [],
-        loggedUserBets: null
+        loggedUserBets: null,
+        clock: '0:0',
+        overUnder: '',
+        homeTeamOdds: ''
     };
 
     return (

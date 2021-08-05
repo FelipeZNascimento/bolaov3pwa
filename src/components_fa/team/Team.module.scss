@@ -19,39 +19,57 @@
         @extend .container;
         width: 100%;
     }
+}
 
-    .nameContainer {
-        @include flex-aligned(center, center);
-        flex: 1;
+.nameContainer {
+    @include flex-aligned(center, center);
+    flex: 2;
+}
+
+.name {
+    @include flex-aligned(center, center);
+    @include padded(right, s);
+
+    flex: 1;
+    flex-direction: column;
+    font-weight: bold;
+    height: $matchContainerHeight;
+    min-width: 60px;
+
+    &Expanded {
+        @include font-sized(m2);
     }
+}
 
-    .name {
-        @include flex-aligned(flex-end, center);
-        @include padded(right, s);
+.standings {
+    @include flex-aligned(flex-end, center);
+    @include font-sized(s);
+    @include padded(all, none);
+    @include marged(all, none);
 
-        flex: 1;
-        font-weight: bold;
-        height: $matchContainerHeight;
-        min-width: 60px;
+}
 
-        &Expanded {
-            @include font-sized(m2);
-        }
+.score {
+    @include flex-aligned(center, center);
+    @include bg-rgba-colored($color-black, 0.2);
+
+    flex: 0;
+    height: $matchContainerHeight;
+    min-width: 60px;
+    transition: 2s;
+
+    &Highlight {
+        animation: scorepulse 10s ease-out infinite;
     }
+}
 
-    .score {
-        @include flex-aligned(center, center);
-        @include bg-rgba-colored($color-black, 0.2);
+.odds {
+    @include flex-aligned(center, center);
+    @include font-sized(s);
 
-        flex: 0;
-        height: $matchContainerHeight;
-        min-width: 60px;
-        transition: 2s;
-
-        &Highlight {
-            animation: scorepulse 10s ease-out infinite;
-        }
-    }
+    flex: 0;
+    height: $matchContainerHeight;
+    min-width: 60px;
 }
 
 .logoContainer {

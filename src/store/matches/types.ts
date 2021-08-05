@@ -49,6 +49,9 @@ export type TMatch = {
     home: TMatchTeam;
     bets: TMatchBet[];
     loggedUserBets?: TMatchBet | null;
+    clock: string;
+    overUnder: string;
+    homeTeamOdds: string;
 };
 
 export type TFetchMatches = TAction & {
