@@ -27,6 +27,7 @@ import { TMatch } from 'store/matches/types';
 import { calculateCorrectBets } from 'constants/bets';
 import styles from './BettableMatch.module.scss';
 import { BETS_VALUES } from 'constants/bets';
+import MATCH_STATUS from 'constants/matches';
 
 type TProps = TMatch & {
     onChange: (id: number, betValue: number) => void
@@ -38,6 +39,9 @@ const BettableMatch = ({
     loggedUserBets = null,
     home,
     timestamp,
+    status,
+    overUnder,
+    homeTeamOdds,
     onChange
 }: TProps) => {
     const [currentTimestamp, setCurrentTimestamp] = useState(Math.floor(Date.now() / 1000));
@@ -49,6 +53,7 @@ const BettableMatch = ({
 
     const dispatch = useDispatch();
     const isBetBlocked = currentWeek !== 0 && (currentTimestamp >= timestamp || (loggedUser && loggedUser.status === 0));
+    const hasGameStarted = status !== MATCH_STATUS.NOT_STARTED;
 
     useEffect(() => {
         if (loggedUserBets !== null) {
@@ -134,9 +139,20 @@ const BettableMatch = ({
 
         return (
             <div className={teamsContainerClass}>
-                <Team {...away} isExpanded={false} />
+                <Team
+                    {...away}
+                    hasGameStarted={hasGameStarted}
+                    isExpanded={false}
+                    displayOdd={overUnder}
+                />
                 {renderBettingColumns()}
-                <Team {...home} isExpanded={false} />
+                <Team
+                    {...home}
+                    isHome
+                    hasGameStarted={hasGameStarted}
+                    isExpanded={false}
+                    displayOdd={homeTeamOdds}
+                />
             </div>
         )
     };
@@ -150,8 +166,18 @@ const BettableMatch = ({
         return (
             <div className={containerClass}>
                 <div className={styles.teamsContainer}>
-                    <Team {...away} isExpanded={false} />
-                    <Team {...home} isExpanded={false} />
+                    <Team
+                        {...away}
+                        hasGameStarted={hasGameStarted}
+                        isExpanded={false}
+                        displayOdd={overUnder}
+                    />
+                    <Team
+                        {...home}
+                        hasGameStarted={hasGameStarted}
+                        isExpanded={false}
+                        displayOdd={homeTeamOdds}
+                    />
                 </div>
                 {renderBettingColumns()}
             </div>

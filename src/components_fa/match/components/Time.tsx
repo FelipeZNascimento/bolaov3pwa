@@ -8,6 +8,7 @@ import MATCH_STATUS from 'constants/matches';
 
 type TProps = {
     currentTimestamp: number,
+    clock: string,
     isLoading: boolean,
     status: number,
     timestamp: number,
@@ -15,6 +16,7 @@ type TProps = {
 
 const Time = ({
     currentTimestamp,
+    clock,
     isLoading,
     status,
     timestamp
@@ -80,7 +82,7 @@ const Time = ({
                         {renderQuarter()}
                     </div>
                     <div className={styles.timeLeft}>
-                        9:18
+                        {clock}
                     </div>
                 </div>
             );

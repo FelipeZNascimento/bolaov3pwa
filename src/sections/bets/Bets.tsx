@@ -12,7 +12,7 @@ import { selectUser } from 'store/user/selector';
 
 // Components
 import { Tooltip } from '@material-ui/core';
-import { StatusComponent } from 'components/index'
+import { StatusComponent, TextBox } from 'components/index'
 import { Loading, BettableMatch, Ranking, WeekSelector } from 'components_fa/index'
 
 import styles from './Bets.module.scss';
@@ -101,12 +101,37 @@ const Bets = () => {
 
     const renderMatches = () => {
         return matchesWithBets.map((match) => <BettableMatch {...match} key={match.id} onChange={onBetChange} />);
-    }
+    };
+
+    const renderPaymentBox = () => {
+        const text = () => (
+            <span>
+                As apostas da temporada regular serão liberadas assim que identificarmos seu pagamento.<br /><br />
+                Enquanto isso, divirta-se na pré-temporada - o ranking será zerado antes da temporada começar.
+            </span>
+        )
+        return (
+            <span><TextBox text={text}/><br /></span>
+        )
+    };
+
+    const renderWarning = () => {
+        const text = () => (
+            <span>
+                O ranking será zerado antes da temporada começar.
+            </span>
+        )
+        return (
+            <span><TextBox text={text}/><br /></span>
+        )
+    };
 
     return (
         <div className={styles.container}>
             <div className={styles.leftContainer}>
                 <WeekSelector routeTo={ROUTES.BETS.urlWithParams} onClick={onWeekClick} />
+                {loggedUser && loggedUser.status === 0 && renderPaymentBox()}
+                {loggedUser && loggedUser.status !== 0 && renderWarning()}
                 <div className={styles.matchesContainer}>
                     {!isMobile && <div className={styles.header}>
                         <div style={{ flex: 2 }}>Visitante</div>
