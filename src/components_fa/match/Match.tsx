@@ -96,7 +96,7 @@ const Match = ({
     });
 
     const betsContainerClass = classNames(styles.betsContainer, {
-        [styles.betsContainerHidden]: !isExpanded || !bets || (bets.length === 0 && !loggedUserBets),
+        [styles.betsContainerHidden]: !isExpanded,
     });
 
     const noBets = bets.length === 0 && loggedUserBets === null;
@@ -120,13 +120,13 @@ const Match = ({
                 />
                 {renderTeams()}
             </div>
-            {noBets && isExpanded && <p><TextBox text={() => 'Nenhuma aposta disponível ainda'} /></p>}
             <div className={betsContainerClass}>
                 <Bets
                     bets={bets}
                     correctBets={correctBets}
                     loggedUserBets={loggedUserBets}
                 />
+                {noBets && <p><TextBox text={() => 'Nenhuma aposta disponível ainda'} /></p>}
             </div>
         </div>
     );
