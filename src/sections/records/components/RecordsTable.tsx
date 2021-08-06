@@ -61,9 +61,11 @@ const RecordsTable = ({
             [styles.recordLineLoading]: isLoading
         });
 
+        const normalizedPosition = position < 10 ? `0${position}` : position;
+
         return (
-            <div className={recordLineClass} key={position}>
-                <div className={styles.position}>{position}.</div>
+            <div className={recordLineClass} key={normalizedPosition}>
+                <div className={styles.position}>{normalizedPosition}.</div>
                 <div className={styles.icon}>
                     <Icon classes={{ root: styles.icon }} fontSize="small" className={recordLine.userIcon} style={{ color: recordLine.userColor }} />
                 </div>
@@ -96,12 +98,17 @@ const RecordsTable = ({
         )
     };
 
+    const tableClass = classNames({
+        [styles.tableStandard]: !isMobile,
+        [styles.tableMobile]: isMobile,
+    });
+
     const tableHeaderClass = classNames(styles.tableHeader, {
         [styles.smallFont]: isMobile,
     });
 
     return (
-        <div className={styles.table}>
+        <div className={tableClass}>
             <h1>{filter.display}</h1>
             <h3>{filter.description}</h3>
             {filter.weekSelector && <WeekSelector

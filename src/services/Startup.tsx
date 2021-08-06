@@ -137,6 +137,10 @@ const Startup = (props: any) => {
             // Switching between Results and Pages
             fetchBothRankings();
             fetchMatchesAndResetTimer();
+        } else if (prevPage !== currentPage && pathname.includes(ROUTES.RANKING.url)) {
+            // Entering Ranking
+            fetchBothRankings();
+            fetchMatchesAndResetTimer();
         } else if (prevWeek !== currentWeek) {
             // If changed week
             fetchBothRankings();

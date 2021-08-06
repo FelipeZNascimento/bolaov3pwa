@@ -59,8 +59,16 @@ const Team = ({
             return;
         }
 
+        const renderTooltipText = () => {
+            if(isHome) {
+                return <span>Spread<br/>Diferencial de pontos esperada entre as equipes</span>
+            } else {
+                return <span>Over/Under<br/>Soma de pontos esperada para partida</span>
+            }
+        }
+
         return (
-            <Tooltip title={isHome ? 'Spread' : 'Over/Under'} placement="top" arrow>
+            <Tooltip title={renderTooltipText()} placement="top" arrow>
                 <div className={styles.odds}>
                     {displayOdd}
                 </div>
