@@ -9,38 +9,38 @@ import { updateRegularBet } from 'store/bets/actions';
 
 // Selectors
 import { selectUser } from 'store/user/selector';
-import { selectIsLoading } from 'store/bets/selector';
 import { selectCurrentWeek } from 'store/app/selector';
 
-import {
-    Icon
-} from '@material-ui/core';
-
+// Components
+import { Icon } from '@material-ui/core';
+import Time from 'components_fa/match/components/Time';
+import { Team } from 'components_fa/index'
 import {
     RadioButtonUnchecked as RadioButtonUncheckedIcon,
-    Block as BlockIcon,
-    // RadioButtonChecked as RadioButtonCheckedIcon,
+    Block as BlockIcon
 } from '@material-ui/icons';
 
-import { Team } from 'components_fa/index'
 import { TMatch } from 'store/matches/types';
 import { calculateCorrectBets } from 'constants/bets';
-import styles from './BettableMatch.module.scss';
 import { BETS_VALUES } from 'constants/bets';
 import MATCH_STATUS from 'constants/matches';
+import styles from './BettableMatch.module.scss';
 
 type TProps = TMatch & {
+    isLoading: boolean,
     onChange: (id: number, betValue: number) => void
 };
 
 const BettableMatch = ({
-    id,
     away,
-    loggedUserBets = null,
+    clock,
     home,
-    timestamp,
-    status,
+    id,
+    isLoading,
+    loggedUserBets = null,
     overUnder,
+    status,
+    timestamp,
     homeTeamOdds,
     onChange
 }: TProps) => {
@@ -49,7 +49,6 @@ const BettableMatch = ({
     const currentWeek = useSelector(selectCurrentWeek);
     const correctBets = calculateCorrectBets(away.score || 0, home.score || 0);
     const loggedUser = useSelector(selectUser);
-    const isLoading = useSelector(selectIsLoading);
 
     const dispatch = useDispatch();
     const isBetBlocked = currentTimestamp >= timestamp || (loggedUser && loggedUser.status === 0 && currentWeek !== 0);
@@ -139,6 +138,15 @@ const BettableMatch = ({
 
         return (
             <div className={teamsContainerClass}>
+                {!isMobile
+                    && <Time
+                        currentTimestamp={currentTimestamp}
+                        isLoading={isLoading}
+                        status={status}
+                        timestamp={timestamp}
+                        clock={clock}
+                    />
+                }
                 <Team
                     {...away}
                     hasGameStarted={hasGameStarted}

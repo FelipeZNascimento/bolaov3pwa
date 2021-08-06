@@ -61,10 +61,6 @@ const BettableTeam = ({
         [styles.bright]: isSelected,
     });
 
-    // const t = classNames(styles.teamContainer, {
-    //     [styles.teamContainerWildcard]: currentlySelectedByUser[extraType] === team.id || selectedWildcards.find((wc) => wc === team.id),
-    // });
-
     const onClick = (clickedTeam: TMatchTeam, clickedType: number) => {
         if (!disabled) {
             onSelect(clickedTeam, clickedType);

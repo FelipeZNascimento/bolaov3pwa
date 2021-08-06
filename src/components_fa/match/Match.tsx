@@ -12,7 +12,6 @@ import Time from './components/Time';
 import { TextBox } from 'components/index'
 
 // Selectors
-import { selectIsLoading } from 'store/matches/selector';
 
 // Types & Constants
 import { TMatch } from 'store/matches/types';
@@ -21,6 +20,7 @@ import MATCH_STATUS from 'constants/matches';
 import styles from './Match.module.scss';
 
 type TProps = TMatch & {
+    isLoading?: boolean;
     isExpanded: boolean;
     onExpandClick: (id: number) => void;
 };
@@ -33,6 +33,7 @@ const Match = ({
     homeTeamOdds,
     loggedUserBets = null,
     id,
+    isLoading = false,
     isExpanded = false,
     status,
     timestamp,
@@ -40,7 +41,6 @@ const Match = ({
     onExpandClick,
 }: TProps) => {
     const [currentTimestamp, setCurrentTimestamp] = useState(Math.floor(Date.now() / 1000));
-    const isLoading = useSelector(selectIsLoading);
 
     const correctBets = calculateCorrectBets(away.score || 0, home.score || 0);
     const hasGameStarted = status !== MATCH_STATUS.NOT_STARTED;
