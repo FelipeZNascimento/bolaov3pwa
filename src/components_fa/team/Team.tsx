@@ -55,6 +55,9 @@ const Team = ({
     };
 
     const renderOdds = () => {
+        if (displayOdd === null || displayOdd === '') {
+            return;
+        }
 
         return (
             <Tooltip title={isHome ? 'Spread' : 'Over/Under'} placement="top" arrow>
@@ -77,7 +80,8 @@ const Team = ({
 
     const nameClass = classNames(
         [styles.name], {
-        [styles.nameExpanded]: isExpanded
+        [styles.nameNoOdds]: displayOdd === null || displayOdd === '',
+        [styles.nameExpanded]: isExpanded && !isMobile
     });
 
     return (

@@ -22,6 +22,10 @@ const Time = ({
     timestamp
 }: TProps) => {
     const matchHasEnded = status === MATCH_STATUS.FINAL || status === MATCH_STATUS.FINAL_OVERTIME;
+    const clockIsStopped = status === MATCH_STATUS.END_FIRST ||
+        status === MATCH_STATUS.END_THIRD ||
+        status === MATCH_STATUS.HALFTIME ||
+        status === MATCH_STATUS.DELAYED;
 
     const matchStatusClass = classNames({
         [styles.notStarted]: currentTimestamp < timestamp, // not started
@@ -30,7 +34,7 @@ const Time = ({
             && matchHasEnded, // match has ended
     });
 
-    const renderQuarter = () => {
+    const renderStatus = () => {
         switch (status) {
             case MATCH_STATUS.FIRST:
                 return '1Q'
@@ -50,6 +54,10 @@ const Time = ({
                 return 'Intervalo'
             case MATCH_STATUS.DELAYED:
                 return 'Atrasado'
+            case MATCH_STATUS.FINAL:
+                return 'Final'
+            case MATCH_STATUS.FINAL_OVERTIME:
+                return 'Final OT'
             default:
                 return ''
         }
@@ -60,26 +68,29 @@ const Time = ({
 
         // if match hasn't started
         if (currentTimestamp < timestamp) {
-            return <div className={`${matchStatusClass}`} style={{ background: `url(/match_layer.png), #9da4a7` }}>{date}</div>
-        }
-
-        // if match has ended
-        if (currentTimestamp >= timestamp && matchHasEnded) {
-            const finalState = status === MATCH_STATUS.FINAL ? 'Final' : 'Final OT'
-
             return (
                 <div className={`${matchStatusClass}`} style={{ background: `url(/match_layer.png), #9da4a7` }}>
-                    {finalState}
+                    {date}
                 </div>
             );
         }
 
         // if match has started
         if (currentTimestamp >= timestamp) {
+            // if match has ended or clock is stopped
+            if (matchHasEnded || clockIsStopped) {
+                return (
+                    <div className={`${matchStatusClass}`} style={{ background: `url(/match_layer.png), #9da4a7` }}>
+                        {renderStatus()}
+                    </div>
+                );
+            }
+
+            // if clock is running
             return (
                 <div className={matchStatusClass}>
                     <div className={styles.quarter}>
-                        {renderQuarter()}
+                        {renderStatus()}
                     </div>
                     <div className={styles.timeLeft}>
                         {clock}

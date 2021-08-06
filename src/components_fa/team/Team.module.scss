@@ -27,8 +27,8 @@
 }
 
 .name {
-    @include flex-aligned(center, center);
-    @include padded(right, s);
+    @include flex-aligned(center, flex-end);
+    @include padded(right, xs);
 
     flex: 1;
     flex-direction: column;
@@ -39,14 +39,16 @@
     &Expanded {
         @include font-sized(m2);
     }
+
+    &NoOdds {
+        @include padded(right, m);
+    }
 }
 
 .standings {
-    @include flex-aligned(flex-end, center);
     @include font-sized(s);
     @include padded(all, none);
     @include marged(all, none);
-
 }
 
 .score {
@@ -65,7 +67,7 @@
 
 .odds {
     @include flex-aligned(center, center);
-    @include font-sized(s);
+    @include font-sized(m);
 
     flex: 0;
     height: $matchContainerHeight;
