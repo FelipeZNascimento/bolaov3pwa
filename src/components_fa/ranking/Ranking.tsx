@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isMobile } from "react-device-detect";
 
-import SimpleBar from 'simplebar-react';
 import classNames from 'classnames';
 
 import { Loading, WeekSelector } from 'components_fa/index'
@@ -65,10 +64,13 @@ const Ranking = ({
             [styles.badgeOffline]: !rankingLine.isOnline
         });
 
+        const position = index + 1;
+        const normalizedPosition = position < 10 ? `0${position}` : position;
+
         return (
             <div className={rankingLineClass} key={rankingLine.name}>
                 <div className={positionClass}>
-                    {index + 1}.
+                    {normalizedPosition}.
                 </div>
                 <Icon classes={{ root: styles.icon }} fontSize="small" className={rankingLine.icon} style={{ color: rankingLine.color }} />
                 <div className={onlineBadgeClass} />
@@ -150,9 +152,7 @@ const Ranking = ({
                 </div>
                 <div className={styles.lineContainer}>
                     {isLoading && renderLoading()}
-                    <SimpleBar style={{ maxHeight: '100%' }}>
-                        {activeRanking && activeRanking.map((rankingLine, index) => renderRankingLine(rankingLine, index))}
-                    </SimpleBar>
+                    {activeRanking && activeRanking.map((rankingLine, index) => renderRankingLine(rankingLine, index))}
                 </div>
             </>
         )

@@ -81,9 +81,24 @@
     @include marged(top, m);
     @include font-colored($color-grey3);
 
-    flex: 1;
-    overflow-y: hidden;
+    flex: 1 1 1px;
+    overflow-y: auto;
     position: relative;
+
+    scrollbar-color: $color-grey3 $color-grey5;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: $color-grey5;
+        border-radius: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: $color-grey3;
+        border-radius: 5px;
+    }
 }
 
 .header {
@@ -138,6 +153,9 @@
 .name {
     @include aligned(left);
     flex: 2;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;  
 }
 
 .badge {

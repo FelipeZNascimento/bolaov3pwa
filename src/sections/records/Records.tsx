@@ -98,10 +98,10 @@ const Records = () => {
     return (
         <div className={styles.container}>
             {renderTitle()}
-            <div className={styles.content}>
-                {filter.id !== null && <RecordsTable filter={filter} records={records} />}
-                {filter.id === null && renderButtons()}
-            </div>
+            {filter.id === null && <div className={styles.buttonsContainer}>
+                {renderButtons()}
+            </div>}
+            {filter.id !== null && <RecordsTable filter={filter} records={records} />}
         </div>
     )
 }
