@@ -10,6 +10,8 @@ import {
     userUpdate as userUpdateEndpoint,
     userUpdatePreferences as userUpdatePreferencesEndpoint,
 } from 'services/endpoints';
+import faIconsList from 'services/font-awesome';
+import { randomHexColorGenerator } from 'services/helpers';
 
 import {
     TClearErrors,
@@ -77,12 +79,16 @@ export const onRegister = (
 ) => async (dispatch: Dispatch<TFetchRegister>) => {
     dispatch({ type: ACTIONTYPES.REGISTERING } as const);
     const cryptoPass = sha1(password).toString();
+    const randomIcon = faIconsList[Math.floor(Math.random() * faIconsList.length)];
+    const randomColor = randomHexColorGenerator();
 
     const registerObject = {
         email,
         password: cryptoPass,
         fullName,
-        name
+        name,
+        icon: randomIcon,
+        color: randomColor
     };
 
     postItems({
