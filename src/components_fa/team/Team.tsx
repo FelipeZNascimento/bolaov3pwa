@@ -61,7 +61,7 @@ const Team = ({
 
         const renderTooltipText = () => {
             if(isHome) {
-                return <span>Spread<br/>Diferencial de pontos esperada entre as equipes</span>
+                return <span>Spread<br/>Diferença de pontos esperada entre as equipes</span>
             } else {
                 return <span>Over/Under<br/>Soma de pontos esperada para partida</span>
             }

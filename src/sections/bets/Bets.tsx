@@ -21,6 +21,7 @@ import { TMatch } from 'store/matches/types';
 
 const Bets = () => {
     const [betProgress, setBetProgress] = useState<number>(0);
+    const [blockLoading, setBlockLoading] = useState<boolean>(false);
     const [matchesCurrentStatus, setMatchesCurrentStatus] = useState<TMatch[]>([]);
 
     const dispatch = useDispatch();
@@ -34,7 +35,13 @@ const Bets = () => {
         if (week) {
             dispatch(setCurrentWeek(parseInt(week)))
         }
-    }, [dispatch, week]);
+    }, [week]);
+
+    useEffect(() => {
+        if (blockLoading && !isLoading) {
+            setBlockLoading(false);
+        }
+    }, [isLoading]);
 
     useEffect(() => {
         if (matchesWithBets.length > 0) {
@@ -56,6 +63,7 @@ const Bets = () => {
 
     const onWeekClick = (newWeek: number) => {
         dispatch(setCurrentWeek(newWeek));
+        setBlockLoading(true);
     };
 
     const onBetChange = (id: number, betValue: number) => {
@@ -100,7 +108,14 @@ const Bets = () => {
     };
 
     const renderMatches = () => {
-        return matchesWithBets.map((match) => <BettableMatch {...match} key={match.id} onChange={onBetChange} />);
+        return matchesWithBets.map((match) => (
+            <BettableMatch
+                {...match}
+                isLoading={blockLoading}
+                key={match.id}
+                onChange={onBetChange}
+            />
+        ));
     };
 
     const renderPaymentBox = () => {
@@ -111,7 +126,7 @@ const Bets = () => {
             </span>
         )
         return (
-            <span><TextBox text={text}/><br /></span>
+            <span><TextBox text={text} /><br /></span>
         )
     };
 
@@ -122,7 +137,7 @@ const Bets = () => {
             </span>
         )
         return (
-            <span><TextBox text={text}/><br /></span>
+            <span><TextBox text={text} /><br /></span>
         )
     };
 
@@ -141,7 +156,7 @@ const Bets = () => {
                         <div><Tooltip title="Mais de 7 pontos" placement="top" arrow><span>Fácil</span></Tooltip></div>
                         <div style={{ flex: 2 }}>Casa</div>
                     </div>}
-                    {isLoading && <Loading overlay />}
+                    {blockLoading && <Loading overlay />}
                     {renderMatches()}
                 </div>
             </div>

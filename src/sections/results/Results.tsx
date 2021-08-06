@@ -18,6 +18,7 @@ import styles from './Results.module.scss';
 import ROUTES from 'constants/routes';
 
 const Results = () => {
+    const [blockLoading, setBlockLoading] = useState<boolean>(false);
     const [expandedMatches, setExpandedMatches] = useState<number[]>([]);
 
     const dispatch = useDispatch();
@@ -36,8 +37,15 @@ const Results = () => {
         setExpandedMatches([]);
     }, [currentWeek])
 
+    useEffect(() => {
+        if (blockLoading && !isLoading) {
+            setBlockLoading(false);
+        }
+    }, [isLoading]);
+
     const onWeekClick = (newWeek: number) => {
         dispatch(setCurrentWeek(newWeek));
+        setBlockLoading(true);
     };
 
     const onExpandAll = () => {
@@ -71,10 +79,11 @@ const Results = () => {
     const renderMatches = () => {
         return matches.map((match) => (
             <Match
+                {...match}
                 key={match.id}
+                isLoading={blockLoading}
                 isExpanded={expandedMatches.includes(match.id)}
                 onExpandClick={onExpandClick}
-                {...match}
             />
         ));
     }
@@ -91,7 +100,7 @@ const Results = () => {
                 </div>
                 <WeekSelector routeTo={ROUTES.RESULTS.urlWithParams} onClick={onWeekClick} />
                 <div className={styles.matchesContainer}>
-                    {isLoading && <Loading overlay />}
+                    {blockLoading && <Loading overlay />}
                     {renderMatches()}
                 </div>
             </div>
