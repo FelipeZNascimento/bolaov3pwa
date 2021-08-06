@@ -165,6 +165,7 @@ const Login = ({
                     className={isInputInvalid('name') ? styles.invalidInput : ''}
                     error={isInputInvalid('name')}
                     id="name"
+                    inputProps={{ maxLength: 12 }}
                     type="text"
                     label="Usuário"
                     variant="outlined"
