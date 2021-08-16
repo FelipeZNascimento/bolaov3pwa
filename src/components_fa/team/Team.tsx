@@ -3,7 +3,8 @@ import { usePrevious } from 'services/hooks';
 import { isMobile } from "react-device-detect";
 import classNames from 'classnames';
 
-import { Tooltip } from '@material-ui/core';
+// Components
+import { Icon, Tooltip } from '@material-ui/core';
 
 import { TMatchTeam } from 'store/matches/types';
 import styles from './Team.module.scss';
@@ -25,7 +26,8 @@ const Team = ({
     background,
     foreground,
     score,
-    displayOdd = null
+    displayOdd = null,
+    possession
 }: TProps) => {
     const [scoreChanged, setScoreChanged] = useState<boolean>(false);
     const prevScore = usePrevious(score);
@@ -38,9 +40,8 @@ const Team = ({
     }, [score]);
 
     const renderScore = () => {
-        const scoreClass = classNames(
-            [styles.score], {
-            [styles.scoreHighlight]: scoreChanged
+        const possessionClass = classNames(styles.possession, {
+            [styles.possessionActive]: possession
         });
 
         if (score === undefined) {
@@ -48,8 +49,11 @@ const Team = ({
         }
 
         return (
-            <div className={scoreClass}>
+            <div className={styles.score}>
                 {score}
+                <div className={possessionClass}>
+                    <Icon fontSize="inherit" classes={{ root: 'fas fa-angle-up' }} />
+                </div>
             </div>
         )
     };
@@ -60,10 +64,10 @@ const Team = ({
         }
 
         const renderTooltipText = () => {
-            if(isHome) {
-                return <span>Spread<br/>Diferença de pontos esperada entre as equipes</span>
+            if (isHome) {
+                return <span>Spread<br />Diferença de pontos esperada entre as equipes</span>
             } else {
-                return <span>Over/Under<br/>Soma de pontos esperada para partida</span>
+                return <span>Over/Under<br />Soma de pontos esperada para partida</span>
             }
         }
 
