@@ -78,7 +78,7 @@
     flex-direction: column;
 
     &Table {
-        @include bg-rgba-colored($color-grey3, 0.2);
+        @include bg-rgba-colored($color-grey3, 0.1);
         @include padded(top, m);
 
         display: flex;
