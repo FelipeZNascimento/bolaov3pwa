@@ -55,8 +55,8 @@ const Ranking = ({
 
         const positionClass = classNames(styles.position, {
             'color-gold': index === 0,
-            'color-grey1': index === 1,
-            'color-grey2': index === 2
+            'color-grey1': index === 1 || index === 2,
+            'color-grey2': index === 3 || index === 4
         });
 
         const onlineBadgeClass = classNames({

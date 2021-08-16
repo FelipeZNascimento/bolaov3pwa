@@ -53,6 +53,37 @@ const Prize = () => {
                     </div>
                 </div>
             </div>
+            <br />
+            <div className={styles.text}>
+                O jogador com maior <span className={styles.highlight}>número de pontos</span> será o vencedor.<br />
+                Em caso de empate, os seguintes critérios são adotados, em ordem:
+            </div>
+            <br />
+            <div className={styles.internalRulesTable}>
+                <h2 className={styles.highlight}>
+                    Critérios de Desempate
+                </h2>
+                <div className={styles.internalRulesTableLine}>
+                    <div className={styles.left}>
+                        <span className={`${styles.highlight} color-mint`}>Acertos completos</span> (na mosca)
+                    </div>
+                </div>
+                <div className={styles.internalRulesTableLine}>
+                    <div className={styles.left}>
+                        <span className={`${styles.highlight} color-blue`}>Acertos parciais</span> (no vencedor)
+                    </div>
+                </div>
+                <div className={styles.internalRulesTableLine}>
+                    <div className={styles.left}>
+                        Número de semanas vencidas durante a temporada
+                    </div>
+                </div>
+                <div className={styles.internalRulesTableLine}>
+                    <div className={styles.left}>
+                        Sorteio
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
