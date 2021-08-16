@@ -58,10 +58,21 @@
     flex: 0;
     height: $matchContainerHeight;
     min-width: 60px;
+    position: relative;
     transition: 2s;
 
-    &Highlight {
-        animation: scorepulse 10s ease-out infinite;
+    .possession {
+        @include font-sized(s);
+
+        bottom: 0;
+        position: absolute;
+        opacity: 0.1;
+
+        &Active {
+            @extend .possession;
+
+            opacity: 1;
+        }
     }
 }
 
@@ -69,6 +80,7 @@
     @include flex-aligned(center, center);
     @include font-sized(m);
 
+    font-style: italic;
     flex: 0;
     height: $matchContainerHeight;
     min-width: 60px;
@@ -96,17 +108,5 @@
 @keyframes logomovement {
     20% {
         transform: translateX(-5%) translateY(-50%);
-    }
-}
-
-@keyframes scorepulse {
-    5% {
-        text-shadow: 0px 0px 5px white;
-    }
-    40% {
-        text-shadow: 0px 0px 5px black;
-    }
-    90% {
-        text-shadow: 0px 0px 5px white;
     }
 }

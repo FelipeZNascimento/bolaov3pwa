@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 
 import { isMobile } from "react-device-detect";
 import classNames from 'classnames';
@@ -108,8 +107,8 @@ const Match = ({
                 onClick={onClick}
             >
                 {!isMobile && <div className={styles.collapsibleIcon}>
-                    {!isExpanded && <Icon fontSize="small" classes={{ root: 'fas fa-angle-down color-grey2' }} />}
-                    {isExpanded && <Icon fontSize="small" classes={{ root: 'fas fa-angle-up color-grey2' }} />}
+                    {!isExpanded && <Icon fontSize="small" classes={{ root: 'fas fa-plus color-grey2' }} />}
+                    {isExpanded && <Icon fontSize="small" classes={{ root: 'fas fa-minus color-grey2' }} />}
                 </div>}
                 <Time
                     currentTimestamp={currentTimestamp}

@@ -25,7 +25,8 @@ const Time = ({
     const clockIsStopped = status === MATCH_STATUS.END_FIRST ||
         status === MATCH_STATUS.END_THIRD ||
         status === MATCH_STATUS.HALFTIME ||
-        status === MATCH_STATUS.DELAYED;
+        status === MATCH_STATUS.DELAYED ||
+        status === MATCH_STATUS.NOT_STARTED;
 
     const matchStatusClass = classNames({
         [styles.notStarted]: currentTimestamp < timestamp, // not started
@@ -59,7 +60,7 @@ const Time = ({
             case MATCH_STATUS.FINAL_OVERTIME:
                 return 'Final OT'
             default:
-                return ''
+                return 'Iniciando'
         }
     };
 
