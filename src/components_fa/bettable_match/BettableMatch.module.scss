@@ -63,7 +63,6 @@
     .betButton {
         @include flex-aligned(center, center);
         @include font-sized(l);
-        background: url("http://omegafox.me/img/match_layer.png");
 
         cursor: pointer;
         flex: 1;
@@ -102,7 +101,6 @@
     @include padded(right, s);
     @include font-colored($color-grey1);
 
-    background: url("http://omegafox.me/img/match_layer.png");
     line-height: $matchContainerHeight;
 }
 

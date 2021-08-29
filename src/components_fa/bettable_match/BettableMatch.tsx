@@ -52,7 +52,10 @@ const BettableMatch = ({
 
     const dispatch = useDispatch();
     const isBetBlocked = currentTimestamp >= timestamp || (loggedUser && loggedUser.status === 0 && currentWeek !== 0);
-    const hasGameStarted = status !== MATCH_STATUS.NOT_STARTED;
+    const hasMatchEnded = status === MATCH_STATUS.FINAL ||
+        status === MATCH_STATUS.FINAL_OVERTIME ||
+        status === MATCH_STATUS.CANCELLED;
+    const hasMatchStarted = status !== MATCH_STATUS.NOT_STARTED;
 
     useEffect(() => {
         if (loggedUserBets !== null) {
@@ -110,7 +113,11 @@ const BettableMatch = ({
         }
 
         return (
-            <div className={buttonClass} onClick={() => updateBet(betValue)}>
+            <div
+                className={buttonClass}
+                style={{ background: `url(/match_layer.png)` }}
+                onClick={() => updateBet(betValue)}
+            >
                 <div>
                     {renderIcon()}
                     {isMobile && renderDescription()}
@@ -124,7 +131,7 @@ const BettableMatch = ({
             <div className={styles.betContainer}>
                 {renderBettingButton(BETS_VALUES.AWAY_EASY)}
                 {renderBettingButton(BETS_VALUES.AWAY_HARD)}
-                <div className={styles.atDivisor}>@</div>
+                <div className={styles.atDivisor} style={{ background: `url(/match_layer.png)` }}>@</div>
                 {renderBettingButton(BETS_VALUES.HOME_HARD)}
                 {renderBettingButton(BETS_VALUES.HOME_EASY)}
             </div>
@@ -149,7 +156,8 @@ const BettableMatch = ({
                 }
                 <Team
                     {...away}
-                    hasGameStarted={hasGameStarted}
+                    hasMatchEnded={hasMatchEnded}
+                    hasMatchStarted={hasMatchStarted}
                     isExpanded={false}
                     displayOdd={overUnder}
                 />
@@ -157,7 +165,8 @@ const BettableMatch = ({
                 <Team
                     {...home}
                     isHome
-                    hasGameStarted={hasGameStarted}
+                    hasMatchEnded={hasMatchEnded}
+                    hasMatchStarted={hasMatchStarted}
                     isExpanded={false}
                     displayOdd={homeTeamOdds}
                 />
@@ -176,13 +185,15 @@ const BettableMatch = ({
                 <div className={styles.teamsContainer}>
                     <Team
                         {...away}
-                        hasGameStarted={hasGameStarted}
+                        hasMatchEnded={hasMatchEnded}
+                        hasMatchStarted={hasMatchStarted}
                         isExpanded={false}
                         displayOdd={overUnder}
                     />
                     <Team
                         {...home}
-                        hasGameStarted={hasGameStarted}
+                        hasMatchEnded={hasMatchEnded}
+                        hasMatchStarted={hasMatchStarted}
                         isExpanded={false}
                         displayOdd={homeTeamOdds}
                     />

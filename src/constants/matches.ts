@@ -11,7 +11,8 @@ const MATCH_STATUS = {
     THIRD: 9,
     FOURTH: 10,
     OTHER: 11,
-    NOT_STARTED: 12
+    NOT_STARTED: 12,
+    CANCELLED: 13
 };
 
 export default MATCH_STATUS;

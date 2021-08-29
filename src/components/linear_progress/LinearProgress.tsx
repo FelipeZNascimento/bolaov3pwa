@@ -1,5 +1,8 @@
 // Components
-import { LinearProgress as MUILinearProgress } from '@material-ui/core';
+import {
+    Icon,
+    LinearProgress as MUILinearProgress
+} from '@material-ui/core';
 
 import { withStyles } from '@material-ui/core/styles';
 import styles from './LinearProgress.module.scss';
@@ -16,14 +19,20 @@ const CustomLinearProgress = withStyles({
 
 type TProps = {
     progress: number;
+    onUpdate: () => void;
 };
 
 const LinearProgress = ({
-    progress
+    progress,
+    onUpdate
 }: TProps) => {
     return (
         <div className={styles.container}>
             <CustomLinearProgress variant="determinate" value={progress} />
+            <div className={styles.refreshButton} onClick={onUpdate}>
+                <Icon className={styles.refreshIcon} fontSize="small" classes={{ root: 'fas fa-sync color-grey2' }} />
+                &nbsp;Atualizar
+            </div>
         </div>
     )
 };

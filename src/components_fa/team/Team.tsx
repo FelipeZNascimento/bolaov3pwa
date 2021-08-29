@@ -10,17 +10,21 @@ import { TMatchTeam } from 'store/matches/types';
 import styles from './Team.module.scss';
 
 type TProps = TMatchTeam & {
-    hasGameStarted: boolean,
+    displayOdd?: null | string,
+    hasMatchEnded: boolean,
+    hasMatchStarted: boolean,
     isExpanded: boolean,
     isHome?: boolean,
-    displayOdd?: null | string
+    isWinner?: boolean,
 }
 
 const Team = ({
-    hasGameStarted,
+    hasMatchEnded,
+    hasMatchStarted,
     id,
     isExpanded,
     isHome = false,
+    isWinner = false,
     code,
     name,
     background,
@@ -51,9 +55,14 @@ const Team = ({
         return (
             <div className={styles.score}>
                 {score}
-                <div className={possessionClass}>
-                    <Icon fontSize="inherit" classes={{ root: 'fas fa-angle-up' }} />
-                </div>
+                {!hasMatchEnded
+                    && <div className={possessionClass}>
+                        <Icon fontSize="inherit" classes={{ root: 'fas fa-angle-up' }} />
+                    </div>}
+                {hasMatchEnded && isWinner
+                    && <div className={styles.scoreWinner}>
+                        <Icon fontSize="inherit" classes={{ root: 'fas fa-minus' }} />
+                    </div>}
             </div>
         )
     };
@@ -111,8 +120,8 @@ const Team = ({
                     {isExpanded && !isMobile ? name : code}<br />
                     {/* <p className={styles.standings}>2-2</p> */}
                 </div>
-                {hasGameStarted && renderScore()}
-                {!hasGameStarted && renderOdds()}
+                {hasMatchStarted && renderScore()}
+                {!hasMatchStarted && renderOdds()}
             </div>
         </div>
     )

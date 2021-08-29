@@ -21,12 +21,16 @@ const Time = ({
     status,
     timestamp
 }: TProps) => {
-    const matchHasEnded = status === MATCH_STATUS.FINAL || status === MATCH_STATUS.FINAL_OVERTIME;
+    const matchHasEnded = status === MATCH_STATUS.FINAL ||
+        status === MATCH_STATUS.FINAL_OVERTIME ||
+        status === MATCH_STATUS.CANCELLED;
+
     const clockIsStopped = status === MATCH_STATUS.END_FIRST ||
         status === MATCH_STATUS.END_THIRD ||
         status === MATCH_STATUS.HALFTIME ||
         status === MATCH_STATUS.DELAYED ||
-        status === MATCH_STATUS.NOT_STARTED;
+        status === MATCH_STATUS.NOT_STARTED ||
+        status === MATCH_STATUS.CANCELLED;
 
     const matchStatusClass = classNames({
         [styles.notStarted]: currentTimestamp < timestamp, // not started
@@ -59,6 +63,8 @@ const Time = ({
                 return 'Final'
             case MATCH_STATUS.FINAL_OVERTIME:
                 return 'Final OT'
+            case MATCH_STATUS.CANCELLED:
+                return 'Cancelado'
             default:
                 return 'Iniciando'
         }
@@ -67,18 +73,18 @@ const Time = ({
     const renderTime = () => {
         const date = DateTime.fromSeconds(timestamp).setLocale('pt-Br').toFormat("dd/LL, HH'h'mm");
 
-        // if match hasn't started
+        // if match hasn't started (by timestamp)
         if (currentTimestamp < timestamp) {
             return (
                 <div className={`${matchStatusClass}`} style={{ background: `url(/match_layer.png), #9da4a7` }}>
-                    {date}
+                    {status === MATCH_STATUS.CANCELLED ? renderStatus() : date}
                 </div>
             );
         }
 
-        // if match has started
+        // if match has started (by timestamp)
         if (currentTimestamp >= timestamp) {
-            // if match has ended or clock is stopped
+            // if match has ended or clock is stopped (by status)
             if (matchHasEnded || clockIsStopped) {
                 return (
                     <div className={`${matchStatusClass}`} style={{ background: `url(/match_layer.png), #9da4a7` }}>
@@ -87,7 +93,7 @@ const Time = ({
                 );
             }
 
-            // if clock is running
+            // if clock is running (by status)
             return (
                 <div className={matchStatusClass}>
                     <div className={styles.quarter}>
