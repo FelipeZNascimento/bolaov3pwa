@@ -172,9 +172,14 @@ const Startup = (props: any) => {
         });
     };
 
+    const manualUpdate = () => {
+        fetchBothRankings();
+        fetchMatchesAndResetTimer();
+    };
+
     return (
         <>
-            {isOnResultsOrBets && <LinearProgress progress={progress} />}
+            {isOnResultsOrBets && <LinearProgress progress={progress} onUpdate={manualUpdate} />}
             {props.children}
         </>
     )
