@@ -144,9 +144,13 @@
 }
 
 .icon,
-.position,
-.points {
+.position {
     @include aligned(left);
+    flex: 1;
+}
+
+.points {
+    @include aligned(center);
     flex: 1;
 }
 
@@ -155,7 +159,7 @@
     flex: 2;
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;  
+    white-space: nowrap;
 }
 
 .badge {
