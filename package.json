@@ -1,7 +1,7 @@
 {
   "name": "bolaov3pwa",
   "homepage": ".",
-  "version": "1",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.3",
