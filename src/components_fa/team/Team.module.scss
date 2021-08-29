@@ -61,6 +61,13 @@
     position: relative;
     transition: 2s;
 
+    &Winner {
+        @include font-sized(s);
+        bottom: 0;
+        position: absolute;
+        opacity: 1;
+    }
+
     .possession {
         @include font-sized(s);
 

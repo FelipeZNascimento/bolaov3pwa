@@ -42,7 +42,10 @@ const Match = ({
     const [currentTimestamp, setCurrentTimestamp] = useState(Math.floor(Date.now() / 1000));
 
     const correctBets = calculateCorrectBets(away.score || 0, home.score || 0);
-    const hasGameStarted = status !== MATCH_STATUS.NOT_STARTED;
+    const hasMatchStarted = status !== MATCH_STATUS.NOT_STARTED;
+    const hasMatchEnded = status === MATCH_STATUS.FINAL ||
+        status === MATCH_STATUS.FINAL_OVERTIME ||
+        status === MATCH_STATUS.CANCELLED;
 
     let isBullseyeBet, isHalfBet = false;
     if (loggedUserBets) {
@@ -69,20 +72,31 @@ const Match = ({
             [styles.teamsContainerLoading]: isLoading
         });
 
+        let isHomeWinner, isAwayWinner = false;
+
+        if (home.score !== undefined && away.score !== undefined) {
+            isHomeWinner = home.score >= away.score;
+            isAwayWinner = away.score >= home.score;
+        }
+
         return (
             <div className={teamsContainerClass}>
                 <Team
                     {...away}
-                    hasGameStarted={hasGameStarted}
-                    isExpanded={isExpanded}
                     displayOdd={overUnder}
+                    hasMatchEnded={hasMatchEnded}
+                    hasMatchStarted={hasMatchStarted}
+                    isExpanded={isExpanded}
+                    isWinner={isAwayWinner}
                 />
                 <Team
                     {...home}
                     isHome
-                    hasGameStarted={hasGameStarted}
-                    isExpanded={isExpanded}
                     displayOdd={homeTeamOdds}
+                    hasMatchEnded={hasMatchEnded}
+                    hasMatchStarted={hasMatchStarted}
+                    isExpanded={isExpanded}
+                    isWinner={isHomeWinner}
                 />
             </div>
         )
@@ -125,7 +139,13 @@ const Match = ({
                     correctBets={correctBets}
                     loggedUserBets={loggedUserBets}
                 />
-                {noBets && <p><TextBox text={() => 'Nenhuma aposta disponível ainda'} /></p>}
+                {noBets && <TextBox text={() => {
+                    if (!hasMatchStarted) {
+                        return 'Apostas estarão disponíveis após o início da partida.'
+                    } else {
+                        return 'Apostas não disponíveis.'
+                    }
+                }} />}
             </div>
         </div>
     );

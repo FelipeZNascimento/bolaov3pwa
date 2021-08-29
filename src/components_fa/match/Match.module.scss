@@ -88,13 +88,7 @@
         opacity: 0.3;
     }
 
-    .notStarted {
-        @include flex-aligned(center, center);
-
-        height: $matchContainerHeight;
-        flex: 1;
-    }
-
+    .notStarted,
     .ended {
         @include flex-aligned(center, center);
 
