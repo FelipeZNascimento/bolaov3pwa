@@ -31,9 +31,11 @@ const postItems = ({
         currentRequest.params = currentRequestInfo[1];
     }
 
+    const isUpdatingBet = currentRequest.endpoint === 'bets' && currentRequest.params === 'update';
     // Find a request with same endpoint and param
     const sameRequest = requests.filter((request) => request.endpoint === currentRequest.endpoint
-        && request.params === currentRequest.params);
+        && request.params === currentRequest.params
+        && !isUpdatingBet);
 
     if (sameRequest.length > 0) {
         sameRequest[0].cancel();

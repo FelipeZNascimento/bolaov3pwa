@@ -9,27 +9,37 @@ import { setCurrentWeek } from 'store/app/actions';
 // Selectors
 import { selectIsLoading, selectUserBets } from 'store/bets/selector';
 import { selectUser } from 'store/user/selector';
+import { selectSeasonStart } from 'store/app/selector';
 
 // Components
 import { Tooltip } from '@material-ui/core';
 import { StatusComponent, TextBox } from 'components/index'
 import { Loading, BettableMatch, Ranking, WeekSelector } from 'components_fa/index'
 
-import styles from './Bets.module.scss';
+// Constants & Types
 import ROUTES from 'constants/routes';
 import { TMatch } from 'store/matches/types';
+
+import styles from './Bets.module.scss';
 
 const Bets = () => {
     const [betProgress, setBetProgress] = useState<number>(0);
     const [blockLoading, setBlockLoading] = useState<boolean>(false);
     const [matchesCurrentStatus, setMatchesCurrentStatus] = useState<TMatch[]>([]);
+    const [numOfBets, setNumOfBets] = useState<number>(0);
 
     const dispatch = useDispatch();
     const matchesWithBets = useSelector(selectUserBets);
     const isLoading = useSelector(selectIsLoading);
     const loggedUser = useSelector(selectUser);
+    const seasonStart = useSelector(selectSeasonStart);
 
+    let currentTimestamp = Math.floor(Date.now() / 1000);
     const { week } = useParams<{ week: string }>();
+
+    setTimeout(function () {
+        currentTimestamp = Math.floor(Date.now() / 1000);
+    }, 60000);
 
     useEffect(() => {
         if (week) {
@@ -82,18 +92,20 @@ const Bets = () => {
     };
 
     const renderBetsStatus = () => {
-        let numOfBets = 0;
+        let betsDone = 0;
         matchesCurrentStatus.forEach((match) => {
             if (match.loggedUserBets !== null && match.loggedUserBets !== undefined) {
-                numOfBets++
+                betsDone++
             }
         });
+
+        setNumOfBets(betsDone);
 
         return (
             <div>
                 <p>
                     Apostas<br />
-                    {numOfBets} / {matchesCurrentStatus.length}
+                    {betsDone} / {matchesCurrentStatus.length}
                 </p>
             </div>
         )
@@ -118,35 +130,42 @@ const Bets = () => {
         ));
     };
 
-    const renderPaymentBox = () => {
-        const text = () => (
-            <span>
-                As apostas da temporada regular serão liberadas assim que identificarmos seu pagamento.<br /><br />
-                Enquanto isso, divirta-se na pré-temporada - o ranking será zerado antes da temporada começar.
-            </span>
-        )
-        return (
-            <span><TextBox text={text} /><br /></span>
-        )
-    };
+    const renderTextBox = () => {
+        const hasSeasonStarted = seasonStart === null ? false : currentTimestamp >= seasonStart;
+        let text = '';
 
-    const renderWarning = () => {
-        const text = () => (
-            <span>
-                O ranking será zerado antes da temporada começar.
-            </span>
-        )
+        if (loggedUser) {
+            if (loggedUser.status === 0) { // Did not pay
+                text = hasSeasonStarted
+                    ? 'O prazo para efetuar o pagamento se esgotou. Nos vemos na próxima temporada!'
+                    : 'As apostas serão liberadas assim que identificarmos seu pagamento.';
+            } else { // Paid
+                if (hasSeasonStarted) {
+                    text = betProgress !== 100
+                        ? `Atenção! Ainda restam ${matchesCurrentStatus.length - numOfBets} apostas a fazer nessa rodada.`
+                        : '';
+                } else {
+                    text = 'Apostas extras ficam abertas somente até o kickoff da temporada!';
+                }
+            }
+        }
+
+        if (text === '') {
+            return;
+        }
+
         return (
-            <span><TextBox text={text} /><br /></span>
-        )
+            <span>
+                <TextBox text={() => text} /><br />
+            </span>
+        );
     };
 
     return (
         <div className={styles.container}>
             <div className={styles.leftContainer}>
                 <WeekSelector routeTo={ROUTES.BETS.urlWithParams} onClick={onWeekClick} />
-                {loggedUser && loggedUser.status === 0 && renderPaymentBox()}
-                {loggedUser && loggedUser.status !== 0 && renderWarning()}
+                {renderTextBox()}
                 <div className={styles.matchesContainer}>
                     {!isMobile && <div className={styles.header}>
                         <div style={{ flex: 2 }}>Visitante</div>
