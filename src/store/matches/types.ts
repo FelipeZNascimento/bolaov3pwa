@@ -27,6 +27,7 @@ export type TMatchTeam = {
     score?: number;
     background: string;
     foreground: string;
+    winLosses: string;
 }
 
 export type TMatchBet = {

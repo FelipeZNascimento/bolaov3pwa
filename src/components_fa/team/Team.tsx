@@ -31,7 +31,8 @@ const Team = ({
     foreground,
     score,
     displayOdd = null,
-    possession
+    possession,
+    winLosses
 }: TProps) => {
     const [scoreChanged, setScoreChanged] = useState<boolean>(false);
     const prevScore = usePrevious(score);

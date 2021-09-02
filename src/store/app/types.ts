@@ -23,6 +23,7 @@ export type TTeam = {
     code: string;
     background: string;
     foreground: string;
+    winLosses: string;
 };
 
 export type TConference = {

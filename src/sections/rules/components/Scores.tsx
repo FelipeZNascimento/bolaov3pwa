@@ -15,6 +15,7 @@ const Scores = () => {
         score: 3,
         background: '#00123f',
         foreground: '#f26522',
+        winLosses: ''
     };
 
     const homeTeam = {
@@ -25,7 +26,8 @@ const Scores = () => {
         possession: true,
         score: 13,
         background: '#1e3630',
-        foreground: '#feb60e'
+        foreground: '#feb60e',
+        winLosses: ''
     };
 
     const matchOne: TMatch = {
