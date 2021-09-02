@@ -126,7 +126,7 @@ const WeekSelector = ({
                     <Dropdown
                         currentValue={currentPage.num}
                         label='Semana'
-                        options={WEEKS}
+                        options={WEEKS.filter((week) => !week.hidden)}
                         onChange={onDropdownClick}
                     />
                 </div>
