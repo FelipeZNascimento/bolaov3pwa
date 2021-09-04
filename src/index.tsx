@@ -65,7 +65,26 @@ render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://cra.link/PWA
-serviceWorkerRegistration.register();
+serviceWorkerRegistration.register({
+	onUpdate: (registration) => {
+		const waitingServiceWorker = registration.waiting;
+		alert(`onAlert -> ${waitingServiceWorker}`);
+
+		if (waitingServiceWorker) {
+			waitingServiceWorker.addEventListener("statechange", (event) => {
+				const target = event.target as any;
+				if (target.state && target.state === "activated") {
+					if (window.confirm(
+						"O app foi atualizado! Por favor, atualize a página."
+					)) {
+						window.location.reload();
+					}
+				}
+			});
+			waitingServiceWorker.postMessage({ type: "SKIP_WAITING" });
+		}
+	}
+});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
