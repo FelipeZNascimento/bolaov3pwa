@@ -44,9 +44,21 @@
 </ifModule>
 
 <IfModule mod_headers.c>
-  # Do not cache sw.js, required for offline-first updates.
-  <FilesMatch "sw\.js$">
-    Header set Cache-Control "private, no-cache, no-store, proxy-revalidate, no-transform"
-    Header set Pragma "no-cache"
-  </FilesMatch>
+    Header set Connection keep-alive
+    <filesmatch "\.(ico|flv|gif|swf|eot|woff|otf|ttf|svg)$">
+        Header set Cache-Control "max-age=2592000, public"
+    </filesmatch>
+    <filesmatch "\.(jpg|jpeg|png)$">
+        Header set Cache-Control "max-age=1209600, public"
+    </filesmatch>
+    # css and js should use private for proxy caching https://developers.google.com/speed/docs/best-practices/caching#LeverageProxyCaching
+    <filesmatch "\.(css)$">
+        Header set Cache-Control "max-age=31536000, private"
+    </filesmatch>
+    <filesmatch "\.(js)$">
+        Header set Cache-Control "max-age=1209600, private"
+    </filesmatch>
+    <filesMatch "\.(x?html?|php)$">
+        Header set Cache-Control "max-age=600, private, must-revalidate"
+      </filesMatch>
 </IfModule>
