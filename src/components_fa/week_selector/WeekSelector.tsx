@@ -84,7 +84,7 @@ const WeekSelector = ({
     const renderEmptySpans = (emptySpans: number) => {
         let spansToReturn = [];
         for (let i = 0; i < emptySpans; i++) {
-            spansToReturn.push(<span className={isMobile ? styles.ghostPageMobile : styles.ghostPageStandard}>&nbsp;</span>);
+            spansToReturn.push(<span key={i} className={isMobile ? styles.ghostPageMobile : styles.ghostPageStandard}>&nbsp;</span>);
         }
 
         return spansToReturn;

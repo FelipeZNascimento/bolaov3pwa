@@ -119,7 +119,9 @@ const Team = ({
                     textShadow: `-1px 0 ${background}, 0 1px ${background}, 1px 0 ${background}, 0 -1px ${background}`
                 }}>
                     {isExpanded && !isMobile ? name : code}<br />
-                    {/* <p className={styles.standings}>2-2</p> */}
+                    <Tooltip title='W - L - T' placement="top" arrow>
+                        <p className={styles.standings}>{winLosses}</p>
+                    </Tooltip>
                 </div>
                 {hasMatchStarted && renderScore()}
                 {!hasMatchStarted && renderOdds()}

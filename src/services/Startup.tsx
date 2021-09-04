@@ -46,28 +46,34 @@ const Startup = (props: any) => {
 
     const menuOptions: TMenuOption[] = [
         {
+            id: 0,
             display: ROUTES.HOME.display,
             route: ROUTES.HOME.url
         },
         {
+            id: 1,
             display: ROUTES.RESULTS.display,
             route: ROUTES.RESULTS.url
         },
         {
+            id: 2,
             display: ROUTES.BETS.display,
             route: ROUTES.BETS.url,
             disabled: loggedUser ? false : true
         },
         {
+            id: 3,
             display: ROUTES.EXTRAS.display,
             route: ROUTES.EXTRAS.url,
             disabled: loggedUser ? false : true
         },
         {
+            id: 4,
             display: ROUTES.RECORDS.display,
             route: ROUTES.RECORDS.url
         },
         {
+            id: 5,
             display: ROUTES.RULES.display,
             route: ROUTES.RULES.url
         },
