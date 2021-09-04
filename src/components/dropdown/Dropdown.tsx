@@ -56,7 +56,7 @@ const Dropdown = ({
                 }}
 
             >
-                {options.map((option) => <MenuItem value={option.num}>{option.display}</MenuItem>)}
+                {options.map((option) => <MenuItem key={option.num} value={option.num}>{option.display}</MenuItem>)}
             </CustomSelect>
         </CustomFormControl>
     )

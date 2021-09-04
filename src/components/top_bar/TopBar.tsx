@@ -42,32 +42,39 @@ const TopBar = () => {
 
     const menuOptions: TMenuOption[] = [
         {
+            id: 0,
             display: ROUTES.HOME.display,
             route: ROUTES.HOME.url
         },
         {
+            id: 1,
             display: ROUTES.RESULTS.display,
             route: currentWeek !== null ? ROUTES.RESULTS.urlWithParams(currentWeek) : ROUTES.RESULTS.url,
         },
         {
+            id: 2,
             display: ROUTES.BETS.display,
             route: currentWeek !== null ? ROUTES.BETS.urlWithParams(currentWeek) : ROUTES.BETS.url,
             disabled: loggedUser ? false : true
         },
         {
+            id: 3,
             display: ROUTES.EXTRAS.display,
             route: ROUTES.EXTRAS.url,
             disabled: loggedUser ? false : true
         },
         {
+            id: 4,
             display: ROUTES.RECORDS.display,
             route: ROUTES.RECORDS.url
         },
         {
+            id: 5,
             display: ROUTES.RANKING.display,
             route: ROUTES.RANKING.url
         },
         {
+            id: 6,
             display: ROUTES.RULES.display,
             route: ROUTES.RULES.url
         },
@@ -132,7 +139,7 @@ const TopBar = () => {
     return (
         <div className={styles.container}>
             <div className={styles.buttonSection}>
-                {isMobile ? renderMobileMenuButton() : menuOptions.map((item) => renderButton(item))}
+                {isMobile ? renderMobileMenuButton() : menuOptions.map((item) => <span key={item.id}>{renderButton(item)}</span>)}
             </div>
             <div className={styles.loginSection}>
                 {isLoading && <Loading size='small' />}

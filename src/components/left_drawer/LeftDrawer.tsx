@@ -71,7 +71,7 @@ const LeftDrawer = ({
                 <div className={styles.logoContainer}>
                     <img alt="logo" src={logo} />
                 </div>
-                {options.map((option) => renderButton(option))}
+                {options.map((option) => <span key={option.id}>{renderButton(option)}</span>)}
             </div>
         </CustomDrawer>
     )
