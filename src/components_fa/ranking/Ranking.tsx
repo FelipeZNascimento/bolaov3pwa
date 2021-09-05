@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isMobile } from "react-device-detect";
 
@@ -43,6 +43,12 @@ const Ranking = ({
     const seasonRanking = useSelector(selectSeasonRanking);
     const isLoading = useSelector(selectIsLoading);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (full) {
+            setShowSeasonRanking(true);
+        }
+    }, [full]);
 
     const onWeekClick = (newWeek: number) => {
         dispatch(setCurrentWeek(newWeek));
