@@ -42,7 +42,7 @@ const LeftDrawer = ({
         });
 
         const renderButtonContent = () => (
-            <div className={buttonClass} onClick={() => toggle(false)}>
+            <div key={item.id} className={buttonClass} onClick={() => toggle(false)}>
                 {item.display === ROUTES.HOME.display && !isMobile
                     && <img className={styles.image} alt="logo" src={logo} />}
                 {item.display}
@@ -54,7 +54,7 @@ const LeftDrawer = ({
         }
 
         return (
-            <Link to={item.route}>
+            <Link key={item.id} to={item.route}>
                 {renderButtonContent()}
             </Link>
         );
@@ -71,7 +71,7 @@ const LeftDrawer = ({
                 <div className={styles.logoContainer}>
                     <img alt="logo" src={logo} />
                 </div>
-                {options.map((option) => <span key={option.id}>{renderButton(option)}</span>)}
+                {options.map((option) => renderButton(option))}
             </div>
         </CustomDrawer>
     )

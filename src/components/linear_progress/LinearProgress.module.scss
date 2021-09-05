@@ -12,33 +12,68 @@
     top: 0;
     width: 100vw;
     z-index: 99999;
+}
+
+.refreshHoverContainer {
+    @include bg-rgba-colored($color-black, 0.3);
+    @include font-colored($color-white);
+    @include flex-aligned(center, flex-end);
+
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    height: 80px;
+    left: 50%;
+    min-width: 120px;
+    position: absolute;
+    top: -60px;
+    transform: translateX(-50%);
+    transition: top 0.1s ease-in;
+    width: 10vw;
+
+    &:hover {
+        top: 0px;
+    }
 
     &:hover .refreshButton {
-        transition: top 0.1s ease-in;
-        position: absolute;
-        top: 0;
+        top: 0px;
     }
+
     &:hover .refreshIcon {
         transform: rotate(360deg);
         -ms-transform: rotate(360deg);
         -webkit-transform: rotate(360deg);
     }
-}
+    &:hover .arrowIcon {
+        transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+    }
 
-.refreshButton {
-    @include bg-rgba-colored($color-black, 0.3);
-    @include font-colored($color-white);
-    @include font-sized(l);
-    @include flex-aligned(center, center);
+    .refreshButton {
+        @include bg-rgba-colored($color-black, 0.3);
+        @include flex-aligned(center, center);
 
-    cursor: pointer;
-    height: 80px;
-    position: absolute;
-    top: -100px;
-    transition: top 0.3s ease-out;
-    width: 100vw;
+        cursor: pointer;
+        height: 60px;
+        transition: top 0.1s ease-in;
+        transition: background-color 0.1s ease-in;
+        position: absolute;
+        top: -60px;
+        width: 100%;
+
+        &:hover {
+            @include bg-rgba-colored($color-black, 0.2);
+        }
+    }
 }
 
 .refreshIcon {
-    transition: transform 3s ease-in-out;
+    @include font-colored($color-grey2);
+    transition: transform 2s ease-in-out;
+}
+
+.arrowIcon {
+    @include font-colored($color-grey2);
+    @include font-sized(xxs);
+    transition: transform 0.4s ease-in-out;
 }
