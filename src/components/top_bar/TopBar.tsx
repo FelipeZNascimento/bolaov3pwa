@@ -119,7 +119,7 @@ const TopBar = () => {
         });
 
         const renderButtonContent = () => (
-            <div className={buttonClass} onClick={() => setMobileMenuOpen(false)}>
+            <div key={item.id} className={buttonClass} onClick={() => setMobileMenuOpen(false)}>
                 {item.display === ROUTES.HOME.display && <img className={styles.image} alt="logo" src={logo} />}
                 <span className={textClass}>{item.display}</span>
             </div>
@@ -130,7 +130,7 @@ const TopBar = () => {
         }
 
         return (
-            <Link to={item.route}>
+            <Link to={item.route} key={item.id}>
                 {renderButtonContent()}
             </Link>
         );
@@ -139,7 +139,7 @@ const TopBar = () => {
     return (
         <div className={styles.container}>
             <div className={styles.buttonSection}>
-                {isMobile ? renderMobileMenuButton() : menuOptions.map((item) => <span key={item.id}>{renderButton(item)}</span>)}
+                {isMobile ? renderMobileMenuButton() : menuOptions.map((item) => renderButton(item))}
             </div>
             <div className={styles.loginSection}>
                 {isLoading && <Loading size='small' />}
