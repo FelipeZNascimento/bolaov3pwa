@@ -1,3 +1,5 @@
+import { isMobile } from "react-device-detect";
+
 // Components
 import {
     Icon,
@@ -29,10 +31,13 @@ const LinearProgress = ({
     return (
         <div className={styles.container}>
             <CustomLinearProgress variant="determinate" value={progress} />
-            <div className={styles.refreshButton} onClick={onUpdate}>
-                <Icon className={styles.refreshIcon} fontSize="small" classes={{ root: 'fas fa-sync color-grey2' }} />
-                &nbsp;Atualizar
-            </div>
+            {!isMobile && <div className={styles.refreshHoverContainer}>
+                <div className={styles.refreshButton} onClick={onUpdate}>
+                    <Icon className={styles.refreshIcon} fontSize="small" classes={{ root: 'fas fa-sync' }} />
+                    &nbsp;Atualizar
+                </div>
+                <Icon className={styles.arrowIcon} fontSize="inherit" classes={{ root: 'fas fa-chevron-down' }} />
+            </div>}
         </div>
     )
 };
