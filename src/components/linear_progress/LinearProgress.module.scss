@@ -23,11 +23,12 @@
     border-bottom-right-radius: 4px;
     height: 80px;
     left: 50%;
+    min-width: 120px;
     position: absolute;
     top: -60px;
     transform: translateX(-50%);
     transition: top 0.1s ease-in;
-    min-width: 120px;
+    width: 10vw;
 
     &:hover {
         top: 0px;
