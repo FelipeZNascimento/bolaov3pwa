@@ -26,7 +26,7 @@
     flex: 0;
 
     .button {
-        @include bg-rgba-colored($color-grey1, 0.1);
+        @include bg-rgba-colored($color-navy, 0.8);
         @include font-colored($color-grey3);
 
         flex: 1;
@@ -56,7 +56,7 @@
         }
 
         &:hover {
-            @include bg-rgba-colored($color-grey1, 0.1);
+            @include bg-rgba-colored($color-navy, 0.9);
             @include font-colored($color-grey1);
         }
     }
@@ -64,7 +64,7 @@
 
 .rulesContainer {
     @include font-colored($color-grey3);
-    @include bg-rgba-colored($color-grey1, 0.1);
+    @include bg-rgba-colored($color-navy, 0.8);
     @include padded(top, l);
     @include padded(bottom, l);
 

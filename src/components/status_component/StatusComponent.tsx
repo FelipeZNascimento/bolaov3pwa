@@ -9,7 +9,7 @@ import styles from './styles.module.scss'
 
 const CustomLinearProgress = withStyles({
     root: {
-        height: 2,
+        height: '100%',
         backgroundColor: '#36424d',
     },
     bar: {
@@ -46,7 +46,10 @@ const StatusComponent = ({
             <div className={styles.statusComponentText}>
                 {content()}
             </div>
-            {progress !== null && <CustomLinearProgress classes={{ root: barBgColorClass, bar: barColorClass }} variant="determinate" value={progress} />}
+            {progress !== null
+                && <div className={styles.barContainer}>
+                    <CustomLinearProgress classes={{ root: barBgColorClass, bar: barColorClass }} variant="determinate" value={progress} />
+                </div>}
         </div>
     )
 };

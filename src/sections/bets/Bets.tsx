@@ -12,7 +12,7 @@ import { selectUser } from 'store/user/selector';
 import { selectSeasonStart } from 'store/app/selector';
 
 // Components
-import { Tooltip } from '@material-ui/core';
+import { Icon, Tooltip } from '@material-ui/core';
 import { StatusComponent, TextBox } from 'components/index'
 import { Loading, BettableMatch, Ranking, WeekSelector } from 'components_fa/index'
 
@@ -168,9 +168,13 @@ const Bets = () => {
                 {renderTextBox()}
                 <div className={styles.matchesContainer}>
                     {!isMobile && <div className={styles.header}>
+                        <div style={{ flex: 2 }}>
+                            <Icon fontSize="small" className='far fa-clock' />
+                        </div>
                         <div style={{ flex: 2 }}>Visitante</div>
                         <div><Tooltip title="Mais de 7 pontos" placement="top" arrow><span>Fácil</span></Tooltip></div>
                         <div><Tooltip title="7 pontos ou menos" placement="top" arrow><span>Difícil</span></Tooltip></div>
+                        @
                         <div><Tooltip title="7 pontos ou menos" placement="top" arrow><span>Difícil</span></Tooltip></div>
                         <div><Tooltip title="Mais de 7 pontos" placement="top" arrow><span>Fácil</span></Tooltip></div>
                         <div style={{ flex: 2 }}>Casa</div>

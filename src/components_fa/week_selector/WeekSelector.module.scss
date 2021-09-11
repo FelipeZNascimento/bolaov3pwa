@@ -80,7 +80,7 @@
 }
 
 .page {
-    @include bg-rgba-colored($color-grey1, 0.05);
+    @include bg-rgba-colored($color-navy, 0.8);
     @include font-colored($color-grey3);
     @include padded(all, xs);
 

@@ -68,8 +68,6 @@ render(
 serviceWorkerRegistration.register({
 	onUpdate: (registration) => {
 		const waitingServiceWorker = registration.waiting;
-		alert(`onAlert -> ${waitingServiceWorker}`);
-
 		if (waitingServiceWorker) {
 			waitingServiceWorker.addEventListener("statechange", (event) => {
 				const target = event.target as any;

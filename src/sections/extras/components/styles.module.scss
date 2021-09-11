@@ -51,7 +51,7 @@
     @include padded(left, s);
     @include padded(right, s);
     @include aligned(left);
-    @include bg-rgba-colored($color-grey5, 0.8);
+    @include bg-rgba-colored($color-navy, 0.8);
 
     display: -webkit-box;
     flex: 1;
