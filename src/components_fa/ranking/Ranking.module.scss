@@ -13,7 +13,7 @@
     position: relative;
 
     .fixed {
-        @include bg-rgba-colored($color-grey1, 0.1);
+        @include bg-rgba-colored($color-navy, 0.8);
         @include padded(all, m);
         @include marged(bottom, m);
 
@@ -27,7 +27,7 @@
 }
 
 .containerFullMobile {
-    @include bg-rgba-colored($color-grey1, 0.1);
+    @include bg-rgba-colored($color-navy, 0.8);
 
     display: flex;
     flex: 1;
@@ -37,7 +37,7 @@
 }
 
 .containerFull {
-    @include bg-rgba-colored($color-grey1, 0.1);
+    @include bg-rgba-colored($color-navy, 0.8);
     @include padded(left, xl);
     @include padded(right, xl);
 
@@ -62,6 +62,7 @@
         @include font-sized(m);
         @include font-colored($color-grey3);
 
+        border: 1px solid $color-grey5;
         font-weight: bold;
         flex: 1;
         transition: 0.4s;
@@ -72,7 +73,10 @@
         }
 
         &:hover {
+            @include bg-rgba-colored($color-navy, 0.9);
             @include font-colored($color-grey1);
+
+            border: 1px solid $color-grey4;
         }
     }
 }

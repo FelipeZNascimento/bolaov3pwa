@@ -60,9 +60,9 @@ const Ranking = ({
         });
 
         const positionClass = classNames(styles.position, {
-            'color-gold': index === 0,
-            'color-grey1': index === 1 || index === 2,
-            'color-grey2': index === 3 || index === 4
+            'color-gold': rankingLine.position === 1 && index < 5,
+            'color-grey1': index < 5 && (rankingLine.position === 2 || rankingLine.position === 3),
+            'color-grey2': index < 5 && (rankingLine.position === 4 || rankingLine.position === 5)
         });
 
         const onlineBadgeClass = classNames({
@@ -70,8 +70,7 @@ const Ranking = ({
             [styles.badgeOffline]: !rankingLine.isOnline
         });
 
-        const position = index + 1;
-        const normalizedPosition = position < 10 ? `0${position}` : position;
+        const normalizedPosition = rankingLine.position < 10 ? `0${rankingLine.position}` : rankingLine.position;
 
         return (
             <div className={rankingLineClass} key={rankingLine.name}>
@@ -119,7 +118,7 @@ const Ranking = ({
             <>
                 <div className={styles.title}>
                     <Button
-                        classes={{ root: `${showSeasonRanking ? styles.buttonActive : styles.button}` }}
+                        classes={{ root: `${showSeasonRanking ? styles.buttonActive : styles.button}`, outlined: `${styles.buttonBorder}` }}
                         variant="outlined"
                         onClick={() => setShowSeasonRanking(true)}
                     >

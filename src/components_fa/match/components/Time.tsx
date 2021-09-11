@@ -76,7 +76,7 @@ const Time = ({
         // if match hasn't started (by timestamp)
         if (currentTimestamp < timestamp) {
             return (
-                <div className={`${matchStatusClass}`} style={{ background: `url(/match_layer.png), #9da4a7` }}>
+                <div className={`${matchStatusClass}`} style={{ background: `url(/match_layer.png), #757a7c` }}>
                     {status === MATCH_STATUS.CANCELLED ? renderStatus() : date}
                 </div>
             );
@@ -87,7 +87,7 @@ const Time = ({
             // if match has ended or clock is stopped (by status)
             if (matchHasEnded || clockIsStopped) {
                 return (
-                    <div className={`${matchStatusClass}`} style={{ background: `url(/match_layer.png), #9da4a7` }}>
+                    <div className={`${matchStatusClass}`} style={{ background: `url(/match_layer.png), #757a7c` }}>
                         {renderStatus()}
                     </div>
                 );

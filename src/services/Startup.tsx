@@ -103,10 +103,8 @@ const Startup = (props: any) => {
     };
 
     const fetchBothRankings = () => {
-        if (isOnResultsOrBets || pathname.includes(ROUTES.RANKING.url)) {
-            dispatch(fetchSeasonRanking(currentSeason as number));
-            dispatch(fetchRanking(currentSeason as number, currentWeek as number));
-        }
+        dispatch(fetchSeasonRanking(currentSeason as number));
+        dispatch(fetchRanking(currentSeason as number, currentWeek as number));
     };
 
     useEffect(() => {
@@ -130,9 +128,10 @@ const Startup = (props: any) => {
             return;
         }
 
+        fetchBothRankings();
+
         if (isOnResultsOrBets && progressBarTimer.current === null) {
             // Entering Results or Bets
-            fetchBothRankings();
             fetchMatchesAndResetTimer();
         } else if (!isOnResultsOrBets && progressBarTimer.current !== null) {
             // Leaving Results or Bets
@@ -141,19 +140,13 @@ const Startup = (props: any) => {
             progressBarTimer.current = null;
         } else if (prevPage !== currentPage && isOnResultsOrBets) {
             // Switching between Results and Pages
-            fetchBothRankings();
             fetchMatchesAndResetTimer();
         } else if (prevPage !== currentPage && pathname.includes(ROUTES.RANKING.url)) {
             // Entering Ranking
-            fetchBothRankings();
             fetchMatchesAndResetTimer();
-        } else if (prevWeek !== currentWeek) {
-            // If changed week
-            fetchBothRankings();
-
-            if (isOnResultsOrBets) {
-                fetchMatchesAndResetTimer();
-            }
+        } else if (prevWeek !== currentWeek && isOnResultsOrBets) {
+            // If changed week 
+            fetchMatchesAndResetTimer();
         }
     }, [currentSeason, currentWeek, currentPage]);
 

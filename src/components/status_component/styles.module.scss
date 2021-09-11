@@ -6,7 +6,7 @@
 @import "styles/variables.scss";
 
 .statusComponent {
-    @include bg-rgba-colored($color-blue, 0.5);
+    @include bg-rgba-colored($color-blue, 1);
     @include shadowed(0.2);
 
     left: 0;
@@ -23,6 +23,15 @@
         @include padded(right, s);
         @include padded(left, s);
     }
+
+    &:hover .barContainer {
+        height: 10px;
+    }
+}
+
+.barContainer {
+    height: 3px;
+    transition: 0.4s;
 }
 
 .barColor {

@@ -29,7 +29,8 @@ const LargeButton = ({
     const renderButtonContent = () => (
         <div className={buttonClass} onClick={onClick !== null ? onClick : () => null}>
             <h1>{display}</h1>
-            {description && <h3>{description}</h3>}
+            {description && isMobile && <h3>{description}</h3>}
+            {description && !isMobile && <div className={styles.description}><h4>{description}</h4></div>}
         </div>
     );
 

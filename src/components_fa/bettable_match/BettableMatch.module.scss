@@ -51,7 +51,7 @@
 }
 
 .betContainer {
-    @include bg-rgba-colored($color-grey5, 0.3);
+    @include bg-rgba-colored($color-navy, 0.8);
     @include flex-aligned(center, center);
     @include font-colored($color-grey3);
 

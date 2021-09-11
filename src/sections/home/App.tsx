@@ -1,14 +1,19 @@
 import React from 'react';
+import { isMobile } from "react-device-detect";
 import { useSelector } from 'react-redux';
-import { LargeButton } from 'components/index';
+import classNames from 'classnames';
+
+import logo from 'img/favicon.png';
 
 // Selectors
 import {
 	selectUser
 } from 'store/user/selector';
 
-import { TMenuOption } from 'components/commonTypes';
+import { Ranking } from 'components_fa/index'
+import { LargeButton } from 'components/index';
 
+import { TMenuOption } from 'components/commonTypes';
 import ROUTES from 'constants/routes';
 import styles from './App.module.scss'
 
@@ -56,11 +61,32 @@ const App = () => {
 		},
 	];
 
+	const renderRanking = () => {
+		if (isMobile) {
+			return null
+		};
+
+		return <Ranking />;
+	};
+
+	const titleClass = classNames(`sectionTitle ${styles.titleHeader}`, {});
+
 	return (
 		<div className={styles.container}>
-			<div className={styles.buttonsContainer}>
-				{menuOptions.map((option) => <LargeButton key={option.id} {...option} />)}
+			<div className={styles.leftContainer}>
+				<div className={titleClass}>
+					<h1>
+						{!isMobile && <img className={styles.image} alt="logo" src={logo} />}
+						Bolão NFL 2021/22
+					</h1>
+				</div>
+
+				<div className={styles.buttonsContainer}>
+					{menuOptions.map((option) => <LargeButton key={option.id} {...option} />)}
+				</div>
+				<p>test</p>
 			</div>
+			{renderRanking()}
 		</div>
 	);
 };
