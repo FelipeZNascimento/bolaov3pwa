@@ -45,7 +45,7 @@ const TeamWithExtras = ({
                 if (wildcardBets.find((bet) => bet === teamId)) {
                     return (
                         <Tooltip title={`${user.username} (WC)`} arrow>
-                            <Icon classes={{ root: styles.iconSmall }} fontSize="small" className={`${user.icon} color-grey1`} />
+                            <Icon classes={{ root: styles.iconSmall }} fontSize="small" className={user.icon} style={{ color: user.color }} />
                         </Tooltip>
                     )
                 }
@@ -95,12 +95,29 @@ const TeamWithExtras = ({
         [styles.extraBets]: isExpanded,
     });
 
+    const championsClass = classNames(styles.champions, {
+        [styles.championsBorder]: !isPlayoffBets
+    });
+
     return (
         <div className={teamClass}>
             <TeamMini {...team} />
             <div className={extraBetsClass}>
-                {renderBets(team.id, extraType)}
-                {!isPlayoffBets && wildcardExtraType && renderBets(team.id, wildcardExtraType)}
+                <div className={championsClass}>
+                    {!isPlayoffBets
+                        && <Tooltip title='Campeão de Divisão' arrow>
+                            <Icon classes={{ root: `fas fa-crown color-gold ${styles.iconLeft}` }} />
+                        </Tooltip>}
+                    {renderBets(team.id, extraType)}
+                </div>
+                {!isPlayoffBets
+                    && wildcardExtraType
+                    && <div className={styles.wildcards}>
+                        <Tooltip title='Wild Card' arrow>
+                            <Icon classes={{ root: `fas fa-running color-grey1 ${styles.iconRight}` }} />
+                        </Tooltip>
+                        {renderBets(team.id, wildcardExtraType)}
+                    </div>}
             </div>
         </div>
     )

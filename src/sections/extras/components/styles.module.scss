@@ -14,7 +14,8 @@
 
     border-radius: 4px;
     box-sizing: border-box;
-    max-height: $matchContainerHeight;
+    min-height: calc(#{$matchContainerHeight} * 2);
+    max-height: calc(#{$matchContainerHeight} * 3);
     max-width: 800px;
 
     &Wildcard {
@@ -48,20 +49,17 @@
 }
 
 .extraBets {
-    @include padded(left, s);
-    @include padded(right, s);
     @include aligned(left);
-    @include bg-rgba-colored($color-navy, 0.8);
 
     display: -webkit-box;
     flex: 1;
-    height: 60px;
+    min-height: 60px;
+    max-height: 180px;
     transition: 0.6s;
-    line-height: 30px;
+    line-height: 28px;
     max-width: 1000px;
-    overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     transition: 0.4s;
 
@@ -73,6 +71,38 @@
         max-height: 0;
         max-width: 0;
         transition: 0.4s;
+    }
+
+    .champions {
+        @include bg-rgba-colored($color-navy, 0.8);
+
+        min-height: 60px;
+        position: relative;
+
+        &Border {
+            border: 1px solid $color-gold;
+        }
+    }
+    .wildcards {
+        @include bg-rgba-colored($color-navy, 0.8);
+        border-bottom: 1px solid $color-grey1;
+        border-left: 1px solid $color-grey1;
+        border-right: 1px solid $color-grey1;
+
+        position: relative;
+        min-height: 60px;
+    }
+
+    .iconLeft {
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        transform: rotate(-40deg);
+    }
+    .iconRight {
+        position: absolute;
+        bottom: -0;
+        right: -15px;
     }
 }
 
