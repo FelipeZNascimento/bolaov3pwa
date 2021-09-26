@@ -24,7 +24,7 @@ export const ROUTES = {
         url: '/records',
         urlWithParams: (recordsParam: string, weekParam?: string) => {
             if (weekParam !== undefined) {
-                return `${ROUTES.RECORDS.url}/${recordsParam}/${weekParam}`
+                return `${ROUTES.RECORDS.url}/${recordsParam}/${weekParam}`;
             }
 
             return `${ROUTES.RECORDS.url}/${recordsParam}/`;
@@ -40,6 +40,17 @@ export const ROUTES = {
     RULES: {
         display: 'Regras',
         url: '/regras'
+    },
+    USERS: {
+        display: 'Usuários',
+        url: '/usuarios',
+        urlWithParams: (userId: string, weekParam?: number) => {
+            if (weekParam !== undefined) {
+                return `${ROUTES.USERS.url}/${userId}/${weekParam}`;
+            }
+
+            return `${ROUTES.USERS.url}/${userId}/`;
+        },
     },
 };
 

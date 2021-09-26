@@ -48,24 +48,21 @@ const AfterSeasonStart = ({
         const divisionName = selectedExtraSection === EXTRA_SECTION.AFC ? 'AFC' : 'NFC';
 
         return (
-            <>
-                <div className={styles.divisionAndBets}>
-                    <h3 className={styles.divisionTitle}>{divisionName} {title}</h3>
-                    {teams.map((team) => (
-                        <TeamWithExtras
-                            isVisible
-                            isExpanded
-                            key={team.id}
-                            extraBets={extraBets}
-                            extraBetsResults={extraBetsResults}
-                            extraType={extraType}
-                            team={team}
-                            wildcardExtraType={selectedWildcardExtraType}
-                        />
-                    ))}
-
-                </div>
-            </>
+            <div className={styles.divisionAndBets}>
+                <h3 className={styles.divisionTitle}>{divisionName} {title}</h3>
+                {teams.map((team) => (
+                    <TeamWithExtras
+                        isVisible
+                        isExpanded
+                        key={team.id}
+                        extraBets={extraBets}
+                        extraBetsResults={extraBetsResults}
+                        extraType={extraType}
+                        team={team}
+                        wildcardExtraType={selectedWildcardExtraType}
+                    />
+                ))}
+            </div>
         )
     };
 

@@ -1,0 +1,20 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.container {
+    display: flex;
+    flex: 1;
+    width: 100%;
+}
+
+.leftContainer {
+    @include flex-aligned(flex-start, center);
+
+    flex: 2;
+    flex-direction: column;
+    position: relative;
+}
