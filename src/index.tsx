@@ -12,7 +12,16 @@ import reportWebVitals from './reportWebVitals';
 import store from './store';
 
 // Sections & Components
-import { Bets, ExtraBets, Home, Ranking, Records, Results, Rules } from 'sections/index';
+import {
+	Bets,
+	ExtraBets,
+	Home,
+	Ranking,
+	Records,
+	Results,
+	Rules,
+	Users
+} from 'sections/index';
 import Startup from 'services/Startup';
 import { Notification, TopBar } from 'components/index';
 
@@ -49,6 +58,9 @@ render(
 							</Route>
 							<Route exact path={ROUTES.RULES.url}>
 								<Rules />
+							</Route>
+							<Route path={ROUTES.USERS.url}>
+								<Route path={ROUTES.USERS.url + "/:userId?/:weekParam?"} component={Users} />
 							</Route>
 							<Route>
 								<Home />
