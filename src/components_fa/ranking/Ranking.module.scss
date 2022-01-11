@@ -14,7 +14,8 @@
 
     .fixed {
         @include bg-rgba-colored($color-navy, 0.8);
-        @include padded(all, m);
+        @include padded(top, m);
+        @include padded(bottom, m);
         @include marged(bottom, m);
 
         display: flex;
@@ -124,6 +125,7 @@
 
 .rankingLine {
     @include flex-aligned(flex-start, center);
+    @include padded(left, s);
 
     -webkit-box-shadow: -5px 0px 0px 0px $color-mint;
     box-shadow: -5px 0px 0px 0px $color-mint;
@@ -147,9 +149,40 @@
     }
 }
 
-.icon,
+.positionChange {
+    @include aligned(left);
+    @include font-sized(s);
+
+    position: absolute;
+    margin-left: -12px;
+    width: 100%;
+
+    span {
+        @include padded(all, none);
+    }
+}
+
+.positionIcon {
+    @include padded(all, none);
+
+    &Up {
+        @include font-colored($color-green);
+    }
+
+    &Down {
+        @include font-colored($color-red);
+    }
+}
+
+.icon {
+    @include aligned(left);
+    flex: 1;
+}
+
 .position {
     @include aligned(left);
+
+    padding-left: 16px !important;
     flex: 1;
 }
 
@@ -160,9 +193,11 @@
 
 .name {
     @include aligned(left);
+
     flex: 2;
     text-overflow: ellipsis;
     overflow: hidden;
+    position: relative;
     white-space: nowrap;
 }
 

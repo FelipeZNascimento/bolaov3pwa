@@ -54,6 +54,31 @@ const Ranking = ({
         dispatch(setCurrentWeek(newWeek));
     };
 
+    const renderPositionChange = (previousPosition: number, currentPosition: number) => {
+        let positionChange = currentPosition - previousPosition;
+        if (positionChange === 0) {
+            return;
+        }
+
+        let iconStyle = '';
+        if (positionChange >= 0) {
+            iconStyle = 'fas fa-arrow-up';
+        } else if (positionChange < 0) {
+            iconStyle = 'fas fa-arrow-down';
+        }
+
+        const positionIconClass = classNames(styles.positionIcon, {
+            [styles.positionIconUp]: positionChange > 0,
+            [styles.positionIconDown]: positionChange < 0,
+        });
+
+        return (
+            <div className={styles.positionChange}>
+                {Math.abs(positionChange)}
+                <Icon classes={{ root: iconStyle }} style={{ fontSize: 10 }} className={positionIconClass} />
+            </div>
+        );
+    };
     const renderRankingLine = (rankingLine: TRankingLine, index: number) => {
         const rankingLineClass = classNames(styles.rankingLine, {
             [styles.rankingLineLoading]: isLoading,
@@ -74,6 +99,8 @@ const Ranking = ({
 
         return (
             <div className={rankingLineClass} key={rankingLine.name}>
+                {showSeasonRanking && renderPositionChange(rankingLine.previousPosition, rankingLine.position)}
+
                 <div className={positionClass}>
                     {normalizedPosition}.
                 </div>
@@ -88,9 +115,9 @@ const Ranking = ({
                 <div className={styles.points}>
                     {rankingLine.totalBullseye}
                 </div>
-                <div className={styles.points}>
+                {(full || !showSeasonRanking) && <div className={styles.points}>
                     {rankingLine.totalWinners}
-                </div>
+                </div>}
                 <div className={styles.points}>
                     {rankingLine.totalPercentage}
                 </div>
@@ -142,9 +169,9 @@ const Ranking = ({
                     <div className={styles.points}>
                         <Tooltip title="Acertos na mosca" arrow><span className="color-mint">M</span></Tooltip>
                     </div>
-                    <div className={styles.points}>
+                    {(full || !showSeasonRanking) && <div className={styles.points}>
                         <Tooltip title="Vencedores corretos" arrow><span className="color-blue">V</span></Tooltip>
-                    </div>
+                    </div>}
                     <div className={styles.points}>
                         <Tooltip title="Aproveitamento de pontos" arrow><span>%</span></Tooltip>
                     </div>
