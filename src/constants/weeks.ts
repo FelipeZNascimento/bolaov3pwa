@@ -119,7 +119,7 @@ const WEEKS: TWeek[] = [
         num: 19,
         display: 'Wild Card',
         displayShort: 'WC',
-        hidden: true,
+        hidden: false,
     },
     {
         num: 20,
