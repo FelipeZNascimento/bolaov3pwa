@@ -125,19 +125,19 @@ const WEEKS: TWeek[] = [
         num: 20,
         display: 'Divisional',
         displayShort: 'Div',
-        hidden: true,
+        hidden: false,
     },
     {
         num: 21,
         display: 'Conferência',
         displayShort: 'Conf',
-        hidden: true,
+        hidden: false,
     },
     {
         num: 22,
         display: 'Super Bowl',
         displayShort: 'SB',
-        hidden: true,
+        hidden: false,
     }
 ];
 
