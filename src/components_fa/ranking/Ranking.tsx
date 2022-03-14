@@ -62,14 +62,14 @@ const Ranking = ({
 
         let iconStyle = '';
         if (positionChange >= 0) {
-            iconStyle = 'fas fa-arrow-up';
-        } else if (positionChange < 0) {
             iconStyle = 'fas fa-arrow-down';
+        } else if (positionChange < 0) {
+            iconStyle = 'fas fa-arrow-up';
         }
 
         const positionIconClass = classNames(styles.positionIcon, {
-            [styles.positionIconUp]: positionChange > 0,
-            [styles.positionIconDown]: positionChange < 0,
+            [styles.positionIconUp]: positionChange < 0,
+            [styles.positionIconDown]: positionChange > 0,
         });
 
         return (
