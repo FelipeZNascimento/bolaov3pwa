@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import sha1 from 'crypto-js/sha1';
+import sha1 from 'sha1';
 import * as ACTIONTYPES from 'store/actiontypes';
 import fetchItems from 'services/dataGetters';
 import postItems from 'services/dataSetters';
