@@ -42,4 +42,6 @@ jobs:
         server: ${{ secrets.server }}
         username: ${{ secrets.username }}
         password: ${{ secrets.password }}
+        local-dir: ./build/
         server-dir: 'testFtp/'
+        dangerous-clean-slate: true
