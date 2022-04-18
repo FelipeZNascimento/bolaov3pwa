@@ -10,7 +10,7 @@ $padding: (
     "m": 12px,
     "l": 16px,
     "xl": 25px,
-    "xxl": 50px
+    "xxl": 50px,
 );
 
 $margin: $padding;
@@ -23,7 +23,7 @@ $font-sizes: (
     "m2": 20px,
     "l": 24px,
     "xl": 36px,
-    "xxl": 48px
+    "xxl": 48px,
 );
 
 // Colors
@@ -50,25 +50,25 @@ $color-grey4: #757a7c;
 $color-grey5: #545859;
 
 $colors: (
-    "color-black":     $color-black,
-    "color-white":     $color-white,
-    "color-gold":      $color-gold,
-    
-    "color-menu":      $color-menu,
-    "color-purple":    $color-purple,
-    "color-link":      $color-link,
-    
-    "color-blue":      $color-blue,
-    "color-sky":       $color-sky,
-    "color-green":     $color-green,
-    "color-mint":      $color-mint,
-    "color-red":       $color-red,
-    "color-orange":    $color-orange,
-    "color-navy":      $color-navy,
+    "color-black": $color-black,
+    "color-white": $color-white,
+    "color-gold": $color-gold,
 
-    "color-grey1":     $color-grey1,
-    "color-grey2":     $color-grey2,
-    "color-grey3":     $color-grey3,
-    "color-grey4":     $color-grey4,
-    "color-grey5":     $color-grey5
+    "color-menu": $color-menu,
+    "color-purple": $color-purple,
+    "color-link": $color-link,
+
+    "color-blue": $color-blue,
+    "color-sky": $color-sky,
+    "color-green": $color-green,
+    "color-mint": $color-mint,
+    "color-red": $color-red,
+    "color-orange": $color-orange,
+    "color-navy": $color-navy,
+
+    "color-grey1": $color-grey1,
+    "color-grey2": $color-grey2,
+    "color-grey3": $color-grey3,
+    "color-grey4": $color-grey4,
+    "color-grey5": $color-grey5,
 );
