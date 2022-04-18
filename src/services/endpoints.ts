@@ -1,5 +1,5 @@
 // export const apiBaseUrl = 'https://localhost:63768/bolaonfl/';
-export const apiBaseUrl = 'https://apibolao.omegafox.me/bolaonfl/';
+export const apiBaseUrl = 'https://api.omegafox.me/bolaonfl/';
 
 export const config = () => `${apiBaseUrl}defaultConfig/`;
 
