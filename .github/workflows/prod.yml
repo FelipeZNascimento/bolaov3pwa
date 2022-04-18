@@ -1,0 +1,44 @@
+name: CI/CD Prod
+
+on:
+  push:
+    branches: [ master ]
+
+# Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [17.7]
+
+    steps:
+    - name: 🚚 Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm install
+
+#     - name: Run the tests
+#       run: npm test
+
+    - name: 🔨 Build
+      run: CI='' npm run build
+
+    - name: 📂 Sync files to prod folder
+      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+      with:
+        server: ${{ secrets.server }}
+        username: ${{ secrets.username }}
+        password: ${{ secrets.password }}
+        local-dir: ./build/
+        server-dir: 'bolao.omegafox.me/'
