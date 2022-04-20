@@ -92,7 +92,7 @@ const Startup = (props: any) => {
                 navigate(ROUTES.HOME.url);
             }
         }
-    }, [navigate, isLoadingUser, loggedUser, pathname]);
+    }, [navigate, isLoadingUser, loggedUser, pathname, menuOptions]);
 
     const fetchSectionMatches = () => {
         if (currentPage === ROUTES.RESULTS.display) {

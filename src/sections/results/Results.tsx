@@ -31,7 +31,7 @@ const Results = () => {
         if (week) {
             dispatch(setCurrentWeek(parseInt(week)) as any)
         }
-    }, [dispatch, currentWeek]);
+    }, [dispatch, week]);
 
     useEffect(() => {
         setExpandedMatches([]);
