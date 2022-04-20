@@ -41,13 +41,13 @@ const Preferences = ({
 
     const onSetColor = (newColor: Color) => {
         setColor(`#${newColor.hex}`);
-        dispatch(onUpdateUserPreferences(icon, `#${newColor.hex}`));
+        dispatch(onUpdateUserPreferences(icon, `#${newColor.hex}`) as any);
 
     };
 
     const onSetIcon = (newIcon: string) => {
         setIcon(newIcon);
-        dispatch(onUpdateUserPreferences(newIcon, color));
+        dispatch(onUpdateUserPreferences(newIcon, color) as any);
     };
 
     return (

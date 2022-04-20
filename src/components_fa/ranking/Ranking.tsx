@@ -51,7 +51,7 @@ const Ranking = ({
     }, [full]);
 
     const onWeekClick = (newWeek: number) => {
-        dispatch(setCurrentWeek(newWeek));
+        dispatch(setCurrentWeek(newWeek) as any);
     };
 
     const renderPositionChange = (previousPosition: number, currentPosition: number) => {

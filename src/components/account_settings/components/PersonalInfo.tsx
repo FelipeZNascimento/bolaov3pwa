@@ -69,7 +69,7 @@ const PersonalInfo = ({
 
     useEffect(() => {
         return () => {
-            dispatch(onClearErrors());
+            dispatch(onClearErrors() as any);
         }
     }, [dispatch])
 
@@ -89,14 +89,14 @@ const PersonalInfo = ({
 
     const onConfirm = () => {
         setInvalidInputs([]);
-        dispatch(onClearErrors());
+        dispatch(onClearErrors() as any);
         dispatch(onUpdateUser(
             accountForm.email,
             accountForm.newPassword,
             accountForm.password,
             accountForm.fullName,
             accountForm.name
-        ));
+        ) as any);
     };
 
     const inputHasError = (id: string) => {
@@ -149,7 +149,7 @@ const PersonalInfo = ({
     const onRevertChanges = () => {
         setInvalidInputs([]);
         setPasswordFormVisible(false);
-        dispatch(onClearErrors());
+        dispatch(onClearErrors() as any);
 
         if (loggedUser) {
             setAccountForm({

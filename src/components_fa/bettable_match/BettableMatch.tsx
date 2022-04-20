@@ -65,7 +65,7 @@ const BettableMatch = ({
 
     const updateBet = (betValue: number) => {
         if (!isBetBlocked) {
-            dispatch(updateRegularBet(id, betValue));
+            dispatch(updateRegularBet(id, betValue) as any);
             setCurrentBetValue(betValue);
             onChange(id, betValue);
         }

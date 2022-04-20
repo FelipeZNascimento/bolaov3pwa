@@ -1,9 +1,10 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOMClient from 'react-dom/client';
+
 import { Provider } from 'react-redux';
 import {
 	BrowserRouter as Router,
-	Switch,
+	Routes,
 	Route,
 } from 'react-router-dom';
 
@@ -29,7 +30,9 @@ import { Notification, TopBar } from 'components/index';
 import ROUTES from 'constants/routes';
 import './index.scss';
 
-render(
+const root = ReactDOMClient.createRoot(document.getElementById("root") as HTMLElement);
+
+root.render(
 	<Provider store={store}>
 		<Router>
 			<Startup>
@@ -37,41 +40,30 @@ render(
 					<Notification />
 					<TopBar />
 					<div className="index-container">
-						<Switch>
-							<Route exact path={ROUTES.HOME.url}>
-								<Home />
+						<Routes>
+							<Route path={`${ROUTES.HOME.url}/*`} element={<Home />} />
+							<Route path={ROUTES.BETS.url + "/"} element={<Bets />} />
+							<Route path={ROUTES.BETS.url + "/:week/"} element={<Bets />} />
+							<Route path={`${ROUTES.RESULTS.url}/`} element={<Results />} />
+							<Route path={ROUTES.RESULTS.url + "/:week/"} element={<Results />} />
+							<Route path={`${ROUTES.RECORDS.url}/`} element={<Records />} >
+								<Route path={`${ROUTES.RECORDS.url}/:recordsParam`} element={<Records />} >
+									<Route path={ROUTES.RECORDS.url + "/:recordsParam/:weekParam"} element={<Records />} />
+								</Route>
 							</Route>
-							<Route path={ROUTES.BETS.url}>
-								<Route path={ROUTES.BETS.url + "/:week?/"} component={Bets} />
+							<Route path={`${ROUTES.RANKING.url}/*`} element={<Ranking />} />
+							<Route path={ROUTES.EXTRAS.url} element={<ExtraBets />} />
+							<Route path={ROUTES.RULES.url} element={<Rules />} />
+							<Route path={`${ROUTES.USERS.url}/`}>
+								<Route path={ROUTES.USERS.url + "/:userId/:weekParam"} element={<Users />} />
 							</Route>
-							<Route path={ROUTES.RESULTS.url}>
-								<Route path={ROUTES.RESULTS.url + "/:week?/"} component={Results} />
-							</Route>
-							<Route path={ROUTES.RECORDS.url}>
-								<Route path={ROUTES.RECORDS.url + "/:recordsParam?/:weekParam?"} component={Records} />
-							</Route>
-							<Route path={ROUTES.RANKING.url}>
-								<Ranking />
-							</Route>
-							<Route exact path={ROUTES.EXTRAS.url}>
-								<ExtraBets />
-							</Route>
-							<Route exact path={ROUTES.RULES.url}>
-								<Rules />
-							</Route>
-							<Route path={ROUTES.USERS.url}>
-								<Route path={ROUTES.USERS.url + "/:userId?/:weekParam?"} component={Users} />
-							</Route>
-							<Route>
-								<Home />
-							</Route>
-						</Switch>
+							<Route path={'/'} element={<Home />} />
+						</Routes>
 					</div>
 				</div>
 			</Startup>
 		</Router>
-	</Provider>,
-	document.getElementById('root'),
+	</Provider>
 );
 
 // If you want your app to work offline and load faster, you can change
