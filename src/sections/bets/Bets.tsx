@@ -43,7 +43,7 @@ const Bets = () => {
 
     useEffect(() => {
         if (week) {
-            dispatch(setCurrentWeek(parseInt(week)))
+            dispatch(setCurrentWeek(parseInt(week)) as any)
         }
     }, [week]);
 
@@ -72,7 +72,7 @@ const Bets = () => {
     }, [matchesCurrentStatus]);
 
     const onWeekClick = (newWeek: number) => {
-        dispatch(setCurrentWeek(newWeek));
+        dispatch(setCurrentWeek(newWeek) as any);
         setBlockLoading(true);
     };
 

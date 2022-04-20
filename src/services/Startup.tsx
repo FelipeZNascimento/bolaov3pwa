@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { loadCSS } from "fg-loadcss";
 import { usePrevious } from 'services/hooks';
 
@@ -40,7 +40,7 @@ const Startup = (props: any) => {
         || currentPage === ROUTES.BETS.display;
 
     const { pathname } = useLocation();
-    const history = useHistory();
+    const navigate = useNavigate();
     const prevWeek = usePrevious(currentWeek);
     const prevPage = usePrevious(currentPage);
 
@@ -80,7 +80,7 @@ const Startup = (props: any) => {
     ];
 
     useEffect(() => {
-        dispatch(fetchDefaultConfig());
+        dispatch(fetchDefaultConfig() as any);
         loadCSS("https://use.fontawesome.com/releases/v5.15.0/css/all.css");
     }, [dispatch]);
 
@@ -89,22 +89,22 @@ const Startup = (props: any) => {
             const currentPath = menuOptions.find((option) => pathname.includes(option.route));
 
             if (currentPath !== undefined && currentPath.disabled) {
-                history.push(ROUTES.HOME.url);
+                navigate(ROUTES.HOME.url);
             }
         }
-    }, [history, isLoadingUser, loggedUser, pathname]);
+    }, [navigate, isLoadingUser, loggedUser, pathname]);
 
     const fetchSectionMatches = () => {
         if (currentPage === ROUTES.RESULTS.display) {
-            dispatch(fetchMatches(currentSeason as number, currentWeek as number));
+            dispatch(fetchMatches(currentSeason as number, currentWeek as number) as any);
         } else if (currentPage === ROUTES.BETS.display) {
-            dispatch(fetchUserBets(currentSeason as number, currentWeek as number));
+            dispatch(fetchUserBets(currentSeason as number, currentWeek as number) as any);
         }
     };
 
     const fetchBothRankings = () => {
-        dispatch(fetchSeasonRanking(currentSeason as number));
-        dispatch(fetchRanking(currentSeason as number, currentWeek as number));
+        dispatch(fetchSeasonRanking(currentSeason as number) as any);
+        dispatch(fetchRanking(currentSeason as number, currentWeek as number) as any);
     };
 
     useEffect(() => {

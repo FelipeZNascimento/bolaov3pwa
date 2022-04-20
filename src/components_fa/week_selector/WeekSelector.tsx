@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { isMobile } from "react-device-detect";
 import classNames from 'classnames';
@@ -28,7 +28,7 @@ const WeekSelector = ({
     const [controlledWeek, setControlledWeek] = useState<number | null>(null);
     const [currentPage, setCurrentPage] = useState<TWeek | null>(null);
     const currentWeek = useSelector(selectCurrentWeek);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (controlledWeek !== null) {
@@ -56,7 +56,7 @@ const WeekSelector = ({
 
     const onDropdownClick = (weekNum: number) => {
         onWeekClick(weekNum);
-        history.push(routeTo(weekNum));
+        navigate(routeTo(weekNum));
     }
 
     const pageRange = isMobile ? 2 : 4;

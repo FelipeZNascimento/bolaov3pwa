@@ -29,9 +29,9 @@ const Results = () => {
 
     useEffect(() => {
         if (week) {
-            dispatch(setCurrentWeek(parseInt(week)))
+            dispatch(setCurrentWeek(parseInt(week)) as any)
         }
-    }, [dispatch, week]);
+    }, [dispatch, currentWeek]);
 
     useEffect(() => {
         setExpandedMatches([]);
@@ -44,7 +44,7 @@ const Results = () => {
     }, [isLoading]);
 
     const onWeekClick = (newWeek: number) => {
-        dispatch(setCurrentWeek(newWeek));
+        dispatch(setCurrentWeek(newWeek) as any);
         setBlockLoading(true);
     };
 

@@ -44,8 +44,8 @@ export const ROUTES = {
     USERS: {
         display: 'Usuários',
         url: '/usuarios',
-        urlWithParams: (userId: string, weekParam?: number) => {
-            if (weekParam !== undefined) {
+        urlWithParams: (userId: string | undefined, weekParam?: number) => {
+            if (weekParam !== undefined && userId !== undefined) {
                 return `${ROUTES.USERS.url}/${userId}/${weekParam}`;
             }
 

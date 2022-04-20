@@ -54,7 +54,7 @@ const AccountSettings = () => {
                 color='red'
                 startIcon={<ExitToAppIcon />}
                 text='Logout'
-                onClick={() => dispatch(onLogout())}
+                onClick={() => dispatch(onLogout() as any)}
             />
             <Tooltip title='Entre no nosso grupo do Telegram' arrow>
                 <a href="https://t.me/joinchat/SvMGiAUj4m2FZge4" target="blank"><Icon className='fab fa-telegram' style={{ color: 'color-white', fontSize: 48 }} /></a>

@@ -58,7 +58,7 @@ const ExtraBets = () => {
 
     useEffect(() => {
         if (currentSeason) {
-            dispatch(fetchExtraBets(currentSeason));
+            dispatch(fetchExtraBets(currentSeason) as any);
         }
     }, [currentSeason, dispatch]);
 

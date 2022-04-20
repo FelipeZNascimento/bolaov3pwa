@@ -39,7 +39,7 @@ const Records = () => {
                 season,
                 week,
                 filter.needsLoggedUser && loggedUser ? loggedUser.id : userId
-            ));
+            ) as any);
         }
     }, [dispatch, filter]);
 

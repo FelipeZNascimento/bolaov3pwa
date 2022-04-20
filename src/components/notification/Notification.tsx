@@ -47,7 +47,7 @@ const Notification = () => {
         } else if (snackPack.length && messageInfo && open) {
             // Close an active snack when a new one is added
             setOpen(false);
-            dispatch(onClearNotification(messageInfo.key));
+            dispatch(onClearNotification(messageInfo.key) as any);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [snackPack, messageInfo, open]);
@@ -74,7 +74,7 @@ const Notification = () => {
             }
 
             setOpen(false);
-            dispatch(onClearNotification(messageInfo.key));
+            dispatch(onClearNotification(messageInfo.key) as any);
         };
 
         const handleExited = () => {

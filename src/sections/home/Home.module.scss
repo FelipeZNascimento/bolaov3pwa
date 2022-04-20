@@ -1,0 +1,92 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.container {
+	display: flex;
+	flex: 1;
+	width: 100%;
+}
+
+.leftContainer {
+	@include flex-aligned(center, center);
+
+	flex: 2;
+	flex-direction: column;
+}
+
+.buttonsContainer {
+	@include flex-aligned(center, center);
+
+	flex: 1;
+	flex-direction: row;
+	flex-wrap: wrap;
+
+	a {
+		text-decoration: none;
+	}
+}
+
+.image {
+	@include padded(right, l);
+	height: 64px;
+	opacity: 0.8;
+	transition: 0.4s;
+	width: auto;
+}
+
+.titleHeader {
+	&:hover .image {
+		opacity: 1;
+		animation: headbutt 2s ease-in forwards;
+	}
+
+	&:hover h1 {
+		opacity: 1;
+		animation: headbuttText 2s ease-in forwards;
+	}
+
+	h1 {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+@keyframes headbutt {
+	20% {
+		transform: translate(-5px, 0) rotate(35deg);
+	}
+
+	40% {
+		transform: translate(-7px, 0) rotate(45deg);
+	}
+
+	70% {
+		transform: translate(-4px, 0) rotate(50deg);
+	}
+
+	80% {
+		transform: translate(25px, 0) rotate(60deg);
+	}
+}
+
+@keyframes headbuttText {
+	80% {
+		transform: translate(0, 0);
+	}
+	84% {
+		transform: translate(10px, 0);
+	}
+	90%,
+	94% {
+		transform: translate(-2px, 0);
+	}
+	92%,
+	96% {
+		transform: translate(2px, 0);
+	}
+}

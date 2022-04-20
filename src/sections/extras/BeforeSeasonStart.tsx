@@ -80,7 +80,7 @@ const BeforeSeasonStart = ({
             && JSON.stringify(selectedExtraBets) !== JSON.stringify(userExtraBets)
             && JSON.stringify(selectedExtraBets) !== JSON.stringify(emptyExtras)
         ) {
-            dispatch(updateExtraBets(selectedExtraBets))
+            dispatch(updateExtraBets(selectedExtraBets)  as any)
         }
     }, [selectedExtraBets]);
 

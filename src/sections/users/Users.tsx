@@ -23,7 +23,7 @@ const Users = () => {
     const dispatch = useDispatch();
 
     const onWeekClick = (newWeek: number) => {
-        dispatch(setCurrentWeek(newWeek));
+        dispatch(setCurrentWeek(newWeek) as any);
         setBlockLoading(true);
     };
 

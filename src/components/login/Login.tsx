@@ -55,7 +55,7 @@ const Login = ({
 
     useEffect(() => {
         return () => {
-            dispatch(onClearErrors());
+            dispatch(onClearErrors() as any);
         }
     }, [dispatch])
 
@@ -81,9 +81,9 @@ const Login = ({
                 loginForm.password,
                 loginForm.fullname,
                 loginForm.name,
-            ))
+            ) as any)
         } else {
-            dispatch(onLogin(loginForm.email, loginForm.password))
+            dispatch(onLogin(loginForm.email, loginForm.password) as any)
         }
     };
 
@@ -195,7 +195,7 @@ const Login = ({
                 color='blue'
                 startIcon={<PersonIcon />}
                 text='Registre-se'
-                onClick={() => { setIsRegister(true); dispatch(onClearErrors()); }}
+                onClick={() => { setIsRegister(true); dispatch(onClearErrors() as any); }}
             />}
         </>
     );
