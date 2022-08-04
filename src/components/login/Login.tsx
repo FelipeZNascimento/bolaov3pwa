@@ -18,7 +18,7 @@ import {
 
 // Components
 import { CustomButton, CustomTextField } from 'components/index';
-import { Loading } from 'components_fa/index';
+import { Loading } from '@omegafox/components';
 
 // Material UI
 import {
@@ -31,6 +31,7 @@ import {
     TLoginForm
 } from './types';
 import styles from './Login.module.scss';
+import logo from 'img/favicon.png';
 
 type TProps = {
     onClose: (flag: boolean) => void;
@@ -172,7 +173,7 @@ const Login = ({
                     onChange={onChange}
                     onKeyPress={onKeyPress}
                 />}
-                {isLoading && <Loading size='small' />}
+                {isLoading && <Loading size='small' image={logo} style='headbutt' />}
                 {hasError && <p className="align-center">{errorMessage}</p>}
             </div>
             <div className={styles.buttonContainer}>

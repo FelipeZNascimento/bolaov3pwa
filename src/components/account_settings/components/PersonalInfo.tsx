@@ -17,7 +17,7 @@ import {
 } from 'store/user/selector';
 
 import { CustomButton, CustomTextField } from 'components/index';
-import { Loading } from 'components_fa/index';
+import { Loading } from '@omegafox/components';
 import {
     History as HistoryIcon,
     Lock as LockIcon,
@@ -32,6 +32,7 @@ import {
 } from 'store/user/types';
 
 import styles from './styles.module.scss';
+import logo from 'img/favicon.png';
 
 type TProps = {
     loggedUser: TUser | null
@@ -256,7 +257,7 @@ const PersonalInfo = ({
                 </div>
             </div>
             {hasError && <p className="align-center">{errorMessage}</p>}
-            {isLoading && <Loading size='small' />}
+            {isLoading && <Loading size='small' image={logo} style='headbutt' />}
         </div >
     )
 };

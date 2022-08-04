@@ -5,7 +5,7 @@ const WEEKS: TWeek[] = [
         num: 0,
         display: 'Pre',
         displayShort: 'Pre',
-        hidden: true,
+        hidden: false,
     },
     {
         num: 1,
@@ -119,25 +119,25 @@ const WEEKS: TWeek[] = [
         num: 19,
         display: 'Wild Card',
         displayShort: 'WC',
-        hidden: false,
+        hidden: true,
     },
     {
         num: 20,
         display: 'Divisional',
         displayShort: 'Div',
-        hidden: false,
+        hidden: true,
     },
     {
         num: 21,
         display: 'Conferência',
         displayShort: 'Conf',
-        hidden: false,
+        hidden: true,
     },
     {
         num: 22,
         display: 'Super Bowl',
         displayShort: 'SB',
-        hidden: false,
+        hidden: true,
     }
 ];
 

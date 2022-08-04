@@ -16,7 +16,7 @@ import {
 
 // Components
 import { CustomButton, LeftDrawer, RightDrawer } from 'components/index';
-import { Loading } from 'components_fa/index';
+import { Loading } from '@omegafox/components';
 import {
     Icon,
 } from '@material-ui/core';
@@ -142,7 +142,7 @@ const TopBar = () => {
                 {isMobile ? renderMobileMenuButton() : menuOptions.map((item) => renderButton(item))}
             </div>
             <div className={styles.loginSection}>
-                {isLoading && <Loading size='small' />}
+                {isLoading && <Loading size='small' image={logo} style='headbutt' />}
                 {!isLoading && renderLoginButton()}
             </div>
             <LeftDrawer
