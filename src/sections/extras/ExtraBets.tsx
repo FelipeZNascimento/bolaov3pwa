@@ -19,11 +19,13 @@ import {
 import { selectUser } from 'store/user/selector';
 
 // Components
-import { Loading } from 'components_fa/index'
+import { Loading } from '@omegafox/components';
 import { Button } from '@material-ui/core';
 import styles from './ExtraBets.module.scss'
 import AfterSeasonStart from './AfterSeasonStart';
 import BeforeSeasonStart from './BeforeSeasonStart';
+
+import logo from 'img/favicon.png';
 
 export const EXTRA_SECTION = {
     AFC: 0,
@@ -97,7 +99,7 @@ const ExtraBets = () => {
                 isBetBlocked={isBetBlocked}
             />}
             {hasSeasonStarted && <AfterSeasonStart selectedExtraSection={extraSection} />}
-            {isLoading && <Loading />}
+            {isLoading && <Loading image={logo} style='headbutt' />}
         </div>
     );
 }

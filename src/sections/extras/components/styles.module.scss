@@ -19,12 +19,12 @@
     max-width: 800px;
 
     &Wildcard {
-        @extend .teamContainer;
+        // @extend .teamContainer;
         -webkit-box-shadow: 0px 0px 0px 1px $color-grey3;
         box-shadow: 0px 0px 0px 1px $color-grey3;
     }
     &Winner {
-        @extend .teamContainer;
+        // @extend .teamContainer;
         -webkit-box-shadow: 0px 0px 0px 1px $color-gold;
         box-shadow: 0px 0px 0px 1px $color-gold;
     }
