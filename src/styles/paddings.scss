@@ -40,7 +40,6 @@
     } @else if $direction == left {
         @extend .left-padding-#{$size};
     } @else {
-        @extend .padding-#{$size}
+        @extend .padding-#{$size};
     }
 }
-  

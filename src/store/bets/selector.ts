@@ -1,25 +1,25 @@
 import { TState } from './types';
 
 export function selectIsLoading(state: { bets: TState }) {
-    return state.bets.loading;
+  return state.bets.loading;
 }
 
 export function selectIsUpdating(state: { bets: TState }) {
-    return state.bets.updating;
+  return state.bets.updating;
 }
 
 export function selectUserBets(state: { bets: TState }) {
-    return state.bets.userBets;
+  return state.bets.userBets;
 }
 
 export function selectExtraBets(state: { bets: TState }) {
-    return state.bets.extraBets;
+  return state.bets.extraBets;
 }
 
 export function selectUserExtraBets(state: { bets: TState }) {
-    return state.bets.userExtraBets;
+  return state.bets.userExtraBets;
 }
 
 export function selectExtraBetsResults(state: { bets: TState }) {
-    return state.bets.extraBetsResults;
+  return state.bets.extraBetsResults;
 }
