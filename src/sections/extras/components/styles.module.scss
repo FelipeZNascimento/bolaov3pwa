@@ -37,15 +37,15 @@
 
 .translucid {
     transition: 0.4s;
-    opacity: 0.3;
+    opacity: 0.5;
 
     &:hover {
-        opacity: 0.6;
+        opacity: 0.7;
     }
 }
 
 .bright {
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .extraBets {
@@ -107,9 +107,12 @@
 }
 
 .icon {
-    @include font-colored($color-grey5);
+    @include font-colored($color-grey1);
     @include marged(left, xs);
     @include marged(right, xs);
+    @include padded(all, xs);
+
+    border-radius: 4px;
 
     cursor: pointer;
     transition: 0.4s;
@@ -125,5 +128,9 @@
 
         cursor: default;
         opacity: 0.2;
+    }
+
+    &:hover {
+        @include bg-rgba-colored(white, 0.1);
     }
 }

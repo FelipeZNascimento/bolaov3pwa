@@ -1,100 +1,111 @@
 import * as ACTIONTYPES from 'store/actiontypes';
 import {
-    TClearNotification,
-    TFetchConfig,
-    TFetchRanking,
-    TSetWeek,
-    TState
+  TClearNotification,
+  TFetchConfig,
+  TFetchRanking,
+  TSetWeek,
+  TState
 } from './types';
 
 const initialState: TState = {
-    currentSeason: null,
-    currentWeek: null,
-    error: false,
-    errorMessage: '',
-    loading: false,
-    notifications: [],
-    ranking: [],
-    seasonRanking: [],
-    seasonStart: null,
-    teams: [],
-    teamsByConferenceAndDivision: {
-        afc: {
-            north: [],
-            east: [],
-            south: [],
-            west: [],
-        },
-        nfc: {
-            north: [],
-            east: [],
-            south: [],
-            west: [],
-        }
+  currentSeason: null,
+  currentWeek: null,
+  error: false,
+  errorMessage: '',
+  loading: false,
+  notifications: [],
+  ranking: [],
+  seasonRanking: [],
+  seasonStart: null,
+  teams: [],
+  teamsByConferenceAndDivision: {
+    afc: {
+      north: [],
+      east: [],
+      south: [],
+      west: []
     },
+    nfc: {
+      north: [],
+      east: [],
+      south: [],
+      west: []
+    }
+  }
 };
 
 export default function appReducer(
-    state = initialState,
-    action: TClearNotification | TSetWeek | TFetchConfig | TFetchRanking
+  state = initialState,
+  action: TClearNotification | TSetWeek | TFetchConfig | TFetchRanking
 ) {
-    switch (action.type) {
-        case ACTIONTYPES.CLEAR_NOTIFICATION:
-            return {
-                ...state,
-                notifications: state.notifications.filter((item) => item.id !== action.id)
-            }
-        case ACTIONTYPES.TOGGLE_NOTIFICATION:
-            return {
-                ...state,
-                notifications: [...state.notifications, {
-                    id: Date.now(),
-                    message: action.notificationMessage || '',
-                    status: action.status
-                }],
-            };
-        case ACTIONTYPES.SET_CURRENT_WEEK:
-            return {
-                ...state,
-                currentWeek: action.week
-            };
-        case ACTIONTYPES.FETCHING_RANKING:
-        case ACTIONTYPES.FETCHING_SEASON_RANKING:
-        case ACTIONTYPES.FETCHING_CONFIG:
-            return {
-                ...state,
-                loading: true,
-                error: false
-            };
-        case ACTIONTYPES.FETCHING_CONFIG_SUCCESS:
-            return {
-                ...state,
-                currentSeason: action.response?.currentSeason,
-                currentWeek: state.currentWeek === null ? action.response?.currentWeek : state.currentWeek,
-                error: false,
-                loading: false,
-                seasonStart: action.response?.seasonStart ? parseInt(action.response?.seasonStart) : null,
-                teams: action.response?.teams,
-                teamsByConferenceAndDivision: action.response?.teamsByConferenceAndDivision
-            };
+  switch (action.type) {
+    case ACTIONTYPES.CLEAR_NOTIFICATION:
+      return {
+        ...state,
+        notifications: state.notifications.filter(
+          (item) => item.id !== action.id
+        )
+      };
+    case ACTIONTYPES.TOGGLE_NOTIFICATION:
+      return {
+        ...state,
+        notifications: [
+          ...state.notifications,
+          {
+            id: Date.now(),
+            message: action.notificationMessage || '',
+            status: action.status
+          }
+        ]
+      };
+    case ACTIONTYPES.SET_CURRENT_WEEK:
+      return {
+        ...state,
+        currentWeek: action.week
+      };
+    case ACTIONTYPES.FETCHING_RANKING:
+    case ACTIONTYPES.FETCHING_SEASON_RANKING:
+    case ACTIONTYPES.FETCHING_CONFIG:
+      return {
+        ...state,
+        loading: true,
+        error: false
+      };
+    case ACTIONTYPES.FETCHING_CONFIG_SUCCESS:
+      return {
+        ...state,
+        currentSeason: action.response?.currentSeason,
+        currentWeek:
+          state.currentWeek === null
+            ? action.response?.currentWeek
+            : state.currentWeek,
+        error: false,
+        loading: false,
+        seasonStart: action.response?.seasonStart
+          ? parseInt(action.response?.seasonStart)
+          : null,
+        teams: action.response?.teams,
+        teamsByConferenceAndDivision:
+          action.response?.teamsByConferenceAndDivision
+      };
 
-        case ACTIONTYPES.FETCHING_RANKING_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                error: false,
-                ranking: action.ranking
-            };
+    case ACTIONTYPES.FETCHING_RANKING_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        ranking: action.ranking
+      };
 
-        case ACTIONTYPES.FETCHING_SEASON_RANKING_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                error: false,
-                seasonRanking: action.ranking
-            };
+    case ACTIONTYPES.FETCHING_SEASON_RANKING_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        seasonRanking: action.ranking
+      };
 
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 }
