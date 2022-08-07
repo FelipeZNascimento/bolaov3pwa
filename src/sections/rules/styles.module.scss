@@ -37,7 +37,7 @@
             @include marged(all, m);
             @include padded(left, xl);
             @include padded(right, xl);
-    
+
             min-width: 160px;
         }
 
@@ -46,9 +46,8 @@
             @include marged(all, xs);
             @include padded(left, m);
             @include padded(right, m);
-    
-            min-width: 110px;
 
+            min-width: 110px;
         }
 
         &Active {

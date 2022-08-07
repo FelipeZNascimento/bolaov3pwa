@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { isMobile } from 'react-device-detect';
+import { Link } from 'react-router-dom';
 
 // Actions
 import { setCurrentWeek } from 'store/app/actions';
@@ -138,31 +139,45 @@ const Bets = () => {
   const renderTextBox = () => {
     const hasSeasonStarted =
       seasonStart === null ? false : currentTimestamp >= seasonStart;
-    let text = '';
+    let text: JSX.Element | null = null;
 
     if (loggedUser) {
       if (loggedUser.status === 0) {
         // Did not pay
-        text = hasSeasonStarted
-          ? 'O prazo para efetuar o pagamento se esgotou. Nos vemos na próxima temporada!'
-          : 'As apostas serão liberadas assim que identificarmos seu pagamento.';
+        text = hasSeasonStarted ? (
+          <>
+            O prazo para efetuar o pagamento se esgotou. Nos vemos na próxima
+            temporada!
+          </>
+        ) : (
+          <>
+            As apostas serão liberadas assim que identificarmos seu pagamento.
+          </>
+        );
       } else {
         // Paid
         if (hasSeasonStarted) {
-          text =
-            betProgress !== 100
-              ? `Atenção! Ainda restam ${
-                  matchesCurrentStatus.length - numOfBets
-                } apostas a fazer nessa rodada.`
-              : '';
+          if (betProgress === 100) {
+            return null;
+          }
+          text = (
+            <>
+              Atenção! Ainda restam ${matchesCurrentStatus.length - numOfBets}{' '}
+              apostas a fazer nessa rodada.
+            </>
+          );
         } else {
-          text =
-            'Apostas extras ficam abertas somente até o kickoff da temporada!';
+          text = (
+            <>
+              <Link to={ROUTES.EXTRAS.url}>Apostas extras</Link> ficam abertas
+              somente até o kickoff da temporada!
+            </>
+          );
         }
       }
     }
 
-    if (text === '') {
+    if (!text) {
       return;
     }
 
