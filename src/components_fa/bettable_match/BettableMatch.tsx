@@ -192,6 +192,7 @@ const BettableMatch = ({
                     />
                     <Team
                         {...home}
+                        isHome
                         hasMatchEnded={hasMatchEnded}
                         hasMatchStarted={hasMatchStarted}
                         isExpanded={false}
