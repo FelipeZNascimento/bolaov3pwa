@@ -77,7 +77,7 @@ const Home = () => {
             {!isMobile && (
               <img className={styles.image} alt="logo" src={logo} />
             )}
-            Bolão NFL 2022/23
+            Bolão NFL 2023/24
           </h1>
           <h2> Temporada 11</h2>
         </div>
