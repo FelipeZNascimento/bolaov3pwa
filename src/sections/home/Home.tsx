@@ -79,7 +79,7 @@ const Home = () => {
             )}
             Bolão NFL 2022/23
           </h1>
-          <h2> Temporada 10</h2>
+          <h2> Temporada 11</h2>
         </div>
 
         <div className={styles.buttonsContainer}>
