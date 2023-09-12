@@ -11,7 +11,14 @@
 
     display: flex;
     transition: 0.6s;
-    width: 100%;
+
+    &Mobile {
+        width: 100vw;
+    }
+
+    &Mobile {
+        width: 100vw;
+    }
 
     .column:not(:last-child) {
         -webkit-box-shadow: 1px 0 0 0px $color-grey5;
@@ -74,7 +81,11 @@
             }
             .userName {
                 @include flex-aligned(flex-start, center);
+                display: block;
                 flex: 3;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
             }
         }
 
