@@ -162,7 +162,7 @@ const Bets = () => {
           }
           text = (
             <>
-              Atenção! Ainda restam ${matchesCurrentStatus.length - numOfBets}{' '}
+              Atenção! Ainda restam {matchesCurrentStatus.length - numOfBets}{' '}
               apostas a fazer nessa rodada.
             </>
           );
