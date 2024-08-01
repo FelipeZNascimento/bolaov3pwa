@@ -5,7 +5,7 @@ const Subscription = () => {
     <div className={styles.internalRules}>
       <h3 className={styles.highlight}>Inscrição</h3>
       <div className={styles.text}>
-        Estão abertas as inscrições para a temporada 2023/2024 do Bolão NFL!
+        Estão abertas as inscrições para a temporada 2024/2025 do Bolão NFL!
         <br />
         Após fazer o cadastro, sua participação estará condicionada ao pagamento
         da inscrição.
