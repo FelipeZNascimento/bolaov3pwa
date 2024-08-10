@@ -8,7 +8,7 @@
 body {
 	@include bg-colored($color-navy);
 
-	background-image: url("img/bg3.jpg");
+	background-image: url("img/bg4.jpg");
 	background-position: top;
 	background-repeat: repeat;
 	margin: 0;
@@ -30,7 +30,7 @@ body {
 	flex: 1;
 	flex-direction: column;
 	text-align: center;
-	padding: 0 8px;
+	padding: 0;
 }
 
 .fas,

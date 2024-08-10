@@ -39,12 +39,12 @@ const Home = () => {
       route: ROUTES.EXTRAS.url,
       disabled: loggedUser ? false : true
     },
-    {
-      id: 3,
-      description: 'Nunca na história desse bolão...',
-      display: ROUTES.RECORDS.display,
-      route: ROUTES.RECORDS.url
-    },
+    // {
+    //   id: 3,
+    //   description: 'Nunca na história desse bolão...',
+    //   display: ROUTES.RECORDS.display,
+    //   route: ROUTES.RECORDS.url
+    // },
     {
       id: 4,
       description: 'Geral e rodada a rodada',
