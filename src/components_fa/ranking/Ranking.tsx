@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { WeekSelector } from 'components_fa/index';
 import { Loading } from '@omegafox/components';
 
-import { Button, Icon, Tooltip } from '@material-ui/core';
+import { Button, Icon, Tooltip } from '@mui/material';
 
 // Selectors
 import {

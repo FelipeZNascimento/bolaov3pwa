@@ -13,7 +13,7 @@ import { selectUser } from 'store/user/selector';
 
 // Components
 import { Loading } from '@omegafox/components';
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 import styles from './ExtraBets.module.scss';
 import AfterSeasonStart from './AfterSeasonStart';
 import BeforeSeasonStart from './BeforeSeasonStart';

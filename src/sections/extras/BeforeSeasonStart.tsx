@@ -6,7 +6,7 @@ import classNames from 'classnames';
 // Components
 import { StatusComponent, TextBox } from 'components/index';
 import BettableTeam from './components/BettableTeam';
-import { Icon } from '@material-ui/core';
+import { Icon } from '@mui/material';
 
 // Actions
 import { updateExtraBets } from 'store/bets/actions';

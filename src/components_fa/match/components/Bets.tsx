@@ -2,7 +2,7 @@ import React from 'react';
 import { isMobile } from 'react-device-detect';
 import classNames from 'classnames';
 
-import { Icon } from '@material-ui/core';
+import { Icon } from '@mui/material';
 
 import { TMatchBet } from 'store/matches/types';
 import { BETS_VALUES } from 'constants/bets';

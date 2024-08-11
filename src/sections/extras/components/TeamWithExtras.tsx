@@ -3,7 +3,7 @@ import { isMobile } from 'react-device-detect';
 import classNames from 'classnames';
 
 import { TeamMini } from 'components_fa/index';
-import { Icon, Tooltip } from '@material-ui/core';
+import { Icon, Tooltip } from '@mui/material';
 
 import { TExtraBets, TUserExtraBets } from 'store/bets/types';
 import { TMatchTeam } from 'store/matches/types';

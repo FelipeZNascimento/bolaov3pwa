@@ -10,7 +10,7 @@ import { selectIsLoading } from 'store/records/selector';
 // Components
 import { WeekSelector } from 'components_fa/index';
 import { Loading } from '@omegafox/components';
-import { Icon, Tooltip } from '@material-ui/core';
+import { Icon, Tooltip } from '@mui/material';
 
 // Types
 import { TRecord } from 'store/records/types';

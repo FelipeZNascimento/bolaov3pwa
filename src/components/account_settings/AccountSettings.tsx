@@ -10,8 +10,8 @@ import { selectUser } from 'store/user/selector';
 import {
   ExitToApp as ExitToAppIcon,
   Settings as SettingsIcon
-} from '@material-ui/icons';
-import { Icon, Tooltip } from '@material-ui/core';
+} from '@mui/icons-material';
+import { Icon, Tooltip } from '@mui/material';
 import { CustomButton } from 'components/index';
 import PersonalInfo from './components/PersonalInfo';
 import Preferences from './components/Preferences';

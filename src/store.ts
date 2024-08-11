@@ -1,6 +1,5 @@
-import { createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { configureStore } from '@reduxjs/toolkit';
+
 import { combineReducers } from 'redux';
 
 // Reducers
@@ -11,14 +10,15 @@ import userReducer from './store/user/reducer';
 import recordsReducer from './store/records/reducer';
 
 const rootReducer = combineReducers({
-    app: appReducer,
-    bets: betsReducer,
-    matches: matchesReducer,
-    user: userReducer,
-    records: recordsReducer,
+  app: appReducer,
+  bets: betsReducer,
+  matches: matchesReducer,
+  user: userReducer,
+  records: recordsReducer
 });
 
-const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware))
-const store = createStore(rootReducer, composedEnhancer)
+const store = configureStore({
+  reducer: rootReducer
+});
 
 export default store;
