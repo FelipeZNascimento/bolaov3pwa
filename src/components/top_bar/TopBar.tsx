@@ -153,16 +153,12 @@ const TopBar = () => {
         {isLoading && <Loading size="small" image={logo} style="headbutt" />}
         {!isLoading && renderLoginButton()}
       </div>
-      {isMobile && (
-        <LeftDrawer
-          isOpen={mobileMenuOpen}
-          options={menuOptions}
-          toggle={setMobileMenuOpen}
-        />
-      )}
-      {isMobile && (
-        <RightDrawer isOpen={loginMenuOpen} toggle={setLoginMenuOpen} />
-      )}
+      <LeftDrawer
+        isOpen={mobileMenuOpen}
+        options={menuOptions}
+        toggle={setMobileMenuOpen}
+      />
+      <RightDrawer isOpen={loginMenuOpen} toggle={setLoginMenuOpen} />
     </div>
   );
 };
