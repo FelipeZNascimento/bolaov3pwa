@@ -10,7 +10,7 @@
     "@mui/lab": "^5.0.0-alpha.173",
     "@mui/material": "^5.16.7",
     "@mui/styles": "^5.16.7",
-    "@omegafox/components": "^2.5.2",
+    "@omegafox/components": "^3.2.4",
     "@reduxjs/toolkit": "^1.5.1",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",

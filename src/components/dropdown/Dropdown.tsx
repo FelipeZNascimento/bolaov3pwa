@@ -7,7 +7,6 @@ import {
   Select as MUISelect
 } from '@mui/material';
 
-import { withStyles } from '@mui/styles';
 import styles from './Dropdown.module.scss';
 
 type TProps = {
