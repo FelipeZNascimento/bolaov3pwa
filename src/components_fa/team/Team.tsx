@@ -4,7 +4,7 @@ import { isMobile } from "react-device-detect";
 import classNames from 'classnames';
 
 // Components
-import { Icon, Tooltip } from '@material-ui/core';
+import { Icon, Tooltip } from '@mui/material';
 
 import { TMatchTeam } from 'store/matches/types';
 import styles from './Team.module.scss';

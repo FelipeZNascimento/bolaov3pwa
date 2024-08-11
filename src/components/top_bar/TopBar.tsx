@@ -12,8 +12,8 @@ import { selectCurrentWeek } from 'store/app/selector';
 // Components
 import { CustomButton, LeftDrawer, RightDrawer } from 'components/index';
 import { Loading } from '@omegafox/components';
-import { Icon } from '@material-ui/core';
-import { Person as PersonIcon, Menu as MenuIcon } from '@material-ui/icons';
+import { Icon } from '@mui/material';
+import { Person as PersonIcon, Menu as MenuIcon } from '@mui/icons-material';
 
 import ROUTES from 'constants/routes';
 import styles from './TopBar.module.scss';

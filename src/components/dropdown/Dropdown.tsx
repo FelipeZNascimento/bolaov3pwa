@@ -2,64 +2,51 @@ import { TWeek } from 'components_fa/commonTypes';
 
 // Components
 import {
-    MenuItem,
-    FormControl,
-    Select
-} from '@material-ui/core';
+  MenuItem,
+  FormControl as MUIFormControl,
+  Select as MUISelect
+} from '@mui/material';
 
-import { withStyles } from '@material-ui/core/styles';
-import styles from './styles.module.scss';
+import { withStyles } from '@mui/styles';
+import styles from './Dropdown.module.scss';
 
 type TProps = {
-    currentValue: number;
-    label: string,
-    options: TWeek[];
-    onChange: (value: number) => void;
-}
+  currentValue: number;
+  label: string;
+  options: TWeek[];
+  onChange: (value: number) => void;
+};
 
-const CustomFormControl = withStyles({
-    root: {
-        width: '100%',
-        "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#545859"
-        }
-    }
-})(FormControl);
+const Dropdown = ({ currentValue, label, options, onChange }: TProps) => {
+  const onDropdownClick = (eventValue: number) => {
+    onChange(eventValue);
+  };
 
-const CustomSelect = withStyles({
-    root: {
-        color: '#f4b303',
-    }
-})(Select);
-
-
-const Dropdown = ({
-    currentValue,
-    label,
-    options,
-    onChange
-}: TProps) => {
-    const onDropdownClick = (event: React.ChangeEvent<{ value: unknown }>) => {
-        onChange(event.target.value as number);
-    }
-
-    return (
-        <CustomFormControl variant="outlined" size="small">
-            <CustomSelect
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                value={currentValue}
-                onChange={onDropdownClick}
-                MenuProps={{
-                    classes: { paper: styles.dropdownStyle },
-                    variant: 'menu'
-                }}
-
-            >
-                {options.map((option) => <MenuItem key={option.num} value={option.num}>{option.display}</MenuItem>)}
-            </CustomSelect>
-        </CustomFormControl>
-    )
+  return (
+    <MUIFormControl
+      classes={{ root: styles.formControlRoot }}
+      variant="outlined"
+      size="small"
+    >
+      <MUISelect
+        classes={{ root: styles.selectRoot }}
+        labelId="demo-simple-select-outlined-label"
+        id="demo-simple-select-outlined"
+        value={currentValue}
+        onChange={(event) => onDropdownClick(event.target.value as number)}
+        MenuProps={{
+          classes: { paper: styles.dropdownStyle },
+          variant: 'menu'
+        }}
+      >
+        {options.map((option) => (
+          <MenuItem key={option.num} value={option.num}>
+            {option.display}
+          </MenuItem>
+        ))}
+      </MUISelect>
+    </MUIFormControl>
+  );
 };
 
 export default Dropdown;

@@ -6,7 +6,7 @@ import { isMobile } from 'react-device-detect';
 // Components
 import { Match, Ranking, WeekSelector } from 'components_fa/index';
 import { Loading } from '@omegafox/components';
-import { Fab, Icon } from '@material-ui/core';
+import { Fab, Icon } from '@mui/material';
 
 // Actions
 import { setCurrentWeek } from 'store/app/actions';

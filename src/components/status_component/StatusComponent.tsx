@@ -1,9 +1,9 @@
 import { isMobile } from "react-device-detect";
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@mui/styles';
 
 // Components
-import { LinearProgress as MUILinearProgress } from '@material-ui/core';
+import { LinearProgress as MUILinearProgress } from '@mui/material';
 
 import styles from './styles.module.scss'
 

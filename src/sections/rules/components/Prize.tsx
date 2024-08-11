@@ -9,7 +9,9 @@ const Prize = () => {
         <span className={styles.highlight}>10%</span> será revertido ao
         pagamento de custos de manutenção do portal de apostas (servidor,
         domínio, etc..).
-        <br />O restante (<span className={styles.highlight}>90%</span>) será divido entre os melhores colocados no ranking geral após o Super Bowl, segundo as seguintes porcentagens:
+        <br />O restante (<span className={styles.highlight}>90%</span>) será
+        divido entre os melhores colocados no ranking geral após o Super Bowl,
+        segundo as seguintes porcentagens:
       </div>
       <div className={styles.internalRulesTable}>
         <div className={styles.internalRulesTableLine}>
@@ -82,7 +84,9 @@ const Prize = () => {
       <br />
       <h2 className={styles.highlight}>Cashback Semanal</h2>
       <div className={styles.text}>
-        O vencedor de cada semana da temporada regular ganha um crédito de <span className={styles.highlight}>R$5</span> para a inscrição na próxima temporada do bolão NFL.
+        O vencedor de cada semana da temporada regular ganha um crédito de{' '}
+        <span className={styles.highlight}>R$5</span> para a inscrição na
+        próxima temporada do bolão NFL.
       </div>
     </div>
   );

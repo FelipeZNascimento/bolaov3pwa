@@ -12,13 +12,13 @@ import { selectUser } from 'store/user/selector';
 import { selectCurrentWeek } from 'store/app/selector';
 
 // Components
-import { Icon } from '@material-ui/core';
+import { Icon } from '@mui/material';
 import Time from 'components_fa/match/components/Time';
 import { Team } from 'components_fa/index'
 import {
     RadioButtonUnchecked as RadioButtonUncheckedIcon,
     Block as BlockIcon
-} from '@material-ui/icons';
+} from '@mui/icons-material';
 
 import { TMatch } from 'store/matches/types';
 import { calculateCorrectBets } from 'constants/bets';

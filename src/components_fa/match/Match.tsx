@@ -4,7 +4,7 @@ import { isMobile } from "react-device-detect";
 import classNames from 'classnames';
 
 // Components
-import { Icon } from '@material-ui/core';
+import { Icon } from '@mui/material';
 import { Team } from 'components_fa/index';
 import Bets from './components/Bets';
 import Time from './components/Time';

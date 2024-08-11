@@ -1,0 +1,18 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.formControlRoot {
+    width: 100%;
+}
+
+.selectRoot {
+    color: $color-gold;
+}
+
+.dropdownStyle {
+    max-height: calc(80% - 96px) !important;
+}

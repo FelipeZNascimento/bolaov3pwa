@@ -1,0 +1,40 @@
+@import "styles/alignments.scss";
+@import "styles/colors.scss";
+@import "styles/font-sizes.scss";
+@import "styles/margins.scss";
+@import "styles/paddings.scss";
+@import "styles/variables.scss";
+
+.textField {
+    margin: 16px 0 !important;
+}
+
+.inputRoot {
+    border: 1px solid grey;
+    &:hover {
+        border: 1px solid lightgray;
+    }
+
+    input {
+        color: white;
+    }
+
+    &Focused {
+        border-color: $color-navy;
+        fieldset {
+            border: 2px solid $color-gold !important;
+        }
+
+        &:hover {
+            border-color: $color-navy;
+        }
+    }
+}
+
+.labelRoot {
+    color: lightgrey !important;
+
+    &Filled {
+        top: 8px !important;
+    }
+}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import classNames from 'classnames';
 
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 import Extras from './components/Extras';
 import Betting from './components/Betting';
 import Prize from './components/Prize';

@@ -13,7 +13,7 @@ import { selectUser } from 'store/user/selector';
 import { selectSeasonStart } from 'store/app/selector';
 
 // Components
-import { Icon, Tooltip } from '@material-ui/core';
+import { Icon, Tooltip } from '@mui/material';
 import { StatusComponent, TextBox } from 'components/index';
 import { BettableMatch, Ranking, WeekSelector } from 'components_fa/index';
 import { Loading } from '@omegafox/components';
