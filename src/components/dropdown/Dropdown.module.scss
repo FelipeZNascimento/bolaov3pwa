@@ -10,7 +10,8 @@
 }
 
 .selectRoot {
-    color: $color-gold;
+    color: $color-gold !important;
+    border: 1px solid $color-grey4;
 }
 
 .dropdownStyle {
