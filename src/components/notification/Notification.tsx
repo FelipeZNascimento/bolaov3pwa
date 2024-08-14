@@ -10,11 +10,11 @@ import { selectNotifications } from 'store/app/selector';
 import { TNotification } from 'store/app/types';
 
 import Snackbar, { SnackbarCloseReason } from '@mui/material/Snackbar';
-import MuiAlert from '@mui/lab/Alert';
+import { Alert as MUIAlert } from '@mui/material/';
 import { SEVERITY, STATUS } from './status';
 
 function Alert(props: any) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
+  return <MUIAlert elevation={6} variant="filled" {...props} />;
 }
 
 type SnackbarMessage = {
