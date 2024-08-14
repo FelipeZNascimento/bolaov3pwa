@@ -23,3 +23,6 @@ export function selectUserExtraBets(state: { bets: TState }) {
 export function selectExtraBetsResults(state: { bets: TState }) {
   return state.bets.extraBetsResults;
 }
+export function selectLastUpdatedMatch(state: { bets: TState }) {
+  return state.bets.lastUpdatedMatch;
+}

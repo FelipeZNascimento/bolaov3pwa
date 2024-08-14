@@ -20,6 +20,7 @@ import { Loading } from '@omegafox/components';
 
 // Constants & Types
 import ROUTES from 'constants/routes';
+import MATCH_STATUS from 'constants/matches';
 import { TMatch } from 'store/matches/types';
 
 import styles from './Bets.module.scss';
@@ -29,6 +30,9 @@ const Bets = () => {
   const [betProgress, setBetProgress] = useState<number>(0);
   const [blockLoading, setBlockLoading] = useState<boolean>(false);
   const [matchesCurrentStatus, setMatchesCurrentStatus] = useState<TMatch[]>(
+    []
+  );
+  const [matchesWithBetsState, setMatchesWithBetsState] = useState<TMatch[]>(
     []
   );
   const [numOfBets, setNumOfBets] = useState<number>(0);
@@ -61,6 +65,26 @@ const Bets = () => {
   useEffect(() => {
     if (matchesWithBets.length > 0) {
       setMatchesCurrentStatus(matchesWithBets);
+
+      if (matchesWithBetsState.length === 0) {
+        setMatchesWithBetsState(matchesWithBets);
+      } else {
+        // All non-started matches from current state
+        const nonStartedMatches = matchesWithBetsState.filter(
+          (item) => item.status === MATCH_STATUS.NOT_STARTED
+        );
+
+        // All started matches from API call
+        const startedMatches = matchesWithBets.filter(
+          (item) => item.status !== MATCH_STATUS.NOT_STARTED
+        );
+
+        // All matches sorted by timestamp (ascending)
+        const allMatches = [...nonStartedMatches, ...startedMatches].sort(
+          (a, b) => a.timestamp - b.timestamp
+        );
+        setMatchesWithBetsState(allMatches);
+      }
     }
   }, [matchesWithBets]);
 
@@ -82,9 +106,11 @@ const Bets = () => {
   };
 
   const onBetChange = (id: number, betValue: number) => {
-    const newMatchStatuses = matchesCurrentStatus.map((value) => ({...value}));
+    const newMatchStatuses = matchesCurrentStatus.map((value) => ({
+      ...value
+    }));
 
-    let foundIndex = newMatchStatuses.findIndex((x) => x.id === id);
+    let foundIndex = newMatchStatuses.findIndex((item) => item.id === id);
     if (foundIndex !== -1 && loggedUser) {
       newMatchStatuses[foundIndex].loggedUserBets = {
         id: 0,
@@ -126,7 +152,7 @@ const Bets = () => {
   };
 
   const renderMatches = () => {
-    return matchesWithBets.map((match) => (
+    return matchesWithBetsState.map((match) => (
       <BettableMatch
         {...match}
         isLoading={blockLoading}

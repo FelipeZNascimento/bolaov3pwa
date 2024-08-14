@@ -39,7 +39,7 @@ export const fetchUserBets =
   };
 
 export const updateRegularBet =
-  (matchId: number, betValue: number) =>
+  (matchId: number, betValue: number, description: string) =>
   async (dispatch: Dispatch<TUpdateUserBets>) => {
     dispatch({ type: ACTIONTYPES.UPDATING_REGULAR_BET } as const);
     const betInfo = {
@@ -55,12 +55,13 @@ export const updateRegularBet =
         dispatch({
           type: ACTIONTYPES.TOGGLE_NOTIFICATION,
           status: NOTIFICATION_STATUS.SUCCESS,
-          notificationMessage: 'Aposta salva com sucesso'
+          notificationMessage: `Aposta salva com sucesso (${description})`
         });
 
         return dispatch({
           type: ACTIONTYPES.UPDATING_REGULAR_BET_SUCCESS,
-          response
+          response,
+          matchId
         });
       })
       .catch((error) => {
@@ -138,4 +139,13 @@ export const updateExtraBets =
           errorMessage: error.message
         });
       });
+  };
+
+export const updateIsUpdatingBet =
+  (newValue: number | null) => async (dispatch: Dispatch<TUpdateUserBets>) => {
+    dispatch({ type: ACTIONTYPES.UPDATING_REGULAR_BET } as const);
+    return dispatch({
+      type: ACTIONTYPES.UPDATING_REGULAR_BET_SUCCESS,
+      matchId: newValue
+    });
   };

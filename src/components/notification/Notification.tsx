@@ -26,27 +26,19 @@ type SnackbarMessage = {
 const Notification = () => {
   const [snackPack, setSnackPack] = useState<SnackbarMessage[]>([]);
   const [open, setOpen] = useState(false);
-  const [messageInfo, setMessageInfo] = useState<SnackbarMessage | undefined>(
-    undefined
-  );
+  const [messageInfo, setMessageInfo] = useState<SnackbarMessage | null>(null);
 
-  const notificationTimeout = 3000;
+  const notificationTimeout = 2000;
   const dispatch = useDispatch();
   const notifications: TNotification[] = useSelector(selectNotifications);
 
   React.useEffect(() => {
-    if (snackPack.length && !messageInfo) {
-      // Set a new snack when we don't have an active one
+    if (snackPack.length > 0 && !messageInfo) {
       setMessageInfo({ ...snackPack[0] });
-      setSnackPack((prev) => prev.slice(1));
+      setSnackPack(snackPack.slice(1));
       setOpen(true);
-    } else if (snackPack.length && messageInfo && open) {
-      // Close an active snack when a new one is added
-      setOpen(false);
-      dispatch(onClearNotification(messageInfo.key) as any);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [snackPack, messageInfo, open]);
+  }, [snackPack, messageInfo]);
 
   React.useEffect(() => {
     if (notifications.length > 0) {
@@ -56,16 +48,22 @@ const Notification = () => {
           ? SEVERITY[notification.status]
           : SEVERITY[STATUS.SUCCESS];
 
-      setSnackPack((prev) => [
-        ...prev,
-        {
-          key: notification.id || new Date().toString(),
-          message: notification.message || '',
-          severity
-        }
-      ]);
+      const newSnackbar = {
+        key: notification.id || new Date().toString(),
+        message: notification.message || '',
+        severity
+      };
+
+      if (!snackPack.some((item) => item.key === newSnackbar.key)) {
+        setSnackPack((prev) => [...prev, newSnackbar]);
+      }
     }
   }, [notifications]);
+
+  const clearNotification = () => {
+    setMessageInfo(null);
+    setOpen(false);
+  };
 
   const renderNotification = () => {
     const handleClose = (
@@ -75,8 +73,7 @@ const Notification = () => {
       if (!messageInfo || reason === 'clickaway') {
         return;
       }
-
-      setOpen(false);
+      clearNotification();
       dispatch(onClearNotification(messageInfo.key) as any);
     };
 

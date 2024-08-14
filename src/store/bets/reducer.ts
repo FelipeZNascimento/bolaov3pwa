@@ -3,6 +3,7 @@ import {
   TFetchUserBets,
   TFetchExtraBets,
   TUpdateExtraBets,
+  TUpdateUserBets,
   TState
 } from './types';
 
@@ -17,12 +18,18 @@ const initialState: TState = {
   userBets: [],
   extraBetsResults: null,
   extraBets: [],
-  userExtraBets: null
+  userExtraBets: null,
+  lastUpdatedMatch: null
 };
 
 export default function betsReducer(
   state: TState = initialState,
-  action: TFetchUserBets | TFetchExtraBets | TUpdateExtraBets | TFetchLogout
+  action:
+    | TFetchUserBets
+    | TFetchExtraBets
+    | TUpdateExtraBets
+    | TFetchLogout
+    | TUpdateUserBets
 ) {
   switch (action.type) {
     case ACTIONTYPES.FETCHING_EXTRA_BETS:
@@ -72,6 +79,11 @@ export default function betsReducer(
         userBets: [],
         extraBets: [],
         userExtraBets: []
+      };
+    case ACTIONTYPES.UPDATING_REGULAR_BET_SUCCESS:
+      return {
+        ...state,
+        lastUpdatedMatch: action.matchId
       };
 
     default:
