@@ -82,7 +82,7 @@ const Bets = () => {
   };
 
   const onBetChange = (id: number, betValue: number) => {
-    const newMatchStatuses = [...matchesCurrentStatus];
+    const newMatchStatuses = matchesCurrentStatus.map((value) => ({...value}));
 
     let foundIndex = newMatchStatuses.findIndex((x) => x.id === id);
     if (foundIndex !== -1 && loggedUser) {

@@ -63,7 +63,7 @@ const Preferences = ({ loggedUser }: TProps) => {
           });
 
           return (
-            <Tooltip title={iconName} arrow>
+            <Tooltip key={index} title={iconName} arrow>
               <div className={iconClass} onClick={() => onSetIcon(iconName)}>
                 <Icon className={`${iconName}`} style={{ color: color }} />
               </div>
