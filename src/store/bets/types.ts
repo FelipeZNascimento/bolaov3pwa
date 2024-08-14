@@ -11,6 +11,7 @@ export type TState = {
   updating: boolean;
   userBets: TMatch[];
   userExtraBets: TExtraBets | null;
+  lastUpdatedMatch: null | number;
 };
 
 export type TAction = {
@@ -44,6 +45,7 @@ export type TUpdateUserBets = TAction & {
     week: string;
     matches: TMatch[];
   };
+  readonly matchId?: number | null;
   readonly errorMessage?: string;
 };
 
