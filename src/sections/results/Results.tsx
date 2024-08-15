@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
+import { useSelector } from 'react-redux';
 import { isMobile } from 'react-device-detect';
 
 // Components
 import { Match, Ranking, WeekSelector } from 'components_fa/index';
 import { Loading } from '@omegafox/components';
 import { Fab, Icon } from '@mui/material';
-
-// Actions
-import { setCurrentWeek } from 'store/app/actions';
 
 // Selectors
 import { selectIsLoading, selectMatches } from 'store/matches/selector';
@@ -23,17 +19,9 @@ const Results = () => {
   const [blockLoading, setBlockLoading] = useState<boolean>(false);
   const [expandedMatches, setExpandedMatches] = useState<number[]>([]);
 
-  const dispatch = useDispatch();
   const currentWeek = useSelector(selectCurrentWeek);
   const isLoading = useSelector(selectIsLoading);
   const matches = useSelector(selectMatches);
-  const { week } = useParams<{ week: string }>();
-
-  useEffect(() => {
-    if (week) {
-      dispatch(setCurrentWeek(parseInt(week)) as any);
-    }
-  }, [dispatch, week]);
 
   useEffect(() => {
     setExpandedMatches([]);
@@ -45,8 +33,7 @@ const Results = () => {
     }
   }, [isLoading]);
 
-  const onWeekClick = (newWeek: number) => {
-    dispatch(setCurrentWeek(newWeek) as any);
+  const onWeekClick = () => {
     setBlockLoading(true);
   };
 
