@@ -39,7 +39,7 @@
     "sha1": "^1.1.1",
     "stream": "^0.0.3",
     "stream-browserify": "^3.0.0",
-    "typescript": "^4.2.4",
+    "typescript": "^5.5.4",
     "web-vitals": "^0.2.4",
     "workbox-background-sync": "^7.1.0",
     "workbox-broadcast-update": "^5.1.4",
