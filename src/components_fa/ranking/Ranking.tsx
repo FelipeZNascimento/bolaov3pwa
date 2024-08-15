@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { isMobile } from 'react-device-detect';
 
 import classNames from 'classnames';
@@ -16,9 +16,6 @@ import {
   selectRanking,
   selectSeasonRanking
 } from 'store/app/selector';
-
-// Actions
-import { setCurrentWeek } from 'store/app/actions';
 
 import { TRankingLine } from 'store/app/types';
 import ROUTES from 'constants/routes';
@@ -37,17 +34,12 @@ const Ranking = ({ full = false }: TProps) => {
   const ranking = useSelector(selectRanking);
   const seasonRanking = useSelector(selectSeasonRanking);
   const isLoading = useSelector(selectIsLoading);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (full) {
       setShowSeasonRanking(true);
     }
   }, [full]);
-
-  const onWeekClick = (newWeek: number) => {
-    dispatch(setCurrentWeek(newWeek) as any);
-  };
 
   const renderPositionChange = (
     previousPosition: number,
@@ -138,10 +130,10 @@ const Ranking = ({ full = false }: TProps) => {
 
   const renderLoading = () => {
     if (activeRanking.length === 0) {
-      return <Loading image={logo} style='headbutt' />;
+      return <Loading image={logo} style="headbutt" />;
     }
 
-    return <Loading isOverlay image={logo} style='headbutt' />;
+    return <Loading isOverlay image={logo} style="headbutt" />;
   };
 
   const renderRanking = () => {
@@ -224,10 +216,7 @@ const Ranking = ({ full = false }: TProps) => {
 
     return (
       <>
-        <WeekSelector
-          routeTo={ROUTES.RANKING.urlWithParams}
-          onClick={onWeekClick}
-        />
+        <WeekSelector routeTo={ROUTES.RANKING.urlWithParams} />
         <div className={containerClass}>{renderRanking()}</div>
       </>
     );

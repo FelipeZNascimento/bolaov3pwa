@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
+import { useSelector } from 'react-redux';
 import { isMobile } from 'react-device-detect';
 import { Link } from 'react-router-dom';
-
-// Actions
-import { setCurrentWeek } from 'store/app/actions';
 
 // Selectors
 import { selectIsLoading, selectUserBets } from 'store/bets/selector';
@@ -37,24 +33,16 @@ const Bets = () => {
   );
   const [numOfBets, setNumOfBets] = useState<number>(0);
 
-  const dispatch = useDispatch();
   const matchesWithBets = useSelector(selectUserBets);
   const isLoading = useSelector(selectIsLoading);
   const loggedUser = useSelector(selectUser);
   const seasonStart = useSelector(selectSeasonStart);
 
   let currentTimestamp = Math.floor(Date.now() / 1000);
-  const { week } = useParams<{ week: string }>();
 
   setTimeout(function () {
     currentTimestamp = Math.floor(Date.now() / 1000);
   }, 60000);
-
-  useEffect(() => {
-    if (week) {
-      dispatch(setCurrentWeek(parseInt(week)) as any);
-    }
-  }, [week]);
 
   useEffect(() => {
     if (blockLoading && !isLoading) {
@@ -66,7 +54,10 @@ const Bets = () => {
     if (matchesWithBets.length > 0) {
       setMatchesCurrentStatus(matchesWithBets);
 
-      if (matchesWithBetsState.length === 0) {
+      if (
+        matchesWithBetsState.length === 0 ||
+        matchesWithBets[0].id !== matchesWithBetsState[0].id
+      ) {
         setMatchesWithBetsState(matchesWithBets);
       } else {
         // All non-started matches from current state
@@ -100,8 +91,7 @@ const Bets = () => {
     setBetProgress(100 * (numOfBets / totalBets));
   }, [matchesCurrentStatus]);
 
-  const onWeekClick = (newWeek: number) => {
-    dispatch(setCurrentWeek(newWeek) as any);
+  const onWeekClick = () => {
     setBlockLoading(true);
   };
 
