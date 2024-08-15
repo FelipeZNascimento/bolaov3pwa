@@ -1,13 +1,9 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { isMobile } from 'react-device-detect';
 
-// Actions
-import { setCurrentWeek } from 'store/app/actions';
-
 // Selectors
-// import { selectIsLoading, selectMatches } from 'store/matches/selector';
 import { selectCurrentWeek } from 'store/app/selector';
 
 // Components
@@ -22,10 +18,8 @@ const Users = () => {
   const [blockLoading, setBlockLoading] = useState<boolean>(false);
   const { userId } = useParams<{ userId: string }>();
   const currentWeek = useSelector(selectCurrentWeek);
-  const dispatch = useDispatch();
 
-  const onWeekClick = (newWeek: number) => {
-    dispatch(setCurrentWeek(newWeek) as any);
+  const onWeekClick = () => {
     setBlockLoading(true);
   };
 
@@ -48,7 +42,6 @@ const Users = () => {
         <p>{currentWeek}</p>
         <div className={styles.matchesContainer}>
           {blockLoading && <Loading isOverlay image={logo} style="headbutt" />}
-          {/* {renderMatches()} */}
         </div>
       </div>
       {renderRanking()}
