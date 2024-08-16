@@ -3,6 +3,14 @@
   "homepage": ".",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "serve": "serve -s build -l 3000",
+    "link": "npm link ../omegafox-components/"
+  },
   "dependencies": {
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
@@ -12,7 +20,7 @@
     "@mui/styles": "^5.16.7",
     "@omegafox/components": "^3.2.4",
     "@reduxjs/toolkit": "^2.2.7",
-    "@testing-library/jest-dom": "^5.11.10",
+    "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.12",
@@ -53,14 +61,6 @@
     "workbox-routing": "^7.1.0",
     "workbox-strategies": "^7.1.0",
     "workbox-streams": "^7.1.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "serve": "serve -s build -l 3000",
-    "link": "npm link ../omegafox-components/"
   },
   "eslintConfig": {
     "extends": [
