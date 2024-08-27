@@ -45,6 +45,7 @@ const fetchItems = ({ endpoint }: TProps) => {
   return Axios.get(endpoint, {
     cancelToken: new CancelToken(function executor(c) {
       currentRequest.cancel = c;
+      currentRequest.endpoint = endpoint;
       requests.push(currentRequest);
     }),
     withCredentials: true
