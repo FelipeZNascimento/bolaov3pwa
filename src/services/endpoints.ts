@@ -1,32 +1,35 @@
-// export const apiBaseUrl = 'https://localhost:63768/bolaonfl/';
-export const apiBaseUrl = 'https://api.omegafox.me/bolaonfl/';
+// export const apiBaseUrl = 'http://localhost:63768/bolaonfl';
+export const apiBaseUrl = 'https://api.omegafox.me/bolaonfl';
 
-export const config = () => `${apiBaseUrl}defaultConfig/`;
+export const config = () => `${apiBaseUrl}/initialize/`;
 
 // User
-export const register = () => `${apiBaseUrl}user/register/`;
-export const login = () => `${apiBaseUrl}user/login/`;
-export const logout = () => `${apiBaseUrl}user/logout/`;
-export const userUpdate = () => `${apiBaseUrl}user/update/`;
+export const register = () => `${apiBaseUrl}/user/register/`;
+export const login = () => `${apiBaseUrl}/user/login/`;
+export const logout = () => `${apiBaseUrl}/user/logout/`;
+export const userUpdate = () => `${apiBaseUrl}/user/update/`;
 export const userUpdatePreferences = () =>
-  `${apiBaseUrl}user/updatePreferences/`;
+  `${apiBaseUrl}/user/updatePreferences/`;
 
-// Bets
+// Bet
 export const userBets = (season: number, week: number) =>
-  `${apiBaseUrl}bets/${season}/${week}`;
-export const extraBets = (season: number) =>
-  `${apiBaseUrl}bets/extras/${season}`;
-export const updateRegularBet = () => `${apiBaseUrl}bets/update/regular/`;
-export const updateExtraBets = () => `${apiBaseUrl}bets/update/extras/`;
+  `${apiBaseUrl}/bet/list/${season}/${week}`;
+export const updateRegularBet = () => `${apiBaseUrl}/bet/update/`;
 
+// Extra Bet
+export const extraBets = (season: number) =>
+  `${apiBaseUrl}/extrabet/list/${season}`;
+export const updateExtraBets = () => `${apiBaseUrl}/extrabet/update/`;
+
+// Match
 export const matches = (season: number, week: number) =>
-  `${apiBaseUrl}matches/${season}/${week}`;
+  `${apiBaseUrl}/match/list/${season}/${week}`;
 
 // Ranking
 export const ranking = (season: number, week: number) =>
-  `${apiBaseUrl}ranking/${season}/${week}`;
+  `${apiBaseUrl}/ranking/list/${season}/${week}`;
 export const seasonRanking = (season: number) =>
-  `${apiBaseUrl}ranking/season/${season}`;
+  `${apiBaseUrl}/ranking/season/${season}`;
 
 // Records
-export const records = () => `${apiBaseUrl}records/`;
+export const records = () => `${apiBaseUrl}/record/list/`;
