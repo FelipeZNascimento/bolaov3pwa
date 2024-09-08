@@ -39,6 +39,7 @@ root.render(
           <TopBar />
           <div className="index-container">
             <Routes>
+              <Route path="*" element={<Rules />} />
               <Route path={`${ROUTES.HOME.url}/*`} element={<Home />} />
               <Route path={ROUTES.BETS.url + '/'} element={<Bets />} />
               <Route path={ROUTES.BETS.url + '/:week/'} element={<Bets />} />

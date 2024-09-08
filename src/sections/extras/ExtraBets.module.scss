@@ -50,13 +50,20 @@
 
 .divisionsContainer {
     @include flex-aligned(center, flex-start);
+    @include padded(all, m);
+    @include marged(all, m);
 
     flex-direction: row;
     flex: 1;
     width: 100%;
+    gap: 20px;
+    flex-wrap: wrap;
 
     &Mobile {
         flex-direction: column;
+        @include padded(left, m);
+        @include padded(right, m);
+
     }
 }
 
@@ -70,12 +77,19 @@
     &AndBets {
         @extend .division;
 
+        @include bg-rgba-colored($color-white, 0.1);
+        @include padded(right, m);
+
+        align-self: stretch;
+        border-radius: 4px;
         flex: 1;
+        max-width: 400px;
+        min-width: 300px;
     }
 
     &Title {
         @include font-colored($color-grey3);
-        @include marged(top, xl);
+        // @include marged(top, xl);
     }
 }
 

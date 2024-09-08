@@ -14,7 +14,7 @@ const Extras = () => {
         <br />
         Essas apostas ficarão habilitadas até{' '}
         <b>
-          {DateTime.fromSeconds(1662682800)
+          {DateTime.fromSeconds(1725582000)
             .setLocale('pt-Br')
             .toFormat("EEE dd/LL, HH'h'mm")}
         </b>

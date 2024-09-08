@@ -20,14 +20,10 @@
         width: 100vw;
     }
 
-    .column:not(:last-child) {
-        -webkit-box-shadow: 1px 0 0 0px $color-grey5;
-        box-shadow: 1px 0 0 0px $color-grey5;
-    }
-
     .column {
         @include flex-aligned(flex-start, center);
-
+        @include marged(left, xxs);
+        @include marged(right, xxs);
         flex: 1;
         flex-direction: column;
         overflow: hidden;
@@ -37,7 +33,17 @@
 
         &Bullseye {
             @extend .column;
-            @include bg-rgba-colored($color-grey1, 0.1);
+            @include bg-rgba-colored($color-mint, 0.1);
+        }
+
+        &Half {
+            @extend .column;
+            @include bg-rgba-colored($color-blue, 0.1);
+        }
+
+        &Zero {
+            @extend .column;
+            @include bg-rgba-colored($color-black, 0.3);
         }
 
         div,
@@ -48,8 +54,9 @@
         }
 
         .header {
-            @include bg-rgba-colored($color-white, 0.1);
+            @include bg-rgba-colored($color-black, 0.2);
             @include flex-aligned(center, center);
+            font-weight: bold;
 
             &Bullseye {
                 @extend .header;
@@ -58,12 +65,12 @@
 
             &Half {
                 @extend .header;
-                @include font-colored($color-grey1);
+                @include font-colored($color-blue);
             }
 
             &Zero {
                 @extend .header;
-                @include font-colored($color-grey4);
+                @include font-colored($color-red);
             }
         }
 
@@ -86,6 +93,11 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
+            }
+
+            &Highlight {
+                font-weight: bold;
+                border: 1px solid white;
             }
         }
 

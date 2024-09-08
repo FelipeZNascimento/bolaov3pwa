@@ -7,15 +7,11 @@
 
 .teamContainer {
     @include flex-aligned(flex-start, center);
-    @include padded(left, m);
-    @include padded(right, m);
-    @include marged(top, m);
-    @include marged(bottom, m);
+    @include padded(top, m);
+    @include padded(bottom, m);
 
     border-radius: 4px;
     box-sizing: border-box;
-    min-height: calc(#{$matchContainerHeight} * 2);
-    max-height: calc(#{$matchContainerHeight} * 3);
     max-width: 800px;
 
     &Wildcard {
@@ -51,32 +47,27 @@
 .extraBets {
     @include aligned(left);
 
-    display: -webkit-box;
+    display: flex;
+    flex-direction: column;
     flex: 1;
-    min-height: 60px;
-    max-height: 180px;
+    min-height: 200px;
     transition: 0.6s;
     line-height: 28px;
     max-width: 1000px;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
     transition: 0.4s;
 
-    &None {
-        @extend .extraBets;
-        @include padded(all, none);
+    &Divisions {
+        min-height: 200px;
+    }
 
-        visibility: hidden;
-        max-height: 0;
-        max-width: 0;
-        transition: 0.4s;
+    &Playoffs {
+        min-height: 100px;
     }
 
     .champions {
         @include bg-rgba-colored($color-navy, 0.8);
 
-        min-height: 60px;
+        min-height: 100px;
         position: relative;
 
         &Border {
@@ -90,7 +81,7 @@
         border-right: 1px solid $color-grey1;
 
         position: relative;
-        min-height: 60px;
+        min-height: 100px;
     }
 
     .iconLeft {

@@ -17,23 +17,28 @@ type TProps = {
   loggedUserBets?: null | TMatchBet;
 };
 const Bets = ({ bets, correctBets, loggedUserBets = null }: TProps) => {
-  const renderBetLine = (bet: TMatchBet) => (
-    <div
-      className={styles.betLine}
-      key={`${bet.matchId}${bet.user.id}${bet.id}`}
-    >
-      {!isMobile && (
-        <Icon
-          classes={{ root: styles.iconClass }}
-          fontSize="small"
-          className={bet.user.icon}
-          style={{ color: bet.user.color }}
-        />
-      )}
-      <span className={styles.userName}>{bet.user.name}</span>
-    </div>
-  );
+  const renderBetLine = (bet: TMatchBet, isUserBet = false) => {
+    const betLineClass = classNames(styles.betLine, {
+      [styles.betLineHighlight]: isUserBet
+    });
 
+    return (
+      <div
+        className={betLineClass}
+        key={`${bet.matchId}${bet.user.id}${bet.id}`}
+      >
+        {!isMobile && (
+          <Icon
+            classes={{ root: styles.iconClass }}
+            fontSize="small"
+            className={bet.user.icon}
+            style={{ color: bet.user.color }}
+          />
+        )}
+        <span className={styles.userName}>{bet.user.name}</span>
+      </div>
+    );
+  };
   const renderColumns = (columnBet: number, columnTitle: string) => {
     const isBullseyeColumn =
       correctBets.bullseye.find((correctBet) => correctBet === columnBet) !==
@@ -44,7 +49,8 @@ const Bets = ({ bets, correctBets, loggedUserBets = null }: TProps) => {
 
     const columnClass = classNames({
       [styles.columnBullseye]: isBullseyeColumn,
-      [styles.column]: !isBullseyeColumn
+      [styles.columnHalf]: isHalfColumn,
+      [styles.columnZero]: !isBullseyeColumn && !isHalfColumn,
     });
 
     const columnHeaderClass = classNames({
@@ -58,7 +64,7 @@ const Bets = ({ bets, correctBets, loggedUserBets = null }: TProps) => {
         <div className={columnHeaderClass}>{columnTitle}</div>
         {loggedUserBets &&
           loggedUserBets.value === columnBet &&
-          renderBetLine(loggedUserBets)}
+          renderBetLine(loggedUserBets, true)}
         {bets
           .filter((bet) => bet.value === columnBet)
           .map((bet) => renderBetLine(bet))}
