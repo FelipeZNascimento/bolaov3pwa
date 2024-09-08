@@ -4,8 +4,10 @@ import { isMobile } from 'react-device-detect';
 
 import classNames from 'classnames';
 
+// Components
 import { WeekSelector } from 'components_fa/index';
 import { Loading } from '@omegafox/components';
+import RankingAd from './RankingAd';
 
 import { Button, Icon, Tooltip } from '@mui/material';
 
@@ -225,6 +227,9 @@ const Ranking = ({ full = false }: TProps) => {
   return (
     <div className={styles.container}>
       <div className={styles.fixed}>{renderRanking()}</div>
+      <div className={styles.adContainer}>
+        <RankingAd />
+      </div>
     </div>
   );
 };

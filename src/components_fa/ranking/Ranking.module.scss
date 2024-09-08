@@ -16,11 +16,17 @@
         @include bg-rgba-colored($color-navy, 0.8);
         @include padded(top, m);
         @include padded(bottom, m);
-        @include marged(bottom, m);
 
         display: flex;
         flex-direction: column;
         height: 80vh;
+        overflow-y: none;
+        position: fixed;
+        width: 33%;
+    }
+    .adContainer {
+        bottom: 0;
+        height: calc(20vh - 80px);
         overflow-y: none;
         position: fixed;
         width: 33%;
