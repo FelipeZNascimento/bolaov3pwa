@@ -6,7 +6,7 @@
 @import "styles/variables.scss";
 
 .container {
-    @include padded(all, xl);
+    @include padded(left, xl);
     @include flex-aligned(center, flex-start);
 
     flex: 1;
@@ -20,7 +20,7 @@
 
         display: flex;
         flex-direction: column;
-        height: calc(80vh);
+        height: 100%;
         overflow-y: none;
         position: fixed;
         width: 33%;

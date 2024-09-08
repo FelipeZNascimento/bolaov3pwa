@@ -56,8 +56,6 @@ const AfterSeasonStart = ({ selectedExtraSection }: TProps) => {
         </h3>
         {teams.map((team) => (
           <TeamWithExtras
-            isVisible
-            isExpanded
             key={team.id}
             extraBets={extraBets}
             extraBetsResults={extraBetsResults}
@@ -91,8 +89,6 @@ const AfterSeasonStart = ({ selectedExtraSection }: TProps) => {
         {renderDivisionButton()}
         {renderTeams.map((team) => (
           <TeamWithExtras
-            isExpanded
-            isVisible
             key={team.id}
             extraBets={extraBets}
             extraBetsResults={extraBetsResults}

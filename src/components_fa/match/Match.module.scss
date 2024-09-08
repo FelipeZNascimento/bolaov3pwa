@@ -122,16 +122,13 @@
 }
 
 .betsContainer {
-    transition: 0.4s;
     flex: 1;
-    max-height: 1000px;
     width: 100%;
 
     &Hidden {
         flex: 0;
         max-height: 0;
         overflow: hidden;
-        transition: 0.4s;
         visibility: hidden;
     }
 }

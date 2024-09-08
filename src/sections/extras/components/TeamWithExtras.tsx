@@ -14,8 +14,6 @@ type TProps = {
   extraBets: TUserExtraBets[];
   extraType: number;
   extraBetsResults: TExtraBets | null;
-  isExpanded: boolean;
-  isVisible: boolean;
   team: TMatchTeam;
   wildcardExtraType?: number | null;
 };
@@ -24,8 +22,6 @@ const TeamWithExtras = ({
   extraBets,
   extraBetsResults,
   extraType,
-  isExpanded,
-  isVisible,
   wildcardExtraType = null,
   team
 }: TProps) => {
@@ -85,12 +81,8 @@ const TeamWithExtras = ({
     team.name += ' (Wildcard)';
   }
 
-  const teamClass = classNames({
-    [styles.hidden]: !isVisible,
-    // [styles.teamContainerWinner]: isChampion,
-    // [styles.teamContainerWildcard]: isWildcard,
-    [styles.teamContainer]: isVisible,
-    'left-margin-m right-margin-m': !isMobile
+  const teamClass = classNames(styles.teamContainer, {
+    'left-margin-s right-margin-l': !isMobile
   });
 
   const statusClass = classNames({
@@ -98,13 +90,13 @@ const TeamWithExtras = ({
     [styles.teamContainerWildcard]: isWildcard
   });
 
-  const extraBetsClass = classNames({
-    [styles.extraBetsNone]: !isExpanded,
-    [styles.extraBets]: isExpanded
-  });
-
   const championsClass = classNames(styles.champions, {
     [styles.championsBorder]: !isPlayoffBets
+  });
+
+  const extraBetsClass = classNames(styles.extraBets, {
+    [styles.extraBetsPlayoffs]: isPlayoffBets,
+    [styles.extraBetsDivisions]: !isPlayoffBets
   });
 
   return (
