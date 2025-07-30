@@ -77,9 +77,9 @@ const Home = () => {
             {!isMobile && (
               <img className={styles.image} alt="logo" src={logo} />
             )}
-            Bolão NFL 2024/25
+            Bolão NFL 2025/26
           </h1>
-          <h2> Temporada 12</h2>
+          <h2> Temporada 13</h2>
         </div>
 
         <div className={styles.buttonsContainer}>
