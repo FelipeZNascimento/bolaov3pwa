@@ -11,7 +11,7 @@ const Subscription = () => {
         da inscrição.
         <br />
         <br />
-        Valor: <span className={styles.highlight}>R$75</span>
+        Valor: <span className={styles.highlight}>R$70</span>
         <br />
         <br />
         Nelson Gimenez da Motta - PIX 395.825.028-94
