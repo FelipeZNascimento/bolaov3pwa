@@ -5,7 +5,7 @@ const WEEKS: TWeek[] = [
     num: 0,
     display: 'Pre',
     displayShort: 'Pre',
-    hidden: true
+    hidden: false
   },
   {
     num: 1,
